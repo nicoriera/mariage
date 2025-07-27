@@ -279,7 +279,7 @@ export default function WeddingRSVP() {
                 </div>
                 {guest.message && (
                   <p className="text-gray-600 text-sm italic">
-                    &quot;{guest.message}&quot;
+                    &ldquo;{guest.message}&rdquo;
                   </p>
                 )}
               </div>

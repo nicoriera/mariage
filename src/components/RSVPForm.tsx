@@ -107,7 +107,7 @@ export default function RSVPForm({ onSubmitSuccess }: RSVPFormProps) {
   };
 
   return (
-    <Card variant="elevated" className="max-w-2xl mx-auto">
+    <Card variant="elegant" className="max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-primary">
           <Users className="w-8 h-8" />
@@ -274,7 +274,7 @@ export default function RSVPForm({ onSubmitSuccess }: RSVPFormProps) {
           {/* Message de confirmation */}
           {submitMessage && (
             <Card
-              variant="bordered"
+              variant="elegant"
               className={`p-4 text-center ${
                 submitMessage.includes("Merci")
                   ? "border-sage-500 bg-sage-50 text-sage-600"

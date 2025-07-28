@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { Button } from "../../components/ui/Button";
-import { Card, CardHeader, CardTitle, CardContent } from "../../components/ui/Card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "../../components/ui/Card";
 import { Input, Label } from "../../components/ui/Input";
 import { Upload, Lock } from "lucide-react";
 
@@ -29,7 +34,7 @@ export default function AdminPage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-white py-16 px-4 flex items-center justify-center">
-        <Card variant="elevated" className="w-full max-w-md">
+        <Card variant="elegant" className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-center">
               <Lock className="w-6 h-6" />
@@ -57,7 +62,8 @@ export default function AdminPage() {
             </form>
             <div className="mt-4 p-3 bg-stone-50 rounded-lg">
               <p className="text-xs text-stone-600">
-                🔒 Cette page est protégée. Seuls Sandra & Nicolas peuvent accéder à cette section.
+                🔒 Cette page est protégée. Seuls Sandra & Nicolas peuvent
+                accéder à cette section.
               </p>
             </div>
           </CardContent>
@@ -75,15 +81,17 @@ export default function AdminPage() {
 
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
-      const response = await fetch('/api/upload-photo', {
-        method: 'POST',
+      const response = await fetch("/api/upload-photo", {
+        method: "POST",
         body: formData,
       });
 
       if (response.ok) {
-        setMessage("Photo uploadée avec succès ! Actualisez la page d'accueil.");
+        setMessage(
+          "Photo uploadée avec succès ! Actualisez la page d'accueil."
+        );
       } else {
         setMessage("Erreur lors de l'upload. Utilisez la méthode manuelle.");
       }
@@ -97,7 +105,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-white py-16 px-4">
       <div className="max-w-2xl mx-auto">
-        <Card variant="elevated">
+        <Card variant="elegant">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <Upload className="w-6 h-6" />
@@ -126,7 +134,9 @@ export default function AdminPage() {
               )}
 
               <div className="bg-stone-50 p-4 rounded-lg">
-                <h3 className="font-medium text-stone-800 mb-2">Instructions :</h3>
+                <h3 className="font-medium text-stone-800 mb-2">
+                  Instructions :
+                </h3>
                 <ul className="text-sm text-stone-600 space-y-1">
                   <li>• Format recommandé : JPG ou PNG</li>
                   <li>• Taille idéale : 800x800px (format carré)</li>
@@ -136,9 +146,15 @@ export default function AdminPage() {
               </div>
 
               <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-medium text-blue-800 mb-2">Méthode alternative :</h3>
+                <h3 className="font-medium text-blue-800 mb-2">
+                  Méthode alternative :
+                </h3>
                 <p className="text-sm text-blue-700">
-                  Copiez votre photo nommée <code className="bg-blue-100 px-1 rounded">couple-photo.jpg</code> dans le dossier :
+                  Copiez votre photo nommée{" "}
+                  <code className="bg-blue-100 px-1 rounded">
+                    couple-photo.jpg
+                  </code>{" "}
+                  dans le dossier :
                 </p>
                 <code className="text-xs bg-blue-100 p-2 rounded block mt-2">
                   /Users/nicolas/DEV/Projets/mariage/public/images/

@@ -125,15 +125,15 @@ export default function GaleriePage() {
 
           {/* Statistiques */}
           <div className="flex justify-center gap-4 mb-8">
-            <Badge variant="romantic" className="flex items-center gap-2">
+            <Badge variant="accent" className="flex items-center gap-2">
               <Heart className="w-4 h-4" />
               {stats.total} photos
             </Badge>
-            <Badge variant="romantic" className="flex items-center gap-2">
+            <Badge variant="accent" className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               {stats.preWedding} souvenirs
             </Badge>
-            <Badge variant="romantic" className="flex items-center gap-2">
+            <Badge variant="accent" className="flex items-center gap-2">
               <UsersIcon className="w-4 h-4" />
               {stats.guests} des invités
             </Badge>
@@ -152,7 +152,7 @@ export default function GaleriePage() {
 
         {/* Formulaire d'upload */}
         {showUploadForm && (
-          <Card variant="elevated" className="mb-8">
+          <Card variant="elegant" className="mb-8">
             <CardHeader>
               <CardTitle>Partager vos photos</CardTitle>
             </CardHeader>
@@ -227,7 +227,7 @@ export default function GaleriePage() {
           {filteredPhotos.map((photo) => (
             <Card
               key={photo.id}
-              variant="elevated"
+              variant="elegant"
               className="overflow-hidden group hover:shadow-lg transition-shadow">
               <div className="aspect-square bg-stone-100 relative overflow-hidden">
                 <Image
@@ -239,7 +239,7 @@ export default function GaleriePage() {
                 />
                 {photo.is_pre_wedding && (
                   <div className="absolute top-2 right-2">
-                    <Badge variant="romantic" className="text-xs">
+                    <Badge variant="accent" className="text-xs">
                       <Heart className="w-3 h-3" />
                     </Badge>
                   </div>

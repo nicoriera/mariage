@@ -1,37 +1,47 @@
-import React from 'react';
-import { cn } from '../../lib/utils';
+import React from "react";
+import { cn } from "../../lib/utils";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'surf';
-  size?: 'sm' | 'md' | 'lg';
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "accent";
+  size?: "sm" | "md" | "lg";
   loading?: boolean;
   children: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ 
-    className, 
-    variant = 'primary', 
-    size = 'md', 
-    loading = false,
-    disabled,
-    children, 
-    ...props 
-  }, ref) => {
-    const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
-    
+  (
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      loading = false,
+      disabled,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const baseStyles =
+      "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+
     const variants = {
-      primary: "bg-primary text-white hover:bg-sage-600 focus:ring-sage-500 shadow-md hover:shadow-lg",
-      secondary: "bg-secondary text-white hover:bg-coral-600 focus:ring-coral-500 shadow-md hover:shadow-lg", 
-      outline: "border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-sky-500",
-      ghost: "text-stone-600 hover:bg-stone-100 hover:text-stone-800 focus:ring-stone-500",
-      surf: "bg-sand-500 text-white hover:bg-sand-600 focus:ring-sand-500 shadow-md hover:shadow-lg"
+      primary:
+        "bg-sezane-primary text-white hover:bg-gray-800 focus:ring-gray-600 shadow-sezane-sm hover:shadow-sezane-md",
+      secondary:
+        "bg-sezane-rose text-white hover:bg-rose-600 focus:ring-rose-500 shadow-sezane-sm hover:shadow-sezane-md",
+      outline:
+        "border-2 border-sezane-accent text-sezane-accent hover:bg-sezane-accent hover:text-white focus:ring-amber-400",
+      ghost:
+        "text-sezane-secondary hover:bg-sezane-surface hover:text-sezane-primary focus:ring-gray-400",
+      accent:
+        "bg-sezane-accent text-white hover:bg-amber-500 focus:ring-amber-400 shadow-sezane-sm hover:shadow-sezane-md",
     };
-    
+
     const sizes = {
       sm: "h-9 px-3 text-sm rounded-md",
       md: "h-11 px-6 text-base rounded-lg",
-      lg: "h-14 px-8 text-lg rounded-xl"
+      lg: "h-14 px-8 text-lg rounded-xl",
     };
 
     return (
@@ -45,15 +55,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         disabled={disabled || loading}
         ref={ref}
-        {...props}
-      >
+        {...props}>
         {loading && (
           <svg
             className="animate-spin -ml-1 mr-2 h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 24 24"
-          >
+            viewBox="0 0 24 24">
             <circle
               className="opacity-25"
               cx="12"

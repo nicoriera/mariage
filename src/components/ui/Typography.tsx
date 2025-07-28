@@ -1,0 +1,144 @@
+import React from 'react';
+import { cn } from '../../lib/utils';
+
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  variant?: 'default' | 'gradient' | 'elegant';
+  children: React.ReactNode;
+}
+
+const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ className, level = 1, variant = 'default', children, ...props }, ref) => {
+    const baseStyles = "font-heading font-semibold tracking-tight";
+    
+    const sizes = {
+      1: "text-4xl md:text-5xl lg:text-6xl",
+      2: "text-3xl md:text-4xl lg:text-5xl", 
+      3: "text-2xl md:text-3xl lg:text-4xl",
+      4: "text-xl md:text-2xl lg:text-3xl",
+      5: "text-lg md:text-xl lg:text-2xl",
+      6: "text-base md:text-lg lg:text-xl"
+    };
+
+    const variants = {
+      default: "text-stone-800",
+      gradient: "text-primary",
+      elegant: "text-stone-800 font-light"
+    };
+
+    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+
+    return React.createElement(
+      Tag,
+      {
+        ref,
+        className: cn(baseStyles, sizes[level], variants[variant], className),
+        ...props
+      },
+      children
+    );
+  }
+);
+
+Heading.displayName = "Heading";
+
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  size?: 'sm' | 'base' | 'lg' | 'xl';
+  variant?: 'default' | 'muted' | 'accent';
+  children: React.ReactNode;
+}
+
+const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
+  ({ className, size = 'base', variant = 'default', children, ...props }, ref) => {
+    const sizes = {
+      sm: "text-sm",
+      base: "text-base",
+      lg: "text-lg", 
+      xl: "text-xl"
+    };
+
+    const variants = {
+      default: "text-stone-800",
+      muted: "text-stone-500",
+      accent: "text-accent font-medium"
+    };
+
+    return (
+      <p
+        ref={ref}
+        className={cn(
+          "leading-relaxed",
+          sizes[size],
+          variants[variant],
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </p>
+    );
+  }
+);
+
+Text.displayName = "Text";
+
+export interface QuoteProps extends React.HTMLAttributes<HTMLBlockQuoteElement> {
+  author?: string;
+  variant?: 'default' | 'romantic';
+  children: React.ReactNode;
+}
+
+const Quote = React.forwardRef<HTMLBlockQuoteElement, QuoteProps>(
+  ({ className, author, variant = 'default', children, ...props }, ref) => {
+    const variants = {
+      default: "border-l-4 border-accent pl-6 py-2 italic text-stone-600 font-medium text-lg leading-relaxed",
+      romantic: "text-center italic text-stone-600 font-light text-xl leading-relaxed"
+    };
+
+    return (
+      <blockquote
+        ref={ref}
+        className={cn(variants[variant], className)}
+        {...props}
+      >
+        <div className="mb-2">&ldquo;{children}&rdquo;</div>
+        {author && (
+          <cite className="text-base font-normal text-stone-500 not-italic block mt-3">
+            — {author}
+          </cite>
+        )}
+      </blockquote>
+    );
+  }
+);
+
+Quote.displayName = "Quote";
+
+// Badge simple pour la galerie
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+  variant?: 'default' | 'romantic';
+  children: React.ReactNode;
+}
+
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
+  ({ className, variant = 'default', children, ...props }, ref) => {
+    const variants = {
+      default: "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent/10 text-accent",
+      romantic: "inline-flex items-center px-3 py-1 text-sm font-medium text-primary border border-primary/30 bg-primary/5 rounded-full"
+    };
+
+    return (
+      <span
+        ref={ref}
+        className={cn(variants[variant], className)}
+        {...props}
+      >
+        {children}
+      </span>
+    );
+  }
+);
+
+Badge.displayName = "Badge";
+
+export { Heading, Text, Quote, Badge };

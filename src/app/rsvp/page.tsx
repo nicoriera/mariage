@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import RSVPForm from "../../components/RSVPForm";
-import { type Guest } from "../../../lib/supabase";
 
 export default function RSVPPage() {
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const handleSubmitSuccess = (guest: Guest) => {
-    setRefreshKey(prev => prev + 1);
+  const handleSubmitSuccess = () => {
+    // Callback après soumission RSVP réussie
   };
 
   return (

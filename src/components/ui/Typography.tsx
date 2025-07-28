@@ -26,7 +26,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       elegant: "text-stone-800 font-light"
     };
 
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+    const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
     return React.createElement(
       Tag,
@@ -82,13 +82,13 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
 
 Text.displayName = "Text";
 
-export interface QuoteProps extends React.HTMLAttributes<HTMLBlockQuoteElement> {
+export interface QuoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
   author?: string;
   variant?: 'default' | 'romantic';
   children: React.ReactNode;
 }
 
-const Quote = React.forwardRef<HTMLBlockQuoteElement, QuoteProps>(
+const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
   ({ className, author, variant = 'default', children, ...props }, ref) => {
     const variants = {
       default: "border-l-4 border-accent pl-6 py-2 italic text-stone-600 font-medium text-lg leading-relaxed",

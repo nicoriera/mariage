@@ -11,7 +11,7 @@ export default function InfosPage() {
             Informations pratiques
           </h1>
           <p className="text-lg text-stone-600">
-            Tout ce qu'il faut savoir pour notre mariage
+            Tout ce qu&apos;il faut savoir pour notre mariage
           </p>
         </div>
 
@@ -79,7 +79,7 @@ export default function InfosPage() {
               <div>
                 <Heading level={6} className="mb-2">Hôtels recommandés</Heading>
                 <Text variant="muted" size="sm">
-                  - Villa de l'Étang Blanc (Seignosse)<br />
+                  - Villa de l&apos;Étang Blanc (Seignosse)<br />
                   - Best Western Seignosse Resort<br />
                   - Diverses locations Airbnb
                 </Text>
@@ -105,7 +105,7 @@ export default function InfosPage() {
               <div>
                 <Heading level={6} className="mb-2">Style demandé</Heading>
                 <Text variant="muted" size="sm">
-                  Décontracté chic, dans l'esprit bord de mer.<br />
+                  Décontracté chic, dans l&apos;esprit bord de mer.<br />
                   Évitez le blanc (réservé aux mariés) et les talons hauts (terrasse en bois).
                 </Text>
               </div>
@@ -158,7 +158,7 @@ export default function InfosPage() {
               <div>
                 <Heading level={6} className="mb-2">Questions ?</Heading>
                 <Text variant="muted" size="sm">
-                  N'hésitez pas à nous contacter pour toute question !
+                  N&apos;hésitez pas à nous contacter pour toute question !
                 </Text>
               </div>
               <div>

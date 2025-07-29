@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Typographie Sézane */
-  --font-heading: "Playfair Display", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+  /* Typographie avec Dancing Script + Poppins via Next.js fonts */
+  --font-script: var(--font-script);
+  --font-heading: var(--font-heading);
+  --font-sans: var(--font-heading), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
-/* Styles de base Sézane */
+/* Styles de base June - inspiration Maison June */
 @layer base {
   html {
     font-family: var(--font-sans);
-    line-height: 1.6;
-    color: #2a2a2a;
-    background-color: #fefefe;
+    line-height: 1.7;
+    color: #2c2c2c;
+    background-color: #faf9f7;
   }
 
   body {
@@ -29,215 +29,486 @@
   h6 {
     font-family: var(--font-heading);
     font-weight: 500;
-    line-height: 1.2;
-    color: #2a2a2a;
+    line-height: 1.3;
+    color: #2c2c2c;
+    letter-spacing: -0.01em;
+  }
+
+  /* Style pour les éléments manuscrits */
+  .font-script {
+    font-family: var(--font-script);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* Style "save the date" manuscrit */
+  .save-the-date {
+    font-family: var(--font-script);
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: #9db380;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 4px rgba(157, 179, 128, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .save-the-date {
+      font-size: 2.5rem;
+    }
   }
 
   a {
-    color: #2a2a2a;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-sans);
+    color: #2c2c2c;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   a:hover {
-    color: #d4a033;
+    color: #c49b61;
   }
 
-  /* Scrollbar Sézane */
+  /* Scrollbar June - délicate */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #fdfbf7;
+    background: #f6f4f0;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #d4d4d4;
+    background: #e8e6e3;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #a3a3a3;
+    background: #e8c5c5;
   }
 }
 
-/* Patterns décoratifs Sézane */
+/* Patterns décoratifs June - inspiration Maison June */
 @layer utilities {
-  /* Arrière-plans élégants Sézane */
-  .bg-sezane-cream {
-    background-color: #fefefe;
+  /* Arrière-plans pastels rayés comme dans l'image */
+  .bg-june-cream {
+    background-color: #f7f5f3;
   }
 
-  .bg-sezane-surface {
-    background-color: #fdfbf7;
+  .bg-june-surface {
+    background-color: #f3f1ef;
   }
 
-  .bg-sezane-accent {
-    background-color: #fefcf7;
+  .bg-june-pearl {
+    background-color: #efedeb;
   }
 
-  .bg-sezane-rose {
-    background-color: #fef7f7;
+  .bg-june-blush {
+    background-color: #f4d7d7;
   }
 
-  .bg-sezane-sage {
-    background-color: #f7f9f6;
+  .bg-june-sage {
+    background-color: #b8c4a0;
   }
 
-  /* Bordures Sézane */
-  .border-sezane {
-    border-color: #e5e5e5;
+  .bg-june-lavender {
+    background-color: #e8d5e8;
   }
 
-  .border-sezane-accent {
-    border-color: #f9edcc;
+  .bg-june-powder {
+    background-color: #dae8f2;
   }
 
-  .border-sezane-rose {
-    border-color: #fad8d8;
+  .bg-june-olive {
+    background-color: #9db380;
   }
 
-  /* Texte Sézane */
-  .text-sezane-primary {
-    color: #2a2a2a;
+  /* Lignes verticales comme sur la capture d'origine */
+  .bg-june-lines-vertical {
+    background-image: repeating-linear-gradient(90deg, #f4d7d7 0px, #f4d7d7 12px, transparent 12px, transparent 24px);
+    background-size: 24px 100%;
+    background-repeat: repeat;
   }
 
-  .text-sezane-secondary {
-    color: #606060;
+  /* Rayures bien visibles avec aspect fait main */
+  .bg-june-stripes-visible {
+    background-image: linear-gradient(0deg, #f4d7d7 0%, #f4d7d7 40%, transparent 40%, transparent 50%, #f4d7d7 50%, #f4d7d7 90%, transparent 90%, transparent 100%);
+    background-size: 100% 25px;
+    background-repeat: repeat-y;
   }
 
-  .text-sezane-muted {
-    color: #737373;
+  .bg-june-stripes-handmade {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" fill="none"><rect x="0" y="0" width="25" height="5" fill="%23f4d7d7"/><rect x="0" y="7" width="25" height="4" fill="%23f4d7d7"/><rect x="0" y="13" width="25" height="6" fill="%23f4d7d7"/><rect x="0" y="21" width="25" height="4" fill="%23f4d7d7"/></svg>');
+    background-size: 25px 25px;
+    background-repeat: repeat;
   }
 
-  .text-sezane-accent {
-    color: #d4a033;
+  .bg-june-stripes-organic {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none"><rect x="0" y="2" width="40" height="8" fill="%23f4d7d7" opacity="0.8" rx="2"/><rect x="0" y="12" width="40" height="6" fill="%23f4d7d7" opacity="0.6" rx="2"/><rect x="0" y="20" width="40" height="9" fill="%23f4d7d7" opacity="0.9" rx="2"/><rect x="0" y="31" width="40" height="7" fill="%23f4d7d7" opacity="0.7" rx="2"/></svg>');
+    background-size: 40px 40px;
+    background-repeat: repeat;
   }
 
-  .text-sezane-rose {
-    color: #d66767;
+  .bg-june-stripes-brush {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="none"><rect x="0" y="3" width="50" height="8" fill="%23f4d7d7" opacity="0.7" transform="rotate(1)"/><rect x="0" y="14" width="50" height="7" fill="%23f4d7d7" opacity="0.8" transform="rotate(-1)"/><rect x="0" y="24" width="50" height="9" fill="%23f4d7d7" opacity="0.6" transform="rotate(0.5)"/><rect x="0" y="36" width="50" height="6" fill="%23f4d7d7" opacity="0.9" transform="rotate(-0.5)"/></svg>');
+    background-size: 50px 50px;
+    background-repeat: repeat;
   }
 
-  /* Ombres Sézane */
-  .shadow-sezane-sm {
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  /* Bordures ondulées avec aspect dessiné à la main */
+  .border-june-wavy-handdrawn {
+    position: relative;
   }
 
-  .shadow-sezane-md {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  .border-june-wavy-handdrawn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%239db380" stroke-width="3" opacity="0.6"><path d="M15,25 C25,15 35,35 45,25 C55,15 65,35 75,25 C85,15 95,25 95,35 C95,45 85,55 75,45 C65,35 55,55 45,45 C35,35 25,55 15,45 C5,35 5,25 15,25 Z" fill="none"/></svg>');
+    background-size: 100px 100px;
+    background-repeat: repeat;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
   }
 
-  .shadow-sezane-lg {
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  .border-june-wavy-brush {
+    position: relative;
   }
 
-  /* Transitions Sézane */
-  .transition-sezane {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  .border-june-wavy-brush::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="%239db380" opacity="0.4"><path d="M10,30 C20,20 25,25 35,22 C45,19 50,28 60,25 C70,22 75,28 85,25 C95,22 100,30 110,28 C115,35 105,40 95,42 C85,44 80,38 70,41 C60,44 55,38 45,41 C35,44 30,38 20,41 C15,38 8,35 10,30 Z"/></svg>');
+    background-size: 120px 100px;
+    background-repeat: repeat;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
   }
 
-  .transition-sezane-slow {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .border-june-wavy-irregular {
+    position: relative;
   }
 
-  /* Hover effects Sézane */
-  .hover-sezane {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  .border-june-wavy-irregular::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%239db380" opacity="0.5"><path d="M20,25 Q28,18 35,26 Q42,34 50,24 Q58,14 65,27 Q72,40 80,26 Q88,12 95,30 Q92,38 85,42 Q78,46 70,38 Q62,30 55,42 Q48,54 40,40 Q32,26 25,42 Q18,58 15,40 Q12,22 20,25 Z"/></svg>');
+    background-size: 100px 100px;
+    background-repeat: repeat;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
   }
 
-  .hover-sezane:hover {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  /* Bordures June - délicates */
+  .border-june {
+    border-color: #e8e6e3;
   }
 
-  .hover-sezane-lift {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  .border-june-soft {
+    border-color: #f0eeeb;
   }
 
-  .hover-sezane-lift:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  .border-june-accent {
+    border-color: #e8c5c5;
   }
 
-  /* Focus states Sézane */
-  .focus-sezane {
+  .border-june-mint {
+    border-color: #c5e8d4;
+  }
+
+  .border-june-lilac {
+    border-color: #d4c5e8;
+  }
+
+  /* Texte June - doux et lisible */
+  .text-june-primary {
+    color: #2c2c2c;
+  }
+
+  .text-june-secondary {
+    color: #5a5a5a;
+  }
+
+  .text-june-muted {
+    color: #8a8a8a;
+  }
+
+  .text-june-accent {
+    color: #c49b61;
+  }
+
+  .text-june-rose {
+    color: #e8b3b3;
+  }
+
+  .text-june-mint {
+    color: #a8c49a;
+  }
+
+  .text-june-lilac {
+    color: #d4b8d4;
+  }
+
+  .text-june-olive {
+    color: #9db380;
+  }
+
+  /* Ombres June - douces et subtiles */
+  .shadow-june-sm {
+    box-shadow: 0 1px 3px 0 rgb(232 197 197 / 0.08), 0 1px 2px -1px rgb(232 197 197 / 0.06);
+  }
+
+  .shadow-june-md {
+    box-shadow: 0 4px 6px -1px rgb(232 197 197 / 0.1), 0 2px 4px -2px rgb(232 197 197 / 0.08);
+  }
+
+  .shadow-june-lg {
+    box-shadow: 0 10px 15px -3px rgb(232 197 197 / 0.12),
+      0 4px 6px -4px rgb(232 197 197 / 0.1);
+  }
+
+  .shadow-june-glow {
+    box-shadow: 0 0 20px -5px rgb(232 197 197 / 0.15),
+      0 0 10px -3px rgb(232 197 197 / 0.1);
+  }
+
+  /* Transitions June - fluides et naturelles */
+  .transition-june {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .transition-june-slow {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .transition-june-spring {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Hover effects June - délicats et engageants */
+  .hover-june {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-june:hover {
+    box-shadow: 0 4px 12px -2px rgb(232 197 197 / 0.15), 0 2px 6px -2px rgb(232 197 197 / 0.1);
+    transform: translateY(-1px);
+  }
+
+  .hover-june-lift {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hover-june-lift:hover {
+    transform: translateY(-0.375rem) scale(1.02);
+    box-shadow: 0 12px 20px -4px rgb(232 197 197 / 0.18),
+      0 6px 12px -4px rgb(232 197 197 / 0.12);
+  }
+
+  .hover-june-glow:hover {
+    box-shadow: 0 0 25px -5px rgb(232 197 197 / 0.2),
+      0 0 15px -3px rgb(232 197 197 / 0.15);
+  }
+
+  /* Focus states June - accessibles et doux */
+  .focus-june {
     outline: none;
   }
 
-  .focus-sezane:focus {
+  .focus-june:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #fbbf24, 0 0 0 4px #fefefe;
+    box-shadow: 0 0 0 2px #e8c5c5, 0 0 0 4px rgba(232, 197, 197, 0.2);
   }
 
-  /* Patterns décoratifs Sézane */
-  .pattern-sezane-dots {
-    background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
-    background-size: 20px 20px;
+  .focus-june-visible:focus-visible {
+    outline: 2px solid #e8c5c5;
+    outline-offset: 2px;
   }
 
-  .pattern-sezane-lines {
-    background-image: linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+  /* Patterns décoratifs June - organiques et doux */
+  .pattern-june-dots {
+    background-image: radial-gradient(circle, #e8e6e3 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .pattern-june-waves {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" fill="%23e8c5c5" opacity="0.1"><path d="M0 10c10-5 15-5 25 0s15 5 25 0 15-5 25 0 15 5 25 0v10H0V10z"/></svg>');
+    background-size: 120px 20px;
+  }
+
+  .pattern-june-subtle {
+    background-image: linear-gradient(135deg, transparent 25%, rgba(232, 197, 197, 0.05) 25%, rgba(232, 197, 197, 0.05) 50%, transparent 50%, transparent 75%, rgba(232, 197, 197, 0.05) 75%);
     background-size: 40px 40px;
   }
 
-  /* Grilles Sézane */
-  .grid-sezane {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+  /* Gradients doux avec superposition de motifs */
+  .gradient-june-soft {
+    background: linear-gradient(135deg, #f7f5f3 0%, #f3f1ef 50%, #efedeb 100%);
   }
 
-  .grid-sezane-tight {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+  .gradient-june-romantic {
+    background: linear-gradient(135deg, #f4d7d7 0%, #b8c4a0 50%, #e8d5e8 100%);
   }
 
-  /* Layouts Sézane */
-  .container-sezane {
-    max-width: 80rem;
+  .gradient-june-dreamy {
+    background: linear-gradient(180deg, rgba(244, 215, 215, 0.2) 0%, rgba(184, 196, 160, 0.2) 50%, rgba(232, 213, 232, 0.2) 100%);
+  }
+
+  /* Lignes verticales sur cartes comme sur la capture */
+  .bg-june-card-lines {
+    background: 
+      repeating-linear-gradient(90deg, rgba(244, 215, 215, 0.8) 0px, rgba(244, 215, 215, 0.8) 10px, transparent 10px, transparent 20px),
+      linear-gradient(135deg, #f7f5f3 0%, #f3f1ef 100%);
+    background-size: 20px 100%, 100% 100%;
+  }
+
+  /* Superposition rayures visibles + gradient */
+  .bg-june-striped-card-visible {
+    background: 
+      linear-gradient(0deg, rgba(244, 215, 215, 0.7) 0%, rgba(244, 215, 215, 0.7) 40%, transparent 40%, transparent 50%, rgba(244, 215, 215, 0.7) 50%, rgba(244, 215, 215, 0.7) 90%, transparent 90%, transparent 100%),
+      linear-gradient(135deg, #f7f5f3 0%, #f3f1ef 100%);
+    background-size: 100% 30px, 100% 100%;
+  }
+
+  .bg-june-striped-card-handmade {
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" fill="none"><rect x="0" y="0" width="25" height="5" fill="%23f4d7d7" opacity="0.6"/><rect x="0" y="7" width="25" height="4" fill="%23f4d7d7" opacity="0.5"/><rect x="0" y="13" width="25" height="6" fill="%23f4d7d7" opacity="0.7"/><rect x="0" y="21" width="25" height="4" fill="%23f4d7d7" opacity="0.6"/></svg>'),
+      linear-gradient(135deg, #f7f5f3 0%, #f3f1ef 100%);
+    background-size: 25px 25px, 100% 100%;
+  }
+
+  .bg-june-hero-lines {
+    background: 
+      repeating-linear-gradient(90deg, rgba(244, 215, 215, 0.6) 0px, rgba(244, 215, 215, 0.6) 15px, transparent 15px, transparent 30px),
+      linear-gradient(135deg, #f7f5f3 0%, #efedeb 100%);
+    background-size: 30px 100%, 100% 100%;
+  }
+
+  .bg-june-hero-lines {
+    background: 
+      repeating-linear-gradient(90deg, rgba(244, 215, 215, 0.6) 0px, rgba(244, 215, 215, 0.6) 15px, transparent 15px, transparent 30px),
+      linear-gradient(135deg, #f7f5f3 0%, #efedeb 100%);
+    background-size: 30px 100%, 100% 100%;
+  }
+
+  .bg-june-striped-hero-visible {
+    background: 
+      linear-gradient(0deg, rgba(244, 215, 215, 0.5) 0%, rgba(244, 215, 215, 0.5) 35%, transparent 35%, transparent 50%, rgba(244, 215, 215, 0.5) 50%, rgba(244, 215, 215, 0.5) 85%, transparent 85%, transparent 100%),
+      linear-gradient(135deg, #f7f5f3 0%, #efedeb 100%);
+    background-size: 100% 40px, 100% 100%;
+  }
+
+  .bg-june-striped-hero-handmade {
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="none"><rect x="0" y="3" width="50" height="8" fill="%23f4d7d7" opacity="0.4" transform="rotate(1)"/><rect x="0" y="14" width="50" height="7" fill="%23f4d7d7" opacity="0.5" transform="rotate(-1)"/><rect x="0" y="24" width="50" height="9" fill="%23f4d7d7" opacity="0.3" transform="rotate(0.5)"/><rect x="0" y="36" width="50" height="6" fill="%23f4d7d7" opacity="0.6" transform="rotate(-0.5)"/></svg>'),
+      linear-gradient(135deg, #f7f5f3 0%, #efedeb 100%);
+    background-size: 50px 50px, 100% 100%;
+  }
+
+  .bg-june-wavy-stripes-handmade {
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="%239db380" opacity="0.15"><path d="M10,30 C20,20 25,25 35,22 C45,19 50,28 60,25 C70,22 75,28 85,25 C95,22 100,30 110,28 C115,35 105,40 95,42 C85,44 80,38 70,41 C60,44 55,38 45,41 C35,44 30,38 20,41 C15,38 8,35 10,30 Z"/></svg>'),
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none"><rect x="0" y="2" width="40" height="8" fill="%23f4d7d7" opacity="0.5" rx="2"/><rect x="0" y="12" width="40" height="6" fill="%23f4d7d7" opacity="0.4" rx="2"/><rect x="0" y="20" width="40" height="9" fill="%23f4d7d7" opacity="0.6" rx="2"/><rect x="0" y="31" width="40" height="7" fill="%23f4d7d7" opacity="0.5" rx="2"/></svg>'),
+      #f7f5f3;
+    background-size: 120px 100px, 40px 40px, 100% 100%;
+  }
+
+  /* Textures aquarelle */
+  .texture-june-watercolor {
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none"><ellipse cx="50" cy="60" rx="25" ry="15" fill="%23f4d7d7" opacity="0.2" transform="rotate(-15 50 60)"/><ellipse cx="120" cy="40" rx="20" ry="12" fill="%23b8c4a0" opacity="0.15" transform="rotate(25 120 40)"/><ellipse cx="80" cy="120" rx="30" ry="18" fill="%23e8d5e8" opacity="0.18" transform="rotate(-8 80 120)"/><ellipse cx="160" cy="130" rx="22" ry="14" fill="%23dae8f2" opacity="0.12" transform="rotate(35 160 130)"/></svg>'),
+      radial-gradient(circle at 30% 20%, rgba(244, 215, 215, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(184, 196, 160, 0.08) 0%, transparent 50%);
+    background-size: 200px 200px, 300px 300px, 250px 250px;
+  }
+
+  /* Effet papier texturé */
+  .texture-june-paper {
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23000" opacity="0.02"><circle cx="20" cy="20" r="0.5"/><circle cx="80" cy="30" r="0.3"/><circle cx="40" cy="60" r="0.4"/><circle cx="70" cy="80" r="0.2"/><circle cx="10" cy="90" r="0.3"/><circle cx="90" cy="10" r="0.4"/></svg>'),
+      #f7f5f3;
+    background-size: 100px 100px, 100% 100%;
+  }
+
+  /* Grilles June - équilibrées */
+  .grid-june {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .grid-june-tight {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .grid-june-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+  /* Layouts June - harmonieux et respirants */
+  .container-june {
+    max-width: 84rem;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   @media (min-width: 640px) {
-    .container-sezane {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container-sezane {
+    .container-june {
       padding-left: 2rem;
       padding-right: 2rem;
     }
   }
 
-  .section-sezane {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
   @media (min-width: 1024px) {
-    .section-sezane {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+    .container-june {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
     }
   }
 
-  .section-sezane-large {
+  .section-june {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
 
   @media (min-width: 1024px) {
-    .section-sezane-large {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
+    .section-june {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .section-june-large {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-june-large {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+
+  .section-june-hero {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-june-hero {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
     }
   }
 }

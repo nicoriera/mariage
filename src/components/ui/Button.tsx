@@ -27,15 +27,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-sezane-primary text-white hover:bg-gray-800 focus:ring-gray-600 shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-[#9db380] text-white hover:bg-[#8ba370] focus:ring-[#9db380] shadow-sm hover:shadow-md",
       secondary:
-        "bg-sezane-rose text-white hover:bg-rose-600 focus:ring-rose-500 shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-[#e8b3b3] text-white hover:bg-[#f4d7d7] focus:ring-[#e8b3b3] shadow-sm hover:shadow-md",
       outline:
-        "border-2 border-sezane-accent text-sezane-accent hover:bg-sezane-accent hover:text-white focus:ring-amber-400",
+        "border-2 border-[#9db380] text-[#9db380] hover:bg-[#9db380] hover:text-white focus:ring-[#9db380]",
       ghost:
-        "text-sezane-secondary hover:bg-sezane-surface hover:text-sezane-primary focus:ring-gray-400",
+        "text-[#5a5a5a] hover:bg-[#f3f1ef] hover:text-[#2a2a2a] focus:ring-[#9db380]",
       accent:
-        "bg-sezane-accent text-white hover:bg-amber-500 focus:ring-amber-400 shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-[#9db380] text-white hover:bg-[#8ba370] focus:ring-[#9db380] shadow-sm hover:shadow-md",
     };
 
     const sizes = {

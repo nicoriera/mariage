@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-sezane-cream">
+    <div className="min-h-screen bg-june-hero-lines">
       {/* Header Hero */}
       <WeddingHeader
         variant="hero"
@@ -24,8 +24,8 @@ export default function HomePage() {
       />
 
       {/* Section Informations */}
-      <section className="section-sezane-large bg-white">
-        <div className="container-sezane">
+      <section className="section-june-large bg-white">
+        <div className="container-june">
           <div className="text-center mb-16">
             <Heading level={2} variant="elegant" className="mb-6">
               Bienvenue à notre mariage
@@ -36,8 +36,8 @@ export default function HomePage() {
             </Text>
           </div>
 
-          <div className="grid-sezane">
-            <Card variant="elegant" className="hover-sezane-lift">
+          <div className="grid-june">
+            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
                 <CardTitle>Date & Heure</CardTitle>
                 <CardDescription>Cérémonie et réception</CardDescription>
@@ -56,7 +56,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card variant="elegant" className="hover-sezane-lift">
+            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
                 <CardTitle>Lieu</CardTitle>
                 <CardDescription>Restaurant Le Surfing</CardDescription>
@@ -75,7 +75,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card variant="elegant" className="hover-sezane-lift">
+            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
                 <CardTitle>Code vestimentaire</CardTitle>
                 <CardDescription>Tenue de cérémonie</CardDescription>
@@ -96,8 +96,8 @@ export default function HomePage() {
       </section>
 
       {/* Section Citation */}
-      <section className="section-sezane bg-sezane-surface">
-        <div className="container-sezane">
+      <section className="section-june bg-june-blush">
+        <div className="container-june">
           <div className="max-w-4xl mx-auto">
             <Quote variant="elegant" author="Sandra & Nicolas">
               L&apos;amour est la poésie des sens. Il y a des moments dans la
@@ -109,8 +109,8 @@ export default function HomePage() {
       </section>
 
       {/* Section Actions */}
-      <section className="section-sezane bg-white">
-        <div className="container-sezane">
+      <section className="section-june bg-june-surface">
+        <div className="container-june">
           <div className="text-center mb-12">
             <Heading level={2} variant="default" className="mb-6">
               Préparez votre venue
@@ -123,11 +123,11 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/rsvp" className="group">
-              <Card variant="default" className="hover-sezane-lift text-center">
+              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-sezane-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sezane-accent/20 transition-all duration-200">
+                  <div className="w-12 h-12 bg-june-rose/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-rose/50 transition-june border-2 border-june-olive/20">
                     <svg
-                      className="w-6 h-6 text-sezane-accent"
+                      className="w-6 h-6 text-june-olive"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -146,11 +146,11 @@ export default function HomePage() {
             </Link>
 
             <Link href="/infos" className="group">
-              <Card variant="default" className="hover-sezane-lift text-center">
+              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-sezane-rose/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sezane-rose/20 transition-all duration-200">
+                  <div className="w-12 h-12 bg-june-mint/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-mint/50 transition-june border-2 border-june-olive/20">
                     <svg
-                      className="w-6 h-6 text-sezane-rose"
+                      className="w-6 h-6 text-june-olive"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -171,11 +171,11 @@ export default function HomePage() {
             </Link>
 
             <Link href="/galerie" className="group">
-              <Card variant="default" className="hover-sezane-lift text-center">
+              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-sezane-sage/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sezane-sage/20 transition-all duration-200">
+                  <div className="w-12 h-12 bg-june-lilac/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-lilac/50 transition-june border-2 border-june-olive/20">
                     <svg
-                      className="w-6 h-6 text-sezane-sage"
+                      className="w-6 h-6 text-june-olive"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -194,11 +194,11 @@ export default function HomePage() {
             </Link>
 
             <Link href="/invites" className="group">
-              <Card variant="default" className="hover-sezane-lift text-center">
+              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-sezane-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sezane-accent/20 transition-all duration-200">
+                  <div className="w-12 h-12 bg-june-sky/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-sky/50 transition-june border-2 border-june-olive/20">
                     <svg
-                      className="w-6 h-6 text-sezane-accent"
+                      className="w-6 h-6 text-june-olive"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -228,8 +228,8 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-sezane-primary text-white py-12">
-        <div className="container-sezane text-center">
+      <footer className="bg-june-primary text-white py-12">
+        <div className="container-june text-center">
           <Text variant="muted" className="text-white/80">
             Sandra & Nicolas • 21 Mai 2026
           </Text>

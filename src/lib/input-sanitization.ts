@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // HTML sanitization regex patterns
 const HTML_TAG_REGEX = /<[^>]*>/g;
@@ -10,15 +10,15 @@ const DATA_URL_REGEX = /data:[^;]*;base64,/gi;
  * Sanitize HTML content by removing potentially dangerous elements
  */
 export function sanitizeHtml(input: string): string {
-  if (!input || typeof input !== 'string') {
-    return '';
+  if (!input || typeof input !== "string") {
+    return "";
   }
 
   return input
-    .replace(SCRIPT_REGEX, '') // Remove script tags
-    .replace(JAVASCRIPT_PROTOCOL_REGEX, '') // Remove javascript: protocols
-    .replace(DATA_URL_REGEX, '') // Remove data URLs
-    .replace(HTML_TAG_REGEX, '') // Remove all HTML tags
+    .replace(SCRIPT_REGEX, "") // Remove script tags
+    .replace(JAVASCRIPT_PROTOCOL_REGEX, "") // Remove javascript: protocols
+    .replace(DATA_URL_REGEX, "") // Remove data URLs
+    .replace(HTML_TAG_REGEX, "") // Remove all HTML tags
     .trim();
 }
 
@@ -26,17 +26,17 @@ export function sanitizeHtml(input: string): string {
  * Escape HTML special characters to prevent XSS
  */
 export function escapeHtml(input: string): string {
-  if (!input || typeof input !== 'string') {
-    return '';
+  if (!input || typeof input !== "string") {
+    return "";
   }
 
   const htmlEscapes: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;',
-    '/': '&#x2F;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "/": "&#x2F;",
   };
 
   return input.replace(/[&<>"'/]/g, (match) => htmlEscapes[match]);
@@ -47,9 +47,12 @@ export function escapeHtml(input: string): string {
  */
 export const guestNameSchema = z
   .string()
-  .min(1, 'Le nom est requis')
-  .max(100, 'Le nom ne peut pas dépasser 100 caractères')
-  .regex(/^[a-zA-ZÀ-ÿ\s\-'\.]+$/, 'Le nom contient des caractères non autorisés')
+  .min(1, "Le nom est requis")
+  .max(100, "Le nom ne peut pas dépasser 100 caractères")
+  .regex(
+    /^[a-zA-ZÀ-ÿ\s\-'\.]+$/,
+    "Le nom contient des caractères non autorisés"
+  )
   .transform((value) => sanitizeHtml(value.trim()));
 
 /**
@@ -57,7 +60,7 @@ export const guestNameSchema = z
  */
 export const guestMessageSchema = z
   .string()
-  .max(500, 'Le message ne peut pas dépasser 500 caractères')
+  .max(500, "Le message ne peut pas dépasser 500 caractères")
   .optional()
   .transform((value) => {
     if (!value) return null;
@@ -68,46 +71,48 @@ export const guestMessageSchema = z
 /**
  * Validate attendance state
  */
-export const attendanceSchema = z.object({
-  thursday: z.boolean().nullable(),
-  friday: z.boolean().nullable(),
-}).refine(
-  (data) => data.thursday !== null || data.friday !== null,
-  {
-    message: 'Vous devez choisir au moins un événement',
-    path: ['attendance'],
-  }
-);
+export const attendanceSchema = z
+  .object({
+    thursday: z.boolean().nullable(),
+    friday: z.boolean().nullable(),
+  })
+  .refine((data) => data.thursday !== null || data.friday !== null, {
+    message: "Vous devez choisir au moins un événement",
+    path: ["attendance"],
+  });
 
 /**
  * Complete RSVP form validation schema
  */
-export const rsvpFormSchema = z.object({
-  name: guestNameSchema,
-  message: guestMessageSchema,
-  thursday: z.boolean().nullable(),
-  friday: z.boolean().nullable(),
-}).refine(
-  (data) => data.thursday !== null || data.friday !== null,
-  {
-    message: 'Vous devez choisir au moins un événement',
-    path: ['attendance'],
-  }
-);
+export const rsvpFormSchema = z
+  .object({
+    name: guestNameSchema,
+    message: guestMessageSchema,
+    thursday: z.boolean().nullable(),
+    friday: z.boolean().nullable(),
+  })
+  .refine((data) => data.thursday !== null || data.friday !== null, {
+    message: "Vous devez choisir au moins un événement",
+    path: ["attendance"],
+  });
 
 /**
  * Sanitize and validate RSVP form data
  */
-export function validateAndSanitizeRSVPData(rawData: any) {
+export function validateAndSanitizeRSVPData(rawData: unknown) {
   try {
     return rsvpFormSchema.parse(rawData);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const formattedErrors = error.errors.map(err => ({
-        field: err.path.join('.'),
+      const formattedErrors = error.issues.map((err: z.ZodIssue) => ({
+        field: err.path.join("."),
         message: err.message,
       }));
-      throw new Error(`Données invalides: ${formattedErrors.map(e => e.message).join(', ')}`);
+      throw new Error(
+        `Données invalides: ${formattedErrors
+          .map((e: { message: string }) => e.message)
+          .join(", ")}`
+      );
     }
     throw error;
   }
@@ -120,30 +125,30 @@ export function validateAndSanitizeRSVPData(rawData: any) {
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
 export function checkRateLimit(
-  identifier: string, 
-  maxRequests: number = 5, 
+  identifier: string,
+  maxRequests: number = 5,
   windowMs: number = 60000 // 1 minute
 ): { allowed: boolean; remaining: number; resetTime: number } {
   const now = Date.now();
   const key = identifier;
-  
+
   let record = rateLimitStore.get(key);
-  
+
   // Clean up expired records
   if (record && now > record.resetTime) {
     record = undefined;
   }
-  
+
   if (!record) {
     record = { count: 0, resetTime: now + windowMs };
     rateLimitStore.set(key, record);
   }
-  
+
   record.count++;
-  
+
   const allowed = record.count <= maxRequests;
   const remaining = Math.max(0, maxRequests - record.count);
-  
+
   return {
     allowed,
     remaining,
@@ -164,6 +169,6 @@ export function cleanupRateLimitStore(): void {
 }
 
 // Clean up every 5 minutes
-if (typeof setInterval !== 'undefined') {
+if (typeof setInterval !== "undefined") {
   setInterval(cleanupRateLimitStore, 5 * 60 * 1000);
 }

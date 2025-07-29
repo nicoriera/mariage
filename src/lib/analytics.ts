@@ -2,7 +2,7 @@
 
 interface AnalyticsEvent {
   event: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   timestamp: string;
   sessionId: string;
   userAgent: string;
@@ -26,7 +26,7 @@ class WeddingAnalytics {
 
   constructor() {
     this.sessionId = this.generateSessionId();
-    this.isProduction = process.env.NODE_ENV === 'production';
+    this.isProduction = process.env.NODE_ENV === "production";
   }
 
   private generateSessionId(): string {
@@ -37,13 +37,14 @@ class WeddingAnalytics {
     return {
       timestamp: new Date().toISOString(),
       sessionId: this.sessionId,
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
-      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
+      userAgent:
+        typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
+      url: typeof window !== "undefined" ? window.location.href : "unknown",
     };
   }
 
   // Track user interactions
-  track(event: string, properties?: Record<string, any>) {
+  track(event: string, properties?: Record<string, unknown>) {
     if (!this.isProduction) {
       console.log(`[Analytics] ${event}`, properties);
       return;
@@ -70,7 +71,7 @@ class WeddingAnalytics {
     };
 
     if (!this.isProduction) {
-      console.error('[Analytics Error]', errorEvent);
+      console.error("[Analytics Error]", errorEvent);
       return;
     }
 
@@ -80,7 +81,7 @@ class WeddingAnalytics {
 
   // Track page views
   trackPageView(page: string, title?: string) {
-    this.track('page_view', {
+    this.track("page_view", {
       page,
       title: title || document.title,
       referrer: document.referrer,
@@ -88,8 +89,13 @@ class WeddingAnalytics {
   }
 
   // Track RSVP submissions
-  trackRSVP(data: { name: string; thursday: boolean | null; friday: boolean | null; hasMessage: boolean }) {
-    this.track('rsvp_submitted', {
+  trackRSVP(data: {
+    name: string;
+    thursday: boolean | null;
+    friday: boolean | null;
+    hasMessage: boolean;
+  }) {
+    this.track("rsvp_submitted", {
       thursday: data.thursday,
       friday: data.friday,
       hasMessage: data.hasMessage,
@@ -98,8 +104,8 @@ class WeddingAnalytics {
   }
 
   // Track admin actions
-  trackAdminAction(action: string, properties?: Record<string, any>) {
-    this.track('admin_action', {
+  trackAdminAction(action: string, properties?: Record<string, unknown>) {
+    this.track("admin_action", {
       action,
       ...properties,
     });
@@ -108,30 +114,30 @@ class WeddingAnalytics {
   private async sendToAnalyticsService(event: AnalyticsEvent) {
     try {
       // Example: Send to your analytics endpoint
-      await fetch('/api/analytics', {
-        method: 'POST',
+      await fetch("/api/analytics", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(event),
       });
     } catch (error) {
-      console.error('Failed to send analytics event:', error);
+      console.error("Failed to send analytics event:", error);
     }
   }
 
   private async sendToErrorService(errorEvent: ErrorEvent) {
     try {
       // Example: Send to your error tracking endpoint
-      await fetch('/api/errors', {
-        method: 'POST',
+      await fetch("/api/errors", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(errorEvent),
       });
     } catch (error) {
-      console.error('Failed to send error event:', error);
+      console.error("Failed to send error event:", error);
     }
   }
 }
@@ -140,11 +146,18 @@ class WeddingAnalytics {
 export const analytics = new WeddingAnalytics();
 
 // Convenience functions
-export const trackEvent = (event: string, properties?: Record<string, any>) => {
+export const trackEvent = (
+  event: string,
+  properties?: Record<string, unknown>
+) => {
   analytics.track(event, properties);
 };
 
-export const trackError = (error: Error, componentStack?: string, userId?: string) => {
+export const trackError = (
+  error: Error,
+  componentStack?: string,
+  userId?: string
+) => {
   analytics.trackError(error, componentStack, userId);
 };
 
@@ -152,10 +165,18 @@ export const trackPageView = (page: string, title?: string) => {
   analytics.trackPageView(page, title);
 };
 
-export const trackRSVP = (data: { name: string; thursday: boolean | null; friday: boolean | null; hasMessage: boolean }) => {
+export const trackRSVP = (data: {
+  name: string;
+  thursday: boolean | null;
+  friday: boolean | null;
+  hasMessage: boolean;
+}) => {
   analytics.trackRSVP(data);
 };
 
-export const trackAdminAction = (action: string, properties?: Record<string, any>) => {
+export const trackAdminAction = (
+  action: string,
+  properties?: Record<string, unknown>
+) => {
   analytics.trackAdminAction(action, properties);
 };

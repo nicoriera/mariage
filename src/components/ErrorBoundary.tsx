@@ -1,10 +1,10 @@
 "use client";
 
-import React, { Component, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
-import { Button } from './ui/Button';
-import { Heading, Text } from './ui/Typography';
+import React, { Component, ReactNode } from "react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
+import { Button } from "./ui/Button";
+import { Heading, Text } from "./ui/Typography";
 
 interface Props {
   children: ReactNode;
@@ -37,8 +37,8 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+
     this.setState({
       error,
       errorInfo,
@@ -50,7 +50,7 @@ class ErrorBoundary extends Component<Props, State> {
     }
 
     // In production, you could send this to an error reporting service
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       // Example: Sentry.captureException(error, { contexts: { react: errorInfo } });
     }
   }
@@ -64,7 +64,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   handleGoHome = () => {
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   render() {
@@ -80,7 +80,7 @@ class ErrorBoundary extends Component<Props, State> {
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-coral-700">
                 <AlertTriangle className="w-8 h-8" />
-                Oups, quelque chose s'est mal passé
+                Oups, quelque chose s&apos;est mal passé
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -89,17 +89,19 @@ class ErrorBoundary extends Component<Props, State> {
                   Une erreur inattendue est survenue
                 </Heading>
                 <Text variant="muted" className="mb-4">
-                  Nous nous excusons pour ce désagrément. Notre équipe a été automatiquement 
-                  notifiée et travaille à résoudre le problème.
+                  Nous nous excusons pour ce désagrément. Notre équipe a été
+                  automatiquement notifiée et travaille à résoudre le problème.
                 </Text>
               </div>
 
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                   <Heading level={5} className="text-red-800 mb-2">
-                    Détails de l'erreur (mode développement)
+                    Détails de l&apos;erreur (mode développement)
                   </Heading>
-                  <Text size="sm" className="text-red-700 font-mono whitespace-pre-wrap">
+                  <Text
+                    size="sm"
+                    className="text-red-700 font-mono whitespace-pre-wrap">
                     {this.state.error.message}
                   </Text>
                   {this.state.errorInfo && (
@@ -107,7 +109,9 @@ class ErrorBoundary extends Component<Props, State> {
                       <summary className="text-red-700 cursor-pointer hover:text-red-800">
                         Stack trace
                       </summary>
-                      <Text size="xs" className="text-red-600 font-mono whitespace-pre-wrap mt-2">
+                      <Text
+                        size="sm"
+                        className="text-red-600 font-mono whitespace-pre-wrap mt-2">
                         {this.state.errorInfo.componentStack}
                       </Text>
                     </details>
@@ -119,28 +123,25 @@ class ErrorBoundary extends Component<Props, State> {
                 <Button
                   variant="primary"
                   onClick={this.handleRetry}
-                  className="flex items-center gap-2"
-                >
+                  className="flex items-center gap-2">
                   <RefreshCw className="w-4 h-4" />
                   Réessayer
                 </Button>
                 <Button
                   variant="outline"
                   onClick={this.handleGoHome}
-                  className="flex items-center gap-2"
-                >
+                  className="flex items-center gap-2">
                   <Home className="w-4 h-4" />
-                  Retour à l'accueil
+                  Retour à l&apos;accueil
                 </Button>
               </div>
 
               <div className="bg-june-surface border border-june rounded-lg p-4">
                 <Text size="sm" variant="muted" className="text-center">
-                  Si le problème persiste, n'hésitez pas à nous contacter à{' '}
-                  <a 
-                    href="mailto:sandra.nicolas.mariage@example.com" 
-                    className="text-june-accent hover:underline"
-                  >
+                  Si le problème persiste, n&apos;hésitez pas à nous contacter à{" "}
+                  <a
+                    href="mailto:sandra.nicolas.mariage@example.com"
+                    className="text-june-accent hover:underline">
                     sandra.nicolas.mariage@example.com
                   </a>
                 </Text>

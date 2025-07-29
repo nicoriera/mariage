@@ -9,27 +9,41 @@ import {
   CardContent,
 } from "../../components/ui/Card";
 import { Input, Label } from "../../components/ui/Input";
-import { Upload, Lock } from "lucide-react";
+import { Upload, Lock, LogOut } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
+import LoadingCard from "../../components/LoadingCard";
 
 export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, isLoading, login, logout } = useAuth();
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
 
-  // Mot de passe admin (changez-le !)
-  const ADMIN_PASSWORD = "Sandra&Nicolas2026";
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setAuthError("");
-    } else {
-      setAuthError("Mot de passe incorrect");
+    setLoginLoading(true);
+    setAuthError("");
+
+    const result = await login(password);
+    
+    if (!result.success) {
+      setAuthError(result.error || "Mot de passe incorrect");
     }
+    
+    setLoginLoading(false);
   };
+
+  const handleLogout = async () => {
+    await logout();
+    setPassword("");
+    setAuthError("");
+  };
+
+  if (isLoading) {
+    return <LoadingCard />;
+  }
 
   if (!isAuthenticated) {
     return (
@@ -56,8 +70,14 @@ export default function AdminPage() {
                   <p className="text-red-500 text-sm mt-1">{authError}</p>
                 )}
               </div>
-              <Button type="submit" variant="primary" className="w-full">
-                Se connecter
+              <Button 
+                type="submit" 
+                variant="primary" 
+                className="w-full"
+                loading={loginLoading}
+                disabled={loginLoading}
+              >
+                {loginLoading ? "Connexion..." : "Se connecter"}
               </Button>
             </form>
             <div className="mt-4 p-3 bg-stone-50 rounded-lg">
@@ -107,9 +127,20 @@ export default function AdminPage() {
       <div className="max-w-2xl mx-auto">
         <Card variant="elegant">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3">
-              <Upload className="w-6 h-6" />
-              Upload Photo de Couple
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Upload className="w-6 h-6" />
+                Upload Photo de Couple
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Déconnexion
+              </Button>
             </CardTitle>
           </CardHeader>
           <CardContent>

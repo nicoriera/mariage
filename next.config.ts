@@ -11,10 +11,6 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'images.unsplash.com',
       },
     ],
@@ -45,7 +41,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.imgur.com https://api.cloudinary.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.imgur.com https://i.imgur.com",
               "media-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",

@@ -35,20 +35,36 @@ export default function InfosPage() {
                   Restaurant Le Surfing
                 </Heading>
                 <Text variant="muted">
-                  6 Place des Estagnots, 40510 Seignosse
+                  6 Place des Estagnots
+                  <br />
+                  40510 Seignosse
+                  <br />
+                  <strong>Privatisation totale du restaurant</strong>
                 </Text>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-secondary" />
                   <Text>
-                    <strong>Jeudi 21 Mai :</strong> Repas à partir de 18h
+                    <strong>18h00 :</strong> Accueil des invités (Apéritif)
                   </Text>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-secondary" />
                   <Text>
-                    <strong>Vendredi 22 Mai :</strong> Journée détente dès midi
+                    <strong>20h00-22h00 :</strong> Dîner assis
+                  </Text>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-secondary" />
+                  <Text>
+                    <strong>22h00-01h00 :</strong> Soirée dansante
+                  </Text>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-secondary" />
+                  <Text>
+                    <strong>01h00 :</strong> Départ des invités
                   </Text>
                 </div>
               </div>
@@ -121,31 +137,32 @@ export default function InfosPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Camera className="w-6 h-6 text-accent" />
-                Dress Code
+                Tenue vestimentaire
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <Heading level={6} className="mb-2">
-                  Style demandé
+                  L&apos;essentiel : soyez à l&apos;aise !
                 </Heading>
                 <Text variant="muted" size="sm">
-                  Décontracté chic, dans l&apos;esprit bord de mer.
+                  Venez comme vous vous sentez bien, dans l&apos;esprit
+                  décontracté du bord de mer.
                   <br />
-                  Évitez le blanc (réservé aux mariés) et les talons hauts
-                  (terrasse en bois).
+                  Évitez simplement les talons hauts (terrasse en bois) et le
+                  blanc total.
                 </Text>
               </div>
               <div>
                 <Heading level={6} className="mb-2">
-                  Couleurs suggérées
+                  Quelques idées
                 </Heading>
-                <div className="flex gap-2 mt-2">
-                  <div className="w-6 h-6 bg-sky-500 rounded-full border-2 border-white shadow-sm"></div>
-                  <div className="w-6 h-6 bg-sage-500 rounded-full border-2 border-white shadow-sm"></div>
-                  <div className="w-6 h-6 bg-sand-500 rounded-full border-2 border-white shadow-sm"></div>
-                  <div className="w-6 h-6 bg-coral-500 rounded-full border-2 border-white shadow-sm"></div>
-                </div>
+                <Text variant="muted" size="sm">
+                  Robe d&apos;été, chemise lin, pantalon léger, sandales
+                  plates...
+                  <br />
+                  L&apos;important c&apos;est que vous vous sentiez vous-mêmes !
+                </Text>
               </div>
             </CardContent>
           </Card>
@@ -164,9 +181,11 @@ export default function InfosPage() {
                   Spécialités
                 </Heading>
                 <Text variant="muted" size="sm">
-                  Cuisine du Sud-Ouest avec produits locaux.
+                  Cuisine créative et de saison par le Chef Zac.
                   <br />
-                  Spécialités de poissons et fruits de mer.
+                  Produits locaux et spécialités du Sud-Ouest.
+                  <br />
+                  Menu surprise le jour J !
                 </Text>
               </div>
               <div>

@@ -39,20 +39,49 @@ export const uploadToImgur = async (file: File, uploaderName: string, message?: 
   }
 };
 
-// Option 2: Upload vers un service gratuit avec stockage local temporaire
+// Option 2: Upload avec stockage local (base64 dans Supabase)
 export const uploadToLocalStorage = async (file: File, uploaderName: string, message?: string) => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+    // Vérifier la taille du fichier (max 5MB pour éviter les problèmes de stockage)
+    if (file.size > 5 * 1024 * 1024) {
+      reject(new Error('Image trop volumineuse (max 5MB)'));
+      return;
+    }
+
+    // Créer un canvas pour redimensionner l'image si nécessaire
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
     
-    reader.onload = async (e) => {
-      const base64 = e.target?.result as string;
-      
+    img.onload = async () => {
       try {
+        // Calculer les nouvelles dimensions (max 1200px)
+        const maxSize = 1200;
+        let { width, height } = img;
+        
+        if (width > maxSize || height > maxSize) {
+          if (width > height) {
+            height = (height * maxSize) / width;
+            width = maxSize;
+          } else {
+            width = (width * maxSize) / height;
+            height = maxSize;
+          }
+        }
+        
+        // Redimensionner l'image
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Convertir en base64 avec compression
+        const base64 = canvas.toDataURL('image/jpeg', 0.8);
+        
         // Sauvegarder en base64 dans Supabase
         const { data, error } = await supabase
           .from('gallery')
           .insert([{
-            url: base64, // Base64 de l'image
+            url: base64,
             uploader_name: uploaderName,
             message: message || null,
             created_at: new Date().toISOString(),
@@ -69,6 +98,13 @@ export const uploadToLocalStorage = async (file: File, uploaderName: string, mes
       }
     };
     
+    img.onerror = () => reject(new Error('Erreur lors du traitement de l\'image'));
+    
+    // Lire le fichier
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      img.src = e.target?.result as string;
+    };
     reader.onerror = () => reject(new Error('Erreur lecture fichier'));
     reader.readAsDataURL(file);
   });
@@ -112,6 +148,22 @@ export const uploadToCloudinary = async (file: File, uploaderName: string, messa
 
 // Fonction principale qui choisit la méthode d'upload
 export const uploadImage = async (file: File, uploaderName: string, message?: string) => {
-  // Par défaut, utiliser Imgur (le plus simple et gratuit)
-  return uploadToImgur(file, uploaderName, message);
+  // Essayer Imgur en premier, fallback vers localStorage en cas d'erreur
+  try {
+    return await uploadToImgur(file, uploaderName, message);
+  } catch (error) {
+    console.warn('Imgur upload failed, falling back to local storage:', error);
+    
+    // En développement ou si Imgur échoue, utiliser le stockage local
+    if (typeof window !== 'undefined' && (
+      window.location.hostname === 'localhost' || 
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname.includes('vercel.app')
+    )) {
+      return await uploadToLocalStorage(file, uploaderName, message);
+    }
+    
+    // Re-throw l'erreur si on ne peut pas utiliser le fallback
+    throw error;
+  }
 };

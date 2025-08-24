@@ -8,18 +8,15 @@ import {
   MessageCircle,
   Calendar,
   Users as UsersIcon,
+  Download,
 } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "../../components/ui/Card";
+import { Card, CardContent } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
-import { Input, Textarea, Label } from "../../components/ui/Input";
 import { Heading, Text, Badge } from "../../components/ui/Typography";
 import { uploadImage } from "../../../lib/imageStorage";
 import { supabase } from "../../../lib/supabase";
+import { PhotoModal } from "../../components/PhotoModal";
+import { UploadModal } from "../../components/UploadModal";
 
 interface Photo {
   id: string;
@@ -33,12 +30,12 @@ interface Photo {
 export default function GaleriePage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [uploaderName, setUploaderName] = useState("");
-  const [message, setMessage] = useState("");
-  const [showUploadForm, setShowUploadForm] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "pre-wedding" | "guests">(
     "all"
   );
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchPhotos();
@@ -66,26 +63,19 @@ export default function GaleriePage() {
     }
   };
 
-  const handleUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-    if (!uploaderName.trim()) {
-      alert("Merci de renseigner votre nom");
-      return;
-    }
-
+  const handleUpload = async (
+    files: FileList,
+    uploaderName: string,
+    message?: string
+  ) => {
     setUploading(true);
 
     try {
       const uploadPromises = Array.from(files).map((file) =>
-        uploadImage(file, uploaderName.trim(), message.trim() || undefined)
+        uploadImage(file, uploaderName, message)
       );
 
       await Promise.all(uploadPromises);
-
-      // Réinitialiser le formulaire
-      setUploaderName("");
-      setMessage("");
-      setShowUploadForm(false);
 
       // Recharger les photos
       await fetchPhotos();
@@ -94,6 +84,7 @@ export default function GaleriePage() {
     } catch (error) {
       console.error("Erreur lors de l'upload:", error);
       alert("Erreur lors de l'upload. Réessayez dans quelques instants.");
+      throw error; // Re-throw pour que la modale puisse gérer l'erreur
     } finally {
       setUploading(false);
     }
@@ -109,6 +100,76 @@ export default function GaleriePage() {
     total: photos.length,
     preWedding: photos.filter((p) => p.is_pre_wedding).length,
     guests: photos.filter((p) => !p.is_pre_wedding).length,
+  };
+
+  const downloadPhoto = async (url: string, filename: string) => {
+    try {
+      // Essayer d'abord le téléchargement direct
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error(
+        "Téléchargement direct impossible, ouverture dans un nouvel onglet:",
+        error
+      );
+      // Si le fetch échoue à cause de la CSP, ouvrir dans un nouvel onglet
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const downloadAllPhotos = async () => {
+    if (filteredPhotos.length === 0) {
+      alert("Aucune photo à télécharger");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Télécharger ${filteredPhotos.length} photo(s) ? Cela peut prendre quelques instants.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Télécharger toutes les photos une par une
+      for (let i = 0; i < filteredPhotos.length; i++) {
+        const photo = filteredPhotos[i];
+        const filename = `photo-${i + 1}-${photo.uploader_name}-${new Date(
+          photo.created_at
+        ).getTime()}.jpg`;
+        await downloadPhoto(photo.url, filename);
+
+        // Petite pause entre les téléchargements pour éviter de surcharger
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+
+      alert(`${filteredPhotos.length} photo(s) téléchargée(s) !`);
+    } catch (error) {
+      console.error("Erreur lors du téléchargement groupé:", error);
+      alert("Erreur lors du téléchargement des photos");
+    }
+  };
+
+  const openModal = (photoIndex: number) => {
+    setSelectedPhotoIndex(photoIndex);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -143,92 +204,52 @@ export default function GaleriePage() {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => setShowUploadForm(!showUploadForm)}
+            onClick={() => setShowUploadModal(true)}
             className="mb-8">
             <Upload className="w-5 h-5" />
             Ajouter des photos
           </Button>
         </div>
 
-        {/* Formulaire d'upload */}
-        {showUploadForm && (
-          <Card variant="elegant" className="mb-8">
-            <CardHeader>
-              <CardTitle>Partager vos photos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <Label required>Votre nom</Label>
-                  <Input
-                    value={uploaderName}
-                    onChange={(e) => setUploaderName(e.target.value)}
-                    placeholder="Entrez votre nom"
-                  />
-                </div>
+        {/* Filtres et téléchargement */}
+        <div className="flex flex-col items-center gap-4 mb-8">
+          <div className="flex justify-center gap-2">
+            <Button
+              variant={activeTab === "all" ? "primary" : "ghost"}
+              onClick={() => setActiveTab("all")}>
+              Toutes ({stats.total})
+            </Button>
+            <Button
+              variant={activeTab === "pre-wedding" ? "primary" : "ghost"}
+              onClick={() => setActiveTab("pre-wedding")}>
+              Nos souvenirs ({stats.preWedding})
+            </Button>
+            <Button
+              variant={activeTab === "guests" ? "primary" : "ghost"}
+              onClick={() => setActiveTab("guests")}>
+              Vos photos ({stats.guests})
+            </Button>
+          </div>
 
-                <div>
-                  <Label>Message (optionnel)</Label>
-                  <Textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Ajoutez un petit message avec vos photos..."
-                    rows={3}
-                  />
-                </div>
-
-                <div>
-                  <Label>Photos</Label>
-                  <Input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => handleUpload(e.target.files)}
-                    disabled={uploading}
-                  />
-                  <Text size="sm" variant="muted" className="mt-2">
-                    Formats acceptés: JPG, PNG, HEIC. Maximum 10 Mo par photo.
-                  </Text>
-                </div>
-
-                <div className="flex gap-3">
-                  <Button
-                    variant="ghost"
-                    onClick={() => setShowUploadForm(false)}>
-                    Annuler
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Filtres */}
-        <div className="flex justify-center gap-2 mb-8">
-          <Button
-            variant={activeTab === "all" ? "primary" : "ghost"}
-            onClick={() => setActiveTab("all")}>
-            Toutes ({stats.total})
-          </Button>
-          <Button
-            variant={activeTab === "pre-wedding" ? "primary" : "ghost"}
-            onClick={() => setActiveTab("pre-wedding")}>
-            Nos souvenirs ({stats.preWedding})
-          </Button>
-          <Button
-            variant={activeTab === "guests" ? "primary" : "ghost"}
-            onClick={() => setActiveTab("guests")}>
-            Vos photos ({stats.guests})
-          </Button>
+          {filteredPhotos.length > 0 && (
+            <Button
+              variant="secondary"
+              onClick={downloadAllPhotos}
+              className="flex items-center gap-2">
+              <Download className="w-4 h-4" />
+              Télécharger tout ({filteredPhotos.length} photos)
+            </Button>
+          )}
         </div>
 
         {/* Grille de photos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredPhotos.map((photo) => (
+          {filteredPhotos.map((photo, index) => (
             <Card
               key={photo.id}
               variant="elegant"
-              className="overflow-hidden group hover:shadow-lg transition-shadow">
+              className="overflow-hidden group hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => openModal(index)}>
               <div className="aspect-square bg-stone-100 relative overflow-hidden">
                 <Image
                   src={photo.url}
@@ -237,6 +258,8 @@ export default function GaleriePage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
+
+                {/* Badge pré-mariage */}
                 {photo.is_pre_wedding && (
                   <div className="absolute top-2 right-2">
                     <Badge variant="accent" className="text-xs">
@@ -244,6 +267,24 @@ export default function GaleriePage() {
                     </Badge>
                   </div>
                 )}
+
+                {/* Bouton de téléchargement */}
+                <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      downloadPhoto(
+                        photo.url,
+                        `photo-${photo.uploader_name}-${new Date(
+                          photo.created_at
+                        ).getTime()}.jpg`
+                      );
+                    }}
+                    className="bg-white/90 hover:bg-white text-stone-700 p-2 rounded-full shadow-md transition-colors"
+                    title="Télécharger la photo">
+                    <Download className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               <CardContent className="p-4">
@@ -286,6 +327,24 @@ export default function GaleriePage() {
             </Text>
           </div>
         )}
+
+        {/* Modale photo */}
+        <PhotoModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          photos={filteredPhotos}
+          currentPhotoIndex={selectedPhotoIndex}
+          onPhotoChange={setSelectedPhotoIndex}
+          onDownload={downloadPhoto}
+        />
+
+        {/* Modale upload */}
+        <UploadModal
+          isOpen={showUploadModal}
+          onClose={() => setShowUploadModal(false)}
+          onUpload={handleUpload}
+          uploading={uploading}
+        />
       </div>
     </div>
   );

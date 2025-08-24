@@ -13,8 +13,6 @@ import {
 import { Input, Textarea, Label } from "./ui/Input";
 import { Text } from "./ui/Typography";
 import { useRSVPForm } from "../hooks/useRSVPForm";
-import AttendanceOption from "./AttendanceOption";
-import { ATTENDANCE_OPTIONS } from "../constants/attendance";
 import type { RSVPFormProps } from "../types/rsvp";
 
 const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
@@ -34,13 +32,8 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
     await handleSubmit(onSubmitSuccess);
   };
 
-  const isAttendanceSelected = (optionAttendance: { thursday: boolean | null; friday: boolean | null }) => {
-    return formData.attendance.thursday === optionAttendance.thursday &&
-           formData.attendance.friday === optionAttendance.friday;
-  };
-
   return (
-    <Card variant="elegant" className={`max-w-2xl mx-auto ${className || ''}`}>
+    <Card variant="elegant" className={`max-w-2xl mx-auto ${className || ""}`}>
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-primary">
           <Users className="w-8 h-8" />
@@ -70,26 +63,39 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
             )}
           </div>
 
-          {/* Événements */}
+          {/* Réservation jeudi */}
           <div>
-            <Label required>Confirmez votre participation</Label>
+            <Label required>Réservez-vous pour le jeudi&nbsp;?</Label>
             {errors.attendance && (
               <Text size="sm" className="text-coral-600 mb-3">
                 {errors.attendance}
               </Text>
             )}
-
-            <div className="space-y-3">
-              <div className="grid grid-cols-1 gap-3">
-                {ATTENDANCE_OPTIONS.map((option) => (
-                  <AttendanceOption
-                    key={option.id}
-                    {...option}
-                    isSelected={isAttendanceSelected(option.attendance)}
-                    onClick={() => updateAttendance(option.attendance)}
-                  />
-                ))}
-              </div>
+            <div className="flex gap-6 mt-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="thursday"
+                  checked={formData.attendance.thursday === true}
+                  onChange={() =>
+                    updateAttendance({ thursday: true, friday: null })
+                  }
+                  className="accent-primary"
+                />
+                Oui
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="thursday"
+                  checked={formData.attendance.thursday === false}
+                  onChange={() =>
+                    updateAttendance({ thursday: false, friday: null })
+                  }
+                  className="accent-primary"
+                />
+                Non
+              </label>
             </div>
           </div>
 
@@ -135,6 +141,6 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
   );
 });
 
-RSVPForm.displayName = 'RSVPForm';
+RSVPForm.displayName = "RSVPForm";
 
 export default RSVPForm;

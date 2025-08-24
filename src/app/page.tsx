@@ -37,7 +37,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid-june">
-            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
+            <Card
+              variant="elegant"
+              className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
                 <CardTitle>Date & Heure</CardTitle>
                 <CardDescription>Cérémonie et réception</CardDescription>
@@ -47,16 +49,18 @@ export default function HomePage() {
                   Jeudi 21 Mai 2026
                 </Text>
                 <Text variant="muted">
-                  Cérémonie à 15h00
+                  Accueil à 18h00
                   <br />
-                  Cocktail à 16h30
+                  Dîner à 20h00
                   <br />
-                  Dîner à 19h30
+                  Soirée dansante à 22h00
                 </Text>
               </CardContent>
             </Card>
 
-            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
+            <Card
+              variant="elegant"
+              className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
                 <CardTitle>Lieu</CardTitle>
                 <CardDescription>Restaurant Le Surfing</CardDescription>
@@ -66,28 +70,11 @@ export default function HomePage() {
                   Seignosse, Landes
                 </Text>
                 <Text variant="muted">
-                  Restaurant Le Surfing
+                  6 Place des Estagnots
                   <br />
                   40510 Seignosse
                   <br />
                   France
-                </Text>
-              </CardContent>
-            </Card>
-
-            <Card variant="elegant" className="hover-june-lift shadow-june-md bg-white border border-june/10">
-              <CardHeader>
-                <CardTitle>Code vestimentaire</CardTitle>
-                <CardDescription>Tenue de cérémonie</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Text variant="accent" size="lg" className="font-medium mb-2">
-                  Chic décontracté
-                </Text>
-                <Text variant="muted">
-                  Robe longue ou cocktail pour les femmes
-                  <br />
-                  Costume ou blazer pour les hommes
                 </Text>
               </CardContent>
             </Card>
@@ -123,7 +110,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/rsvp" className="group">
-              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+              <Card
+                variant="default"
+                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 bg-june-rose/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-rose/50 transition-june border-2 border-june-olive/20">
                     <svg
@@ -146,7 +135,9 @@ export default function HomePage() {
             </Link>
 
             <Link href="/infos" className="group">
-              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+              <Card
+                variant="default"
+                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 bg-june-mint/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-mint/50 transition-june border-2 border-june-olive/20">
                     <svg
@@ -171,7 +162,9 @@ export default function HomePage() {
             </Link>
 
             <Link href="/galerie" className="group">
-              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+              <Card
+                variant="default"
+                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 bg-june-lilac/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-lilac/50 transition-june border-2 border-june-olive/20">
                     <svg
@@ -194,7 +187,9 @@ export default function HomePage() {
             </Link>
 
             <Link href="/invites" className="group">
-              <Card variant="default" className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+              <Card
+                variant="default"
+                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 bg-june-sky/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-sky/50 transition-june border-2 border-june-olive/20">
                     <svg

@@ -48,6 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           baseStyles,
+          "cursor-pointer",
           variants[variant],
           sizes[size],
           loading && "cursor-wait",

@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Upload, X, Image as ImageIcon, User, MessageCircle } from "lucide-react";
+import {
+  Upload,
+  X,
+  Image as ImageIcon,
+  User,
+  MessageCircle,
+} from "lucide-react";
 import { Modal } from "./ui/Modal";
 import { Button } from "./ui/Button";
 import { Input, Label } from "./ui/Input";
@@ -11,11 +17,20 @@ import { Text, Heading } from "./ui/Typography";
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (files: FileList, uploaderName: string, message?: string) => Promise<void>;
+  onUpload: (
+    files: FileList,
+    uploaderName: string,
+    message?: string
+  ) => Promise<void>;
   uploading: boolean;
 }
 
-export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModalProps) {
+export function UploadModal({
+  isOpen,
+  onClose,
+  onUpload,
+  uploading,
+}: UploadModalProps) {
   const [uploaderName, setUploaderName] = useState("");
   const [message, setMessage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -23,13 +38,13 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
 
   const handleFileChange = (files: FileList | null) => {
     setSelectedFiles(files);
-    
+
     // Créer les previews
     if (files) {
       const urls: string[] = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        if (file.type.startsWith('image/')) {
+        if (file.type.startsWith("image/")) {
           urls.push(URL.createObjectURL(file));
         }
       }
@@ -46,8 +61,12 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
     }
 
     try {
-      await onUpload(selectedFiles, uploaderName.trim(), message.trim() || undefined);
-      
+      await onUpload(
+        selectedFiles,
+        uploaderName.trim(),
+        message.trim() || undefined
+      );
+
       // Reset du formulaire
       setUploaderName("");
       setMessage("");
@@ -61,7 +80,7 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
 
   const handleClose = () => {
     // Nettoyer les URLs de preview
-    previewUrls.forEach(url => URL.revokeObjectURL(url));
+    previewUrls.forEach((url) => URL.revokeObjectURL(url));
     setPreviewUrls([]);
     setSelectedFiles(null);
     onClose();
@@ -104,7 +123,7 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                   disabled={uploading}
                 />
               </div>
-              
+
               <div>
                 <Label className="flex items-center gap-2">
                   <MessageCircle className="w-4 h-4" />
@@ -125,7 +144,7 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                 <ImageIcon className="w-4 h-4" />
                 Sélectionner vos photos
               </Label>
-              
+
               <div className="border-2 border-dashed border-stone-300 rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
                 <input
                   type="file"
@@ -136,10 +155,9 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                   className="hidden"
                   id="photo-upload"
                 />
-                <label 
-                  htmlFor="photo-upload" 
-                  className="cursor-pointer flex flex-col items-center gap-3"
-                >
+                <label
+                  htmlFor="photo-upload"
+                  className="cursor-pointer flex flex-col items-center gap-3">
                   <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center">
                     <Upload className="w-8 h-8 text-stone-400" />
                   </div>
@@ -166,10 +184,9 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                 </Label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {previewUrls.map((url, index) => (
-                    <div 
+                    <div
                       key={index}
-                      className="relative aspect-square bg-stone-100 rounded-lg overflow-hidden"
-                    >
+                      className="relative aspect-square bg-stone-100 rounded-lg overflow-hidden">
                       <Image
                         src={url}
                         alt={`Preview ${index + 1}`}
@@ -180,20 +197,25 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                       <button
                         onClick={() => {
                           URL.revokeObjectURL(url);
-                          const newUrls = previewUrls.filter((_, i) => i !== index);
+                          const newUrls = previewUrls.filter(
+                            (_, i) => i !== index
+                          );
                           setPreviewUrls(newUrls);
-                          
+
                           // Mettre à jour les fichiers sélectionnés
                           if (selectedFiles) {
-                            const newFiles = Array.from(selectedFiles).filter((_, i) => i !== index);
+                            const newFiles = Array.from(selectedFiles).filter(
+                              (_, i) => i !== index
+                            );
                             const dataTransfer = new DataTransfer();
-                            newFiles.forEach(file => dataTransfer.items.add(file));
+                            newFiles.forEach((file) =>
+                              dataTransfer.items.add(file)
+                            );
                             setSelectedFiles(dataTransfer.files);
                           }
                         }}
                         className="absolute top-2 right-2 p-1 bg-black/50 hover:bg-black/70 text-white rounded-full cursor-pointer"
-                        disabled={uploading}
-                      >
+                        disabled={uploading}>
                         <X className="w-4 h-4" />
                       </button>
                     </div>
@@ -208,23 +230,23 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
         <div className="bg-stone-50 border-t p-6">
           <div className="flex justify-between items-center">
             <Text size="sm" variant="muted">
-              {selectedFiles ? `${selectedFiles.length} photo(s) sélectionnée(s)` : "Aucune photo sélectionnée"}
+              {selectedFiles
+                ? `${selectedFiles.length} photo(s) sélectionnée(s)`
+                : "Aucune photo sélectionnée"}
             </Text>
-            
+
             <div className="flex gap-3">
               <Button
                 variant="ghost"
                 onClick={handleClose}
-                disabled={uploading}
-              >
+                disabled={uploading}>
                 Annuler
               </Button>
               <Button
                 variant="primary"
                 onClick={handleSubmit}
                 disabled={uploading || !selectedFiles || !uploaderName.trim()}
-                className="flex items-center gap-2"
-              >
+                className="flex items-center gap-2">
                 {uploading ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -233,7 +255,8 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                 ) : (
                   <>
                     <Upload className="w-4 h-4" />
-                    Partager {selectedFiles?.length ? `(${selectedFiles.length})` : ""}
+                    Partager{" "}
+                    {selectedFiles?.length ? `(${selectedFiles.length})` : ""}
                   </>
                 )}
               </Button>

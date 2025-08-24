@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Upload, X, Image as ImageIcon, User, MessageCircle } from "lucide-react";
 import { Modal } from "./ui/Modal";
 import { Button } from "./ui/Button";
-import { Input, Textarea, Label } from "./ui/Input";
+import { Input, Label } from "./ui/Input";
 import { Text, Heading } from "./ui/Typography";
 
 interface UploadModalProps {
@@ -169,10 +170,12 @@ export function UploadModal({ isOpen, onClose, onUpload, uploading }: UploadModa
                       key={index}
                       className="relative aspect-square bg-stone-100 rounded-lg overflow-hidden"
                     >
-                      <img
+                      <Image
                         src={url}
                         alt={`Preview ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
                       />
                       <button
                         onClick={() => {

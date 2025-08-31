@@ -40,15 +40,7 @@ const GuestCard = React.memo<GuestCardProps>(({ guest }) => (
             Repas Jeudi
           </Badge>
         )}
-        {guest.friday && (
-          <Badge
-            variant="rose"
-            className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
-            Journée Vendredi
-          </Badge>
-        )}
-        {!guest.thursday && !guest.friday && (
+        {!guest.thursday && (
           <Badge
             variant="default"
             className="flex items-center gap-1">

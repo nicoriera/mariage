@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display, Dancing_Script, Poppins } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Playfair_Display,
+  Dancing_Script,
+  Poppins,
+} from "next/font/google";
 import Navigation from "../components/Navigation";
 import GlobalErrorBoundary from "../components/GlobalErrorBoundary";
 import SkipLink from "../components/SkipLink";
+import { AudioPlayer } from "../components/AudioPlayer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,7 +42,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Sandra & Nicolas - Notre Mariage | 21 Mai 2026 à Seignosse",
-  description: "Confirmez votre présence pour notre mariage le 21 mai 2026 à 18h au Restaurant Le Surfing à Seignosse. Entre traditions basques et bretonnes, venez célébrer notre amour !",
+  description:
+    "Confirmez votre présence pour notre mariage le 21 mai 2026 à 18h au Restaurant Le Surfing à Seignosse. Entre traditions basques et bretonnes, venez célébrer notre amour !",
 };
 
 export default function RootLayout({
@@ -46,14 +54,14 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${dancingScript.variable} ${poppins.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${dancingScript.variable} ${poppins.variable} antialiased`}>
         <GlobalErrorBoundary>
           <SkipLink />
           <Navigation />
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
+          <AudioPlayer />
         </GlobalErrorBoundary>
       </body>
     </html>

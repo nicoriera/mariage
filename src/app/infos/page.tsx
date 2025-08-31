@@ -1,4 +1,4 @@
-import { MapPin, Clock, Car, Home, Utensils, Camera } from "lucide-react";
+import { MapPin, Clock, Car, Home, Utensils } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -9,62 +9,55 @@ import { Heading, Text } from "../../components/ui/Typography";
 
 export default function InfosPage() {
   return (
-    <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-heading font-bold text-primary mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-stone-50/50 py-16 px-4 pb-20 md:pb-16">
+      <div className="max-w-7xl mx-auto">
+        {/* Header amélioré */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full mb-6">
+            <MapPin className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Informations pratiques
           </h1>
-          <p className="text-lg text-stone-600">
+          <p className="text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
             Tout ce qu&apos;il faut savoir pour notre mariage
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grille optimisée pour 4 cartes */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Lieu et horaires */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <MapPin className="w-6 h-6 text-accent" />
+          <Card
+            variant="elegant"
+            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
                 Lieu & Horaires
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={5} className="text-primary mb-2">
+            <CardContent className="space-y-6">
+              <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-4 rounded-lg border border-primary/10">
+                <Heading level={5} className="text-primary mb-3 font-semibold">
                   Restaurant Le Surfing
                 </Heading>
-                <Text variant="muted">
+                <Text variant="muted" className="leading-relaxed">
                   6 Place des Estagnots
                   <br />
                   40510 Seignosse
                   <br />
-                  <strong>Privatisation totale du restaurant</strong>
+                  <span className="inline-block mt-2 px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                    Privatisation totale du restaurant
+                  </span>
                 </Text>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-secondary" />
-                  <Text>
-                    <strong>18h00 :</strong> Accueil des invités (Apéritif)
-                  </Text>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-secondary" />
-                  <Text>
-                    <strong>20h00-22h00 :</strong> Dîner assis
-                  </Text>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-secondary" />
-                  <Text>
-                    <strong>22h00-01h00 :</strong> Soirée dansante
-                  </Text>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-secondary" />
-                  <Text>
-                    <strong>01h00 :</strong> Départ des invités
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-secondary/5 rounded-lg">
+                  <Clock className="w-5 h-5 text-secondary" />
+                  <Text className="font-medium">
+                    Rendez-vous à 18h00 jusqu&apos;à 01h00
                   </Text>
                 </div>
               </div>
@@ -72,157 +65,128 @@ export default function InfosPage() {
           </Card>
 
           {/* Accès et transport */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Car className="w-6 h-6 text-accent" />
+          <Card
+            variant="elegant"
+            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                  <Car className="w-6 h-6 text-secondary" />
+                </div>
                 Accès & Transport
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={6} className="mb-2">
-                  En voiture
-                </Heading>
-                <Text variant="muted" size="sm">
-                  Autoroute A63, sortie 8 Seignosse.
-                  <br />
-                  Parking gratuit sur place.
-                </Text>
-              </div>
-              <div>
-                <Heading level={6} className="mb-2">
-                  Transports en commun
-                </Heading>
-                <Text variant="muted" size="sm">
-                  Gare SNCF la plus proche : Dax (30 min en voiture)
-                </Text>
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-secondary/5 to-primary/5 p-4 rounded-lg border border-secondary/10">
+                  <Heading
+                    level={6}
+                    className="mb-3 font-semibold text-secondary">
+                    En voiture
+                  </Heading>
+                  <Text variant="muted" size="sm" className="leading-relaxed">
+                    Autoroute A63, sortie 8 Seignosse.
+                    <br />
+                    <span className="inline-block mt-2 px-3 py-1 bg-secondary/10 text-secondary text-sm font-medium rounded-full">
+                      Parking gratuit sur place
+                    </span>
+                  </Text>
+                </div>
+                <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg border border-primary/10">
+                  <Heading
+                    level={6}
+                    className="mb-3 font-semibold text-primary">
+                    Transports en commun
+                  </Heading>
+                  <Text variant="muted" size="sm" className="leading-relaxed">
+                    Gare SNCF la plus proche : Dax (30 min en voiture)
+                  </Text>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Hébergement */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Home className="w-6 h-6 text-accent" />
+          <Card
+            variant="elegant"
+            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 bg-gradient-to-br from-accent/10 to-primary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                  <Home className="w-6 h-6 text-accent" />
+                </div>
                 Hébergement
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={6} className="mb-2">
-                  Hôtels recommandés
-                </Heading>
-                <Text variant="muted" size="sm">
-                  - Villa de l&apos;Étang Blanc (Seignosse)
-                  <br />
-                  - Best Western Seignosse Resort
-                  <br />- Diverses locations Airbnb
-                </Text>
-              </div>
-              <div>
-                <Heading level={6} className="mb-2">
-                  Camping
-                </Heading>
-                <Text variant="muted" size="sm">
-                  Plusieurs campings en bord de mer à proximité
-                </Text>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Dress code */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Camera className="w-6 h-6 text-accent" />
-                Tenue vestimentaire
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={6} className="mb-2">
-                  L&apos;essentiel : soyez à l&apos;aise !
-                </Heading>
-                <Text variant="muted" size="sm">
-                  Venez comme vous vous sentez bien, dans l&apos;esprit
-                  décontracté du bord de mer.
-                  <br />
-                  Évitez simplement les talons hauts (terrasse en bois) et le
-                  blanc total.
-                </Text>
-              </div>
-              <div>
-                <Heading level={6} className="mb-2">
-                  Quelques idées
-                </Heading>
-                <Text variant="muted" size="sm">
-                  Robe d&apos;été, chemise lin, pantalon léger, sandales
-                  plates...
-                  <br />
-                  L&apos;important c&apos;est que vous vous sentiez vous-mêmes !
-                </Text>
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-accent/5 to-primary/5 p-4 rounded-lg border border-accent/10">
+                  <Heading level={6} className="mb-3 font-semibold text-accent">
+                    Hôtels recommandés
+                  </Heading>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-accent rounded-full"></div>
+                      <Text variant="muted" size="sm">
+                        Villa de l&apos;Étang Blanc (Seignosse)
+                      </Text>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-accent rounded-full"></div>
+                      <Text variant="muted" size="sm">
+                        Best Western Seignosse Resort
+                      </Text>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-accent rounded-full"></div>
+                      <Text variant="muted" size="sm">
+                        Diverses locations Airbnb
+                      </Text>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-4 rounded-lg border border-primary/10">
+                  <Heading
+                    level={6}
+                    className="mb-3 font-semibold text-primary">
+                    Camping
+                  </Heading>
+                  <Text variant="muted" size="sm" className="leading-relaxed">
+                    Plusieurs campings en bord de mer à proximité
+                  </Text>
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Menu */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Utensils className="w-6 h-6 text-accent" />
-                Menu & Allergies
+          {/* Allergies */}
+          <Card
+            variant="elegant"
+            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                  <Utensils className="w-6 h-6 text-primary" />
+                </div>
+                Allergies & Régimes
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={6} className="mb-2">
-                  Spécialités
+            <CardContent className="space-y-6">
+              <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-6 rounded-lg border border-primary/10 text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Utensils className="w-6 h-6 text-primary" />
+                </div>
+                <Heading level={6} className="mb-3 font-semibold text-primary">
+                  Signalement important
                 </Heading>
-                <Text variant="muted" size="sm">
-                  Cuisine créative et de saison par le Chef Zac.
-                  <br />
-                  Produits locaux et spécialités du Sud-Ouest.
-                  <br />
-                  Menu surprise le jour J !
-                </Text>
-              </div>
-              <div>
-                <Heading level={6} className="mb-2">
-                  Régimes spéciaux
-                </Heading>
-                <Text variant="muted" size="sm">
+                <Text variant="muted" size="sm" className="leading-relaxed">
                   Merci de nous signaler vos allergies ou régimes particuliers
-                  dans le formulaire RSVP.
+                  dans le formulaire RSVP pour que nous puissions adapter le
+                  menu.
                 </Text>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Contact */}
-          <Card variant="elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <MapPin className="w-6 h-6 text-accent" />
-                Contact
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Heading level={6} className="mb-2">
-                  Questions ?
-                </Heading>
-                <Text variant="muted" size="sm">
-                  N&apos;hésitez pas à nous contacter pour toute question !
-                </Text>
-              </div>
-              <div>
-                <Text variant="accent" size="sm">
-                  📧 sandra.nicolas.mariage@gmail.com
-                  <br />
-                  📱 06 XX XX XX XX
-                </Text>
+                <div className="mt-4 inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                  Via le formulaire RSVP
+                </div>
               </div>
             </CardContent>
           </Card>

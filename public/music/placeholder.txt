@@ -1,0 +1,18 @@
+🎵 Placeholder pour les fichiers audio
+
+Ce fichier est un placeholder. Pour activer la musique de fond :
+
+1. Remplacez ce fichier par vos fichiers MP3
+2. Nommez-les exactement comme dans la playlist :
+   - canon-in-d.mp3
+   - claire-de-lune.mp3
+   - mariage-damour.mp3
+   - river-flows-in-you.mp3
+   - comptine-dun-autre-ete.mp3
+   - nuvole-bianche.mp3
+   - la-vie-en-rose.mp3
+   - ne-me-quitte-pas.mp3
+
+3. Assurez-vous d'avoir les droits d'utilisation
+
+Le lecteur audio apparaîtra automatiquement en bas à droite de votre site !

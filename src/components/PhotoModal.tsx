@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Download, 
-  Heart, 
-  MessageCircle, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Heart,
+  MessageCircle,
   Calendar,
-  User
+  User,
 } from "lucide-react";
 import { Modal } from "./ui/Modal";
 import { Button } from "./ui/Button";
@@ -33,24 +33,27 @@ interface PhotoModalProps {
   onDownload: (url: string, filename: string) => void;
 }
 
-export function PhotoModal({ 
-  isOpen, 
-  onClose, 
-  photos, 
-  currentPhotoIndex, 
+export function PhotoModal({
+  isOpen,
+  onClose,
+  photos,
+  currentPhotoIndex,
   onPhotoChange,
-  onDownload 
+  onDownload,
 }: PhotoModalProps) {
   const currentPhoto = photos[currentPhotoIndex];
-  
+
   // Navigation avec les flèches du clavier
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       if (e.key === "ArrowLeft" && currentPhotoIndex > 0) {
         onPhotoChange(currentPhotoIndex - 1);
-      } else if (e.key === "ArrowRight" && currentPhotoIndex < photos.length - 1) {
+      } else if (
+        e.key === "ArrowRight" &&
+        currentPhotoIndex < photos.length - 1
+      ) {
         onPhotoChange(currentPhotoIndex + 1);
       }
     };
@@ -62,7 +65,9 @@ export function PhotoModal({
   if (!currentPhoto) return null;
 
   const handleDownload = () => {
-    const filename = `photo-${currentPhoto.uploader_name}-${new Date(currentPhoto.created_at).getTime()}.jpg`;
+    const filename = `photo-${currentPhoto.uploader_name}-${new Date(
+      currentPhoto.created_at
+    ).getTime()}.jpg`;
     onDownload(currentPhoto.url, filename);
   };
 
@@ -88,7 +93,7 @@ export function PhotoModal({
               <User className="w-5 h-5 text-primary" />
               <Text className="font-medium">{currentPhoto.uploader_name}</Text>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-stone-500" />
               <Text size="sm" variant="muted">
@@ -121,8 +126,7 @@ export function PhotoModal({
             <button
               onClick={goToPrevious}
               className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors cursor-pointer"
-              aria-label="Photo précédente"
-            >
+              aria-label="Photo précédente">
               <ChevronLeft className="w-6 h-6" />
             </button>
           )}
@@ -132,8 +136,7 @@ export function PhotoModal({
             <button
               onClick={goToNext}
               className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors cursor-pointer"
-              aria-label="Photo suivante"
-            >
+              aria-label="Photo suivante">
               <ChevronRight className="w-6 h-6" />
             </button>
           )}
@@ -156,11 +159,10 @@ export function PhotoModal({
                 key={photo.id}
                 onClick={() => onPhotoChange(index)}
                 className={`relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors cursor-pointer ${
-                  index === currentPhotoIndex 
-                    ? "border-primary" 
+                  index === currentPhotoIndex
+                    ? "border-primary"
                     : "border-transparent hover:border-stone-300"
-                }`}
-              >
+                }`}>
                 <Image
                   src={photo.url}
                   alt={`Miniature ${index + 1}`}
@@ -186,19 +188,18 @@ export function PhotoModal({
               </div>
             </div>
           )}
-          
+
           {/* Actions */}
           <div className="p-4 flex justify-between items-center">
             <div className="flex gap-3">
               <Button
                 variant="secondary"
                 onClick={handleDownload}
-                className="flex items-center gap-2"
-              >
+                className="flex items-center gap-2">
                 <Download className="w-4 h-4" />
                 Télécharger cette photo
               </Button>
-              
+
               {photos.length > 1 && (
                 <Button
                   variant="ghost"
@@ -206,24 +207,24 @@ export function PhotoModal({
                     // Fonction pour télécharger toutes les photos filtrées
                     photos.forEach((photo, index) => {
                       setTimeout(() => {
-                        const filename = `photo-${index + 1}-${photo.uploader_name}-${new Date(photo.created_at).getTime()}.jpg`;
+                        const filename = `photo-${index + 1}-${
+                          photo.uploader_name
+                        }-${new Date(photo.created_at).getTime()}.jpg`;
                         onDownload(photo.url, filename);
                       }, index * 500);
                     });
                   }}
-                  className="flex items-center gap-2"
-                >
+                  className="flex items-center gap-2">
                   <Download className="w-4 h-4" />
                   Télécharger tout ({photos.length})
                 </Button>
               )}
             </div>
-            
+
             <Button
               variant="ghost"
               onClick={onClose}
-              className="text-stone-600"
-            >
+              className="text-stone-600">
               Fermer
             </Button>
           </div>

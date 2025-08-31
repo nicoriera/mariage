@@ -1,10 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import RSVPForm from "../../components/RSVPForm";
+import { Modal } from "../../components/ui/Modal";
 
 export default function RSVPPage() {
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
   const handleSubmitSuccess = () => {
-    // Callback après soumission RSVP réussie
+    // Afficher le popup de succès
+    setShowSuccessPopup(true);
+  };
+
+  const closeSuccessPopup = () => {
+    setShowSuccessPopup(false);
   };
 
   return (
@@ -18,9 +27,22 @@ export default function RSVPPage() {
             Nous avons hâte de célébrer avec vous !
           </p>
         </div>
-        
+
         <RSVPForm onSubmitSuccess={handleSubmitSuccess} />
       </div>
+
+      {/* Popup de succès */}
+      <Modal isOpen={showSuccessPopup} onClose={closeSuccessPopup}>
+        <div className="text-center max-w-sm">
+          <div className="text-center">
+            <img
+              src="/images/bisous.png"
+              alt="Bisous de nous"
+              className="max-w-full h-auto"
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

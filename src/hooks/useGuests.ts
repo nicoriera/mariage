@@ -5,7 +5,6 @@ import { withDatabaseRetry } from '../lib/retry';
 interface GuestStats {
   totalGuests: number;
   thursdayCount: number;
-  fridayCount: number;
 }
 
 interface UseGuestsReturn {
@@ -33,7 +32,7 @@ export function useGuests(): UseGuestsReturn {
           .order('created_at', { ascending: false });
 
         if (fetchError) {
-          throw new Error(`Erreur lors du chargement des invités: ${fetchError.message}`);
+          throw new Error(`Erreur lors du chargement des convives: ${fetchError.message}`);
         }
         
         return data || [];
@@ -43,7 +42,7 @@ export function useGuests(): UseGuestsReturn {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erreur inattendue';
       setError(errorMessage);
-      console.error('Erreur lors du chargement des invités:', err);
+      console.error('Erreur lors du chargement des convives:', err);
     } finally {
       setLoading(false);
     }
@@ -52,7 +51,6 @@ export function useGuests(): UseGuestsReturn {
   const stats = useMemo((): GuestStats => ({
     totalGuests: guests.length,
     thursdayCount: guests.filter((g) => g.thursday === true).length,
-    fridayCount: guests.filter((g) => g.friday === true).length,
   }), [guests]);
 
   useEffect(() => {

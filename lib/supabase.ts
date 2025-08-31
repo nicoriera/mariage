@@ -10,7 +10,6 @@ export type Guest = {
   id?: number;
   name: string;
   thursday: boolean | null;
-  friday: boolean | null;
   message: string | null;
   created_at?: string;
 };

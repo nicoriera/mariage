@@ -196,7 +196,7 @@ export default function GaleriePage() {
             </Badge>
             <Badge variant="accent" className="flex items-center gap-2">
               <UsersIcon className="w-4 h-4" />
-              {stats.guests} des invités
+              {stats.guests} de nos convives
             </Badge>
           </div>
 
@@ -315,7 +315,7 @@ export default function GaleriePage() {
             <Heart className="w-16 h-16 text-stone-300 mx-auto mb-4" />
             <Heading level={3} variant="default">
               {activeTab === "guests"
-                ? "Aucune photo d'invité pour le moment"
+                ? "Aucune photo de convive pour le moment"
                 : activeTab === "pre-wedding"
                 ? "Nos souvenirs arrivent bientôt..."
                 : "Aucune photo pour le moment"}

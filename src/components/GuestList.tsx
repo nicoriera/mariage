@@ -12,7 +12,7 @@ import ErrorCard from "./ErrorCard";
 
 const GuestList = React.memo(() => {
   const { guests, loading, error, stats, refetch } = useGuests();
-  const { totalGuests, thursdayCount, fridayCount } = stats;
+  const { totalGuests, thursdayCount } = stats;
 
   if (loading) {
     return <LoadingCard />;
@@ -27,10 +27,9 @@ const GuestList = React.memo(() => {
       <GuestStatsCard 
         totalGuests={totalGuests}
         thursdayCount={thursdayCount}
-        fridayCount={fridayCount}
       />
 
-      {/* Liste des invités */}
+      {/* Liste des convives */}
       <Card variant="elegant">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-[#2a2a2a]">

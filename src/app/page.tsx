@@ -48,13 +48,7 @@ export default function HomePage() {
                 <Text variant="accent" size="lg" className="font-medium mb-2">
                   Jeudi 21 Mai 2026
                 </Text>
-                <Text variant="muted">
-                  Accueil à 18h00
-                  <br />
-                  Dîner à 20h00
-                  <br />
-                  Soirée dansante à 22h00
-                </Text>
+                <Text variant="muted">Rendez vous à 18h00 jusqu’à 01h00</Text>
               </CardContent>
             </Card>
 
@@ -108,7 +102,7 @@ export default function HomePage() {
             </Text>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link href="/rsvp" className="group">
               <Card
                 variant="default"
@@ -185,31 +179,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
-
-            <Link href="/invites" className="group">
-              <Card
-                variant="default"
-                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
-                <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-june-sky/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-sky/50 transition-june border-2 border-june-olive/20">
-                    <svg
-                      className="w-6 h-6 text-june-olive"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                  </div>
-                  <CardTitle className="mb-2">Invités</CardTitle>
-                  <CardDescription>Liste des convives</CardDescription>
-                </CardContent>
-              </Card>
-            </Link>
           </div>
 
           <div className="text-center mt-12">
@@ -223,20 +192,20 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-june-primary text-white py-12">
+      <footer className="bg-june-primary text-june-primary py-12">
         <div className="container-june text-center">
-          <Text variant="muted" className="text-white/80">
+          <Text variant="muted" className="text-june-primary/80">
             Sandra & Nicolas • 21 Mai 2026
           </Text>
           <div className="mt-4 space-x-4">
             <Badge
               variant="accent"
-              className="bg-white/10 text-white border-white/20">
+              className="bg-white/10 text-june-primary border-white/20">
               Restaurant Le Surfing
             </Badge>
             <Badge
               variant="rose"
-              className="bg-white/10 text-white border-white/20">
+              className="bg-white/10 text-june-primary border-white/20">
               Seignosse, Landes
             </Badge>
           </div>

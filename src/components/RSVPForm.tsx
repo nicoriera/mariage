@@ -46,7 +46,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
 
       <CardContent>
         <form onSubmit={onFormSubmit} className="space-y-6">
-          {/* Nom de l'invité */}
+          {/* Nom du convive */}
           <div>
             <Label required>Votre nom</Label>
             <Input
@@ -78,7 +78,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   name="thursday"
                   checked={formData.attendance.thursday === true}
                   onChange={() =>
-                    updateAttendance({ thursday: true, friday: null })
+                    updateAttendance({ thursday: true })
                   }
                   className="accent-primary"
                 />
@@ -90,7 +90,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   name="thursday"
                   checked={formData.attendance.thursday === false}
                   onChange={() =>
-                    updateAttendance({ thursday: false, friday: null })
+                    updateAttendance({ thursday: false })
                   }
                   className="accent-primary"
                 />

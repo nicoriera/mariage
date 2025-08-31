@@ -17,7 +17,7 @@ interface UseRSVPFormReturn {
 
 const initialFormData: RSVPFormData = {
   name: '',
-  attendance: { thursday: null, friday: null },
+  attendance: { thursday: null },
   message: '',
 };
 
@@ -34,8 +34,8 @@ export function useRSVPForm(): UseRSVPFormReturn {
       newErrors.name = 'Merci de renseigner votre nom';
     }
 
-    if (data.attendance.thursday === null && data.attendance.friday === null) {
-      newErrors.attendance = 'Merci de choisir au moins un événement';
+    if (data.attendance.thursday === null) {
+      newErrors.attendance = 'Merci de répondre à cette question';
     }
 
     return newErrors;
@@ -79,7 +79,6 @@ export function useRSVPForm(): UseRSVPFormReturn {
     const newGuest = {
       name: formData.name.trim(),
       thursday: formData.attendance.thursday,
-      friday: formData.attendance.friday,
       message: formData.message.trim() || null,
     };
 

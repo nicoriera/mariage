@@ -8,6 +8,7 @@ Placez vos fichiers audio MP3 dans ce dossier avec la structure suivante :
 
 ```
 public/music/
+├── fresh.mp3               # Fresh - Daft Punk (actuellement configuré)
 ├── canon-in-d.mp3          # Canon in D - Johann Pachelbel
 ├── claire-de-lune.mp3      # Clair de Lune - Claude Debussy
 ├── mariage-damour.mp3      # Mariage d'Amour - Paul de Senneville

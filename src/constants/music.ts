@@ -3,59 +3,10 @@ import type { Track } from "../hooks/useAudioPlayer";
 // Playlist de musiques romantiques pour le mariage
 export const WEDDING_PLAYLIST: Track[] = [
   {
-    id: "canon-in-d",
-    title: "Canon in D",
-    artist: "Johann Pachelbel",
-    url: "/music/canon-in-d.mp3",
-    duration: 240, // 4 minutes
-  },
-  {
-    id: "claire-de-lune",
-    title: "Clair de Lune",
-    artist: "Claude Debussy",
-    url: "/music/claire-de-lune.mp3",
-    duration: 300, // 5 minutes
-  },
-  {
-    id: "mariage-damour",
-    title: "Mariage d'Amour",
-    artist: "Paul de Senneville",
-    url: "/music/mariage-damour.mp3",
-    duration: 180, // 3 minutes
-  },
-  {
-    id: "river-flows-in-you",
-    title: "River Flows in You",
-    artist: "Yiruma",
-    url: "/music/river-flows-in-you.mp3",
-    duration: 210, // 3.5 minutes
-  },
-  {
-    id: "comptine-dun-autre-ete",
-    title: "Comptine d'un autre été",
-    artist: "Yann Tiersen",
-    url: "/music/comptine-dun-autre-ete.mp3",
-    duration: 150, // 2.5 minutes
-  },
-  {
-    id: "nuvole-bianche",
-    title: "Nuvole Bianche",
-    artist: "Ludovico Einaudi",
-    url: "/music/nuvole-bianche.mp3",
-    duration: 270, // 4.5 minutes
-  },
-  {
-    id: "la-vie-en-rose",
-    title: "La Vie en Rose",
-    artist: "Édith Piaf",
-    url: "/music/la-vie-en-rose.mp3",
-    duration: 195, // 3.25 minutes
-  },
-  {
-    id: "ne-me-quitte-pas",
-    title: "Ne me quitte pas",
-    artist: "Jacques Brel",
-    url: "/music/ne-me-quitte-pas.mp3",
+    id: "fresh",
+    title: "Fresh",
+    artist: "Daft Punk",
+    url: "/music/fresh.mp3",
     duration: 240, // 4 minutes
   },
 ];

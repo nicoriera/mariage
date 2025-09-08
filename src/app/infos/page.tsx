@@ -38,8 +38,8 @@ export default function InfosPage() {
                 Lieu & Horaires
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-4 rounded-lg border border-primary/10">
+            <CardContent className="space-y-6 p-4">
+              <div className="p-4 ">
                 <Heading level={5} className="text-primary mb-3 font-semibold">
                   Restaurant Le Surfing
                 </Heading>
@@ -48,7 +48,7 @@ export default function InfosPage() {
                   <br />
                   40510 Seignosse
                   <br />
-                  <span className="inline-block mt-2 px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                  <span className="inline-block mt-2  bg-primary/10 text-primary text-sm font-medium ">
                     Privatisation totale du restaurant
                   </span>
                 </Text>
@@ -78,7 +78,7 @@ export default function InfosPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <div className="bg-gradient-to-r from-secondary/5 to-primary/5 p-4 rounded-lg border border-secondary/10">
+                <div className="p-4">
                   <Heading
                     level={6}
                     className="mb-3 font-semibold text-secondary">
@@ -87,12 +87,12 @@ export default function InfosPage() {
                   <Text variant="muted" size="sm" className="leading-relaxed">
                     Autoroute A63, sortie 8 Seignosse.
                     <br />
-                    <span className="inline-block mt-2 px-3 py-1 bg-secondary/10 text-secondary text-sm font-medium rounded-full">
+                    <span className="inline-block mt-2  bg-secondary/10 text-secondary text-sm font-medium ">
                       Parking gratuit sur place
                     </span>
                   </Text>
                 </div>
-                <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg border border-primary/10">
+                <div className="p-4">
                   <Heading
                     level={6}
                     className="mb-3 font-semibold text-primary">
@@ -112,7 +112,7 @@ export default function InfosPage() {
             className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
-                <div className="p-2 bg-gradient-to-br from-accent/10 to-primary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="p-2  rounded-lg group-hover:scale-110 transition-transform duration-300">
                   <Home className="w-6 h-6 text-accent" />
                 </div>
                 Hébergement
@@ -120,7 +120,7 @@ export default function InfosPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <div className="bg-gradient-to-r from-accent/5 to-primary/5 p-4 rounded-lg border border-accent/10">
+                <div className="p-4">
                   <Heading level={6} className="mb-3 font-semibold text-accent">
                     Hôtels recommandés
                   </Heading>
@@ -145,7 +145,7 @@ export default function InfosPage() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-4 rounded-lg border border-primary/10">
+                <div className="p-4">
                   <Heading
                     level={6}
                     className="mb-3 font-semibold text-primary">
@@ -165,15 +165,15 @@ export default function InfosPage() {
             className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
-                <div className="p-2 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="p-2  rounded-lg group-hover:scale-110 transition-transform duration-300">
                   <Utensils className="w-6 h-6 text-primary" />
                 </div>
                 Allergies & Régimes
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-6 rounded-lg border border-primary/10 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="p-6  text-center">
+                <div className="w-12 h-12  rounded-full flex items-center justify-center mx-auto mb-4">
                   <Utensils className="w-6 h-6 text-primary" />
                 </div>
                 <Heading level={6} className="mb-3 font-semibold text-primary">

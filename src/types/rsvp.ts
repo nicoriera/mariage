@@ -1,4 +1,4 @@
-import type { Guest } from '../../lib/supabase';
+import type { Guest } from "../../lib/supabase";
 
 export interface AttendanceState {
   thursday: boolean | null;
@@ -25,5 +25,5 @@ export interface AttendanceOption {
   label: string;
   description: string;
   attendance: AttendanceState;
-  variant: 'success' | 'error';
+  variant: "success" | "error";
 }

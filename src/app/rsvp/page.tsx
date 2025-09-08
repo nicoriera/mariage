@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import RSVPForm from "../../components/RSVPForm";
 import { Modal } from "../../components/ui/Modal";
 
@@ -35,9 +36,11 @@ export default function RSVPPage() {
       <Modal isOpen={showSuccessPopup} onClose={closeSuccessPopup}>
         <div className="text-center max-w-sm">
           <div className="text-center">
-            <img
+            <Image
               src="/images/bisous.png"
               alt="Bisous de nous"
+              width={300}
+              height={200}
               className="max-w-full h-auto"
             />
           </div>

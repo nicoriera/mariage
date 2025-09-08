@@ -9,12 +9,19 @@ import {
   CardContent,
 } from "../../components/ui/Card";
 import { Input, Label } from "../../components/ui/Input";
-import { Upload, Lock, LogOut, Users, Calendar, Settings, Download, Trash2, Eye } from "lucide-react";
+import {
+  Upload,
+  Lock,
+  LogOut,
+  Users,
+  Calendar,
+  Settings,
+  Download,
+  Eye,
+} from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import LoadingCard from "../../components/LoadingCard";
-import GuestCard from "../../components/GuestCard";
 import { useGuests } from "../../hooks/useGuests";
-import GuestStatsCard from "../../components/GuestStatsCard";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading, login, logout } = useAuth();
@@ -31,11 +38,11 @@ export default function AdminPage() {
     setAuthError("");
 
     const result = await login(password);
-    
+
     if (!result.success) {
       setAuthError(result.error || "Mot de passe incorrect");
     }
-    
+
     setLoginLoading(false);
   };
 
@@ -74,13 +81,12 @@ export default function AdminPage() {
                   <p className="text-red-500 text-sm mt-1">{authError}</p>
                 )}
               </div>
-              <Button 
-                type="submit" 
-                variant="primary" 
+              <Button
+                type="submit"
+                variant="primary"
                 className="w-full"
                 loading={loginLoading}
-                disabled={loginLoading}
-              >
+                disabled={loginLoading}>
                 {loginLoading ? "Connexion..." : "Se connecter"}
               </Button>
             </form>
@@ -133,15 +139,18 @@ export default function AdminPage() {
         <div className="bg-white shadow-sm border-b border-gray-200 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Administration</h1>
-              <p className="text-sm text-gray-600 mt-1">Gestion de votre mariage</p>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Administration
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">
+                Gestion de votre mariage
+              </p>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={handleLogout}
-              className="flex items-center gap-2"
-            >
+              className="flex items-center gap-2">
               <LogOut className="w-4 h-4" />
               Déconnexion
             </Button>
@@ -152,43 +161,61 @@ export default function AdminPage() {
           {/* Stats Dashboard */}
           {!guestsLoading && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card variant="default" className="bg-white border border-gray-200">
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-blue-50 rounded-lg">
                       <Users className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Total réponses</p>
-                      <p className="text-2xl font-bold text-gray-900">{stats.totalGuests}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Total réponses
+                      </p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {stats.totalGuests}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-              
-              <Card variant="default" className="bg-white border border-gray-200">
+
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-green-50 rounded-lg">
                       <Calendar className="w-6 h-6 text-green-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Présents au repas</p>
-                      <p className="text-2xl font-bold text-gray-900">{stats.thursdayCount}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Présents au repas
+                      </p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {stats.thursdayCount}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-              
-              <Card variant="default" className="bg-white border border-gray-200">
+
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-red-50 rounded-lg">
                       <Users className="w-6 h-6 text-red-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Absents</p>
-                      <p className="text-2xl font-bold text-gray-900">{stats.totalGuests - stats.thursdayCount}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Absents
+                      </p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {stats.totalGuests - stats.thursdayCount}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -199,11 +226,14 @@ export default function AdminPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Guest Management */}
             <div className="lg:col-span-2 space-y-6">
-              <Card variant="default" className="bg-white border border-gray-200">
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardHeader className="border-b border-gray-200">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
                     <Users className="w-5 h-5" />
-                    Liste des invités ({!guestsLoading ? stats.totalGuests : '...'})
+                    Liste des invités (
+                    {!guestsLoading ? stats.totalGuests : "..."})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -212,13 +242,19 @@ export default function AdminPage() {
                       {stats.totalGuests === 0 ? (
                         <div className="p-8 text-center text-gray-500">
                           <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                          <p className="text-lg font-medium">Aucun invité pour le moment</p>
-                          <p className="text-sm">Les réponses apparaîtront ici</p>
+                          <p className="text-lg font-medium">
+                            Aucun invité pour le moment
+                          </p>
+                          <p className="text-sm">
+                            Les réponses apparaîtront ici
+                          </p>
                         </div>
                       ) : (
                         <div className="max-h-96 overflow-y-auto">
-                          {guests.map((guest, index) => (
-                            <div key={guest.id} className="p-4 hover:bg-gray-50 transition-colors">
+                          {guests.map((guest) => (
+                            <div
+                              key={guest.id}
+                              className="p-4 hover:bg-gray-50 transition-colors">
                               <div className="flex items-center justify-between">
                                 <div className="flex-1">
                                   <div className="flex items-center gap-3">
@@ -226,9 +262,13 @@ export default function AdminPage() {
                                       {guest.name.charAt(0).toUpperCase()}
                                     </div>
                                     <div>
-                                      <p className="font-medium text-gray-900">{guest.name}</p>
+                                      <p className="font-medium text-gray-900">
+                                        {guest.name}
+                                      </p>
                                       {guest.message && (
-                                        <p className="text-sm text-gray-500 italic truncate max-w-xs">« {guest.message} »</p>
+                                        <p className="text-sm text-gray-500 italic truncate max-w-xs">
+                                          « {guest.message} »
+                                        </p>
                                       )}
                                     </div>
                                   </div>
@@ -255,10 +295,12 @@ export default function AdminPage() {
                 </CardContent>
               </Card>
             </div>
-            
+
             {/* Right Sidebar - Tools */}
             <div className="space-y-6">
-              <Card variant="default" className="bg-white border border-gray-200">
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardHeader className="border-b border-gray-200">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
                     <Upload className="w-5 h-5" />
@@ -281,11 +323,13 @@ export default function AdminPage() {
                     </div>
 
                     {message && (
-                      <div className={`p-3 rounded-md text-sm ${
-                        message.includes("succès") || message.includes("Merci")
-                          ? "bg-green-50 text-green-800 border border-green-200"
-                          : "bg-red-50 text-red-800 border border-red-200"
-                      }`}>
+                      <div
+                        className={`p-3 rounded-md text-sm ${
+                          message.includes("succès") ||
+                          message.includes("Merci")
+                            ? "bg-green-50 text-green-800 border border-green-200"
+                            : "bg-red-50 text-red-800 border border-red-200"
+                        }`}>
                         {message}
                       </div>
                     )}
@@ -303,9 +347,11 @@ export default function AdminPage() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               {/* Quick Actions */}
-              <Card variant="default" className="bg-white border border-gray-200">
+              <Card
+                variant="default"
+                className="bg-white border border-gray-200">
                 <CardHeader className="border-b border-gray-200">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
                     <Settings className="w-5 h-5" />
@@ -318,8 +364,7 @@ export default function AdminPage() {
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled
-                    >
+                      disabled>
                       <Download className="w-4 h-4 mr-2" />
                       Exporter liste (bientôt)
                     </Button>
@@ -327,8 +372,7 @@ export default function AdminPage() {
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled
-                    >
+                      disabled>
                       <Eye className="w-4 h-4 mr-2" />
                       Voir site public
                     </Button>

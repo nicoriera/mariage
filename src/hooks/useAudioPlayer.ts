@@ -150,7 +150,7 @@ export function useAudioPlayer(playlist: Track[]) {
         setTimeout(() => play(), 100);
       }
     }
-  }, [state.currentTrackIndex, state.isPlaying, playlist.length, play]);
+  }, [state.currentTrackIndex, state.isPlaying, playlist, play]);
 
   const playPrevious = useCallback(() => {
     const prevIndex =
@@ -172,7 +172,7 @@ export function useAudioPlayer(playlist: Track[]) {
         setTimeout(() => play(), 100);
       }
     }
-  }, [state.currentTrackIndex, playlist.length, play]);
+  }, [state.currentTrackIndex, state.isPlaying, playlist, play]);
 
   const setVolume = useCallback((volume: number) => {
     if (audioRef.current) {

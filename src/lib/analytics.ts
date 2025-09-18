@@ -92,12 +92,10 @@ class WeddingAnalytics {
   trackRSVP(data: {
     name: string;
     thursday: boolean | null;
-    friday: boolean | null;
     hasMessage: boolean;
   }) {
     this.track("rsvp_submitted", {
       thursday: data.thursday,
-      friday: data.friday,
       hasMessage: data.hasMessage,
       // Don't track personal data like names
     });
@@ -168,7 +166,6 @@ export const trackPageView = (page: string, title?: string) => {
 export const trackRSVP = (data: {
   name: string;
   thursday: boolean | null;
-  friday: boolean | null;
   hasMessage: boolean;
 }) => {
   analytics.trackRSVP(data);

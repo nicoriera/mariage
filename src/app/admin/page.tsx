@@ -9,7 +9,7 @@ import {
   CardContent,
 } from "../../components/ui/Card";
 import { Input, Label } from "../../components/ui/Input";
-import { Heading, Text } from "../../components/ui/Typography";
+import { Heading } from "../../components/ui/Typography";
 import {
   Upload,
   Lock,

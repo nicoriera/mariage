@@ -74,10 +74,9 @@ export const guestMessageSchema = z
 export const attendanceSchema = z
   .object({
     thursday: z.boolean().nullable(),
-    friday: z.boolean().nullable(),
   })
-  .refine((data) => data.thursday !== null || data.friday !== null, {
-    message: "Vous devez choisir au moins un événement",
+  .refine((data) => data.thursday !== null, {
+    message: "Vous devez confirmer votre présence",
     path: ["attendance"],
   });
 
@@ -89,10 +88,9 @@ export const rsvpFormSchema = z
     name: guestNameSchema,
     message: guestMessageSchema,
     thursday: z.boolean().nullable(),
-    friday: z.boolean().nullable(),
   })
-  .refine((data) => data.thursday !== null || data.friday !== null, {
-    message: "Vous devez choisir au moins un événement",
+  .refine((data) => data.thursday !== null, {
+    message: "Vous devez confirmer votre présence",
     path: ["attendance"],
   });
 

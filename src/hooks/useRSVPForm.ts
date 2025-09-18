@@ -21,7 +21,7 @@ interface UseRSVPFormReturn {
 
 const initialFormData: RSVPFormData = {
   name: "",
-  attendance: { thursday: null, friday: null },
+  attendance: { thursday: null },
   message: "",
 };
 

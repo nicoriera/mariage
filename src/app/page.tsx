@@ -16,7 +16,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-june-hero-lines">
       {/* Header Hero */}
       <WeddingHeader
-        variant="hero"
         title="Sandra & Nicolas"
         subtitle="Nous nous marions"
         date="Jeudi 21 Mai 2026"
@@ -41,14 +40,13 @@ export default function HomePage() {
               variant="elegant"
               className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
-                <CardTitle>Date & Heure</CardTitle>
-                <CardDescription>Cérémonie et réception</CardDescription>
+                <CardTitle>Cérémonie</CardTitle>
               </CardHeader>
               <CardContent>
                 <Text variant="accent" size="lg" className="font-medium mb-2">
-                  Jeudi 21 Mai 2026
+                  Jeudi 21 Mai 2026 (heure à définir)
                 </Text>
-                <Text variant="muted">Rendez vous à 18h00 jusqu’à 01h00</Text>
+                <Text variant="muted">A la mairie d&apos;Hendaye</Text>
               </CardContent>
             </Card>
 
@@ -56,13 +54,17 @@ export default function HomePage() {
               variant="elegant"
               className="hover-june-lift shadow-june-md bg-white border border-june/10">
               <CardHeader>
-                <CardTitle>Lieu</CardTitle>
+                <CardTitle>Fiesta</CardTitle>
                 <CardDescription>Restaurant Le Surfing</CardDescription>
               </CardHeader>
               <CardContent>
                 <Text variant="accent" size="lg" className="font-medium mb-2">
+                  Rendez vous à 18h00 jusqu’à 01h00
+                </Text>
+                <Text variant="muted" className="font-medium ">
                   Seignosse, Landes
                 </Text>
+
                 <Text variant="muted">
                   6 Place des Estagnots
                   <br />

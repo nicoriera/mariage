@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import RSVPForm from "../../components/RSVPForm";
 import { Modal } from "../../components/ui/Modal";
+import { Heading, Text } from "../../components/ui/Typography";
+import { CheckCircle } from "lucide-react";
 
 export default function RSVPPage() {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -20,13 +22,16 @@ export default function RSVPPage() {
   return (
     <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-heading font-bold text-primary mb-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full mb-6">
+            <CheckCircle className="w-8 h-8 text-primary" />
+          </div>
+          <Heading level={2} variant="elegant" className="mb-6">
             Confirmez votre présence
-          </h1>
-          <p className="text-lg text-stone-600">
+          </Heading>
+          <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
             Nous avons hâte de célébrer avec vous !
-          </p>
+          </Text>
         </div>
 
         <RSVPForm onSubmitSuccess={handleSubmitSuccess} />

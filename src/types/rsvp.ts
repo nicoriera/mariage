@@ -2,6 +2,7 @@ import type { Guest } from "../../lib/supabase";
 
 export interface AttendanceState {
   thursday: boolean | null;
+  friday: boolean | null;
 }
 
 export interface RSVPFormData {

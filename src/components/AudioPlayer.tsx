@@ -36,7 +36,6 @@ export function AudioPlayer() {
     playPrevious,
     setVolume,
     toggleMute,
-    seekTo,
     formatTime,
     playlist,
   } = useAudioPlayer(WEDDING_PLAYLIST);
@@ -46,16 +45,6 @@ export function AudioPlayer() {
     if (!hasUserInteracted) {
       setHasUserInteracted(true);
     }
-  };
-
-  // Gérer le clic sur la barre de progression
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const percentage = clickX / rect.width;
-    const newTime = percentage * duration;
-    seekTo(newTime);
-    handleUserInteraction();
   };
 
   // Gérer le changement de volume
@@ -72,22 +61,11 @@ export function AudioPlayer() {
   };
 
   // Calculer le pourcentage de progression
-  const progressPercentage = duration > 0 ? (progress / duration) * 100 : 0;
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {/* Lecteur compact (toujours visible) */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 overflow-hidden">
-        {/* Barre de progression en haut */}
-        <div
-          className="h-1 bg-stone-200 cursor-pointer hover:h-1.5 transition-all duration-200"
-          onClick={handleProgressClick}>
-          <div
-            className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-200"
-            style={{ width: `${progressPercentage}%` }}
-          />
-        </div>
-
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 overflow-hidden">
         {/* Contrôles principaux */}
         <div className="p-3 flex items-center gap-3">
           {/* Bouton play/pause principal */}

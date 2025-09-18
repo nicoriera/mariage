@@ -77,9 +77,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   type="radio"
                   name="thursday"
                   checked={formData.attendance.thursday === true}
-                  onChange={() =>
-                    updateAttendance({ thursday: true, friday: null })
-                  }
+                  onChange={() => updateAttendance({ thursday: true })}
                   className="accent-primary"
                 />
                 Oui
@@ -89,9 +87,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   type="radio"
                   name="thursday"
                   checked={formData.attendance.thursday === false}
-                  onChange={() =>
-                    updateAttendance({ thursday: false, friday: null })
-                  }
+                  onChange={() => updateAttendance({ thursday: false })}
                   className="accent-primary"
                 />
                 Non

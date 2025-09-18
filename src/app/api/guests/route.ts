@@ -44,7 +44,6 @@ export async function POST(request: NextRequest) {
         {
           name: validatedData.name,
           thursday: validatedData.thursday,
-          friday: validatedData.friday,
           message: validatedData.message,
         },
       ])

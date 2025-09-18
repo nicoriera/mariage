@@ -37,7 +37,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-primary">
           <Users className="w-8 h-8" />
-          Confirmez votre présence
+          On compte sur vous !
         </CardTitle>
         <Text variant="muted">
           Merci de confirmer votre participation à nos célébrations
@@ -65,7 +65,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
 
           {/* Réservation jeudi */}
           <div>
-            <Label required>Réservez-vous pour le jeudi&nbsp;?</Label>
+            <Label required>Serez-vous des nôtres le jeudi ?</Label>
             {errors.attendance && (
               <Text size="sm" className="text-coral-600 mb-3">
                 {errors.attendance}
@@ -78,7 +78,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   name="thursday"
                   checked={formData.attendance.thursday === true}
                   onChange={() =>
-                    updateAttendance({ thursday: true })
+                    updateAttendance({ thursday: true, friday: null })
                   }
                   className="accent-primary"
                 />
@@ -90,7 +90,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
                   name="thursday"
                   checked={formData.attendance.thursday === false}
                   onChange={() =>
-                    updateAttendance({ thursday: false })
+                    updateAttendance({ thursday: false, friday: null })
                   }
                   className="accent-primary"
                 />
@@ -134,7 +134,7 @@ const RSVPForm = React.memo<RSVPFormProps>(({ onSubmitSuccess, className }) => {
           onClick={onFormSubmit}
           className="w-full">
           <Send className="w-5 h-5" />
-          {isSubmitting ? "Envoi en cours..." : "Confirmer ma présence"}
+          {isSubmitting ? "Envoi en cours..." : "Je confirme ma venue !"}
         </Button>
       </CardFooter>
     </Card>

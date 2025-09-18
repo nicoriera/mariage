@@ -9,6 +9,7 @@ import {
   Calendar,
   Users as UsersIcon,
   Download,
+  Camera,
 } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
@@ -175,12 +176,15 @@ export default function GaleriePage() {
   return (
     <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <Heading level={1} variant="elegant" className="mb-4 text-primary">
+        {/* Header amélioré */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full mb-6">
+            <Camera className="w-8 h-8 text-primary" />
+          </div>
+          <Heading level={2} variant="elegant" className="mb-6">
             Galerie Photos
           </Heading>
-          <Text size="lg" variant="muted" className="mb-6">
+          <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
             Partagez vos plus beaux souvenirs avec nous
           </Text>
 

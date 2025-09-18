@@ -9,6 +9,7 @@ import {
   CardContent,
 } from "../../components/ui/Card";
 import { Input, Label } from "../../components/ui/Input";
+import { Heading, Text } from "../../components/ui/Typography";
 import {
   Upload,
   Lock,
@@ -139,9 +140,9 @@ export default function AdminPage() {
         <div className="bg-white shadow-sm border-b border-gray-200 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <Heading level={2} variant="elegant" className="mb-6">
                 Administration
-              </h1>
+              </Heading>
               <p className="text-sm text-gray-600 mt-1">
                 Gestion de votre mariage
               </p>
@@ -335,9 +336,11 @@ export default function AdminPage() {
                     )}
 
                     <div className="bg-gray-50 p-4 rounded-md">
-                      <h3 className="font-medium text-gray-900 mb-2 text-sm">
+                      <Heading
+                        level={6}
+                        className="font-medium text-gray-900 mb-2 text-sm">
                         Instructions
-                      </h3>
+                      </Heading>
                       <ul className="text-xs text-gray-600 space-y-1">
                         <li>• Format : JPG ou PNG</li>
                         <li>• Taille : 800x800px</li>

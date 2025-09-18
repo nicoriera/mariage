@@ -16,12 +16,12 @@ export default function InfosPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full mb-6">
             <MapPin className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <Heading level={2} variant="elegant" className="mb-6">
             Informations pratiques
-          </h1>
-          <p className="text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
+          </Heading>
+          <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
             Tout ce qu&apos;il faut savoir pour notre mariage
-          </p>
+          </Text>
         </div>
 
         {/* Grille optimisée pour 4 cartes */}
@@ -126,19 +126,16 @@ export default function InfosPage() {
                   </Heading>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-accent rounded-full"></div>
                       <Text variant="muted" size="sm">
                         Villa de l&apos;Étang Blanc (Seignosse)
                       </Text>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-accent rounded-full"></div>
                       <Text variant="muted" size="sm">
                         Best Western Seignosse Resort
                       </Text>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-accent rounded-full"></div>
                       <Text variant="muted" size="sm">
                         Diverses locations Airbnb
                       </Text>
@@ -172,21 +169,14 @@ export default function InfosPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="p-6  text-center">
-                <div className="w-12 h-12  rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Utensils className="w-6 h-6 text-primary" />
-                </div>
+              <div className="p-6  ">
                 <Heading level={6} className="mb-3 font-semibold text-primary">
                   Signalement important
                 </Heading>
                 <Text variant="muted" size="sm" className="leading-relaxed">
-                  Merci de nous signaler vos allergies ou régimes particuliers
-                  dans le formulaire RSVP pour que nous puissions adapter le
-                  menu.
+                  Merci de nous signaler vos allergies dans le formulaire RSVP
+                  pour que nous puissions adapter le menu.
                 </Text>
-                <div className="mt-4 inline-block px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                  Via le formulaire RSVP
-                </div>
               </div>
             </CardContent>
           </Card>

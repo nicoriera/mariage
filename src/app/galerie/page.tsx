@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   Upload,
@@ -16,8 +17,14 @@ import { Button } from "../../components/ui/Button";
 import { Heading, Text, Badge } from "../../components/ui/Typography";
 import { uploadImage } from "../../../lib/imageStorage";
 import { supabase } from "../../../lib/supabase";
-import { PhotoModal } from "../../components/PhotoModal";
-import { UploadModal } from "../../components/UploadModal";
+const PhotoModal = dynamic(
+  () => import("../../components/PhotoModal").then((m) => m.PhotoModal),
+  { ssr: false, loading: () => null }
+);
+const UploadModal = dynamic(
+  () => import("../../components/UploadModal").then((m) => m.UploadModal),
+  { ssr: false, loading: () => null }
+);
 import { env } from "../../lib/env";
 
 interface Photo {

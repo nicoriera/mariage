@@ -9,8 +9,8 @@ import {
 import Navigation from "../components/Navigation";
 import GlobalErrorBoundary from "../components/GlobalErrorBoundary";
 import SkipLink from "../components/SkipLink";
-import { AudioPlayer } from "../components/AudioPlayer";
 import "./globals.css";
+import { ClientAudioPlayer } from "../components/ClientAudioPlayer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,7 +61,7 @@ export default function RootLayout({
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
-          <AudioPlayer />
+          <ClientAudioPlayer />
         </GlobalErrorBoundary>
       </body>
     </html>

@@ -4,21 +4,26 @@ export interface AttendanceState {
   thursday: boolean | null;
 }
 
-export interface RSVPFormData {
+export interface ConfirmationFormData {
   name: string;
   attendance: AttendanceState;
   message: string;
 }
 
-export interface RSVPFormErrors {
+export interface ConfirmationFormErrors {
   name?: string;
   attendance?: string;
 }
 
-export interface RSVPFormProps {
+export interface ConfirmationFormProps {
   onSubmitSuccess?: (guest: Guest) => void;
   className?: string;
 }
+
+// Alias pour la compatibilité
+export type RSVPFormData = ConfirmationFormData;
+export type RSVPFormErrors = ConfirmationFormErrors;
+export type RSVPFormProps = ConfirmationFormProps;
 
 export interface AttendanceOption {
   id: string;

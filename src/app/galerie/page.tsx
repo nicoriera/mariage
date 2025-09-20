@@ -18,6 +18,7 @@ import { uploadImage } from "../../../lib/imageStorage";
 import { supabase } from "../../../lib/supabase";
 import { PhotoModal } from "../../components/PhotoModal";
 import { UploadModal } from "../../components/UploadModal";
+import { env } from "../../lib/env";
 
 interface Photo {
   id: string;
@@ -38,8 +39,28 @@ export default function GaleriePage() {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Calcul côté client pour éviter les mismatches SSR/CSR
+  const [isAfterWedding, setIsAfterWedding] = useState<boolean | null>(null);
+  const [displayDate, setDisplayDate] = useState<string>("");
+
   useEffect(() => {
-    fetchPhotos();
+    const weddingDateLocal = new Date(`${env.WEDDING_DATE}T00:00:00`);
+    const after = new Date() >= weddingDateLocal;
+    setIsAfterWedding(after);
+    setDisplayDate(
+      weddingDateLocal.toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+
+    if (after) {
+      fetchPhotos();
+    } else {
+      setPhotos([]);
+    }
   }, []);
 
   const fetchPhotos = async () => {
@@ -172,6 +193,36 @@ export default function GaleriePage() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // État initial: attendre le montage pour éviter mismatch SSR/CSR
+  if (isAfterWedding === null) {
+    return (
+      <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
+        <div className="max-w-3xl mx-auto" />
+      </div>
+    );
+  }
+
+  // UI verrouillée avant la date du mariage
+  if (!isAfterWedding) {
+    return (
+      <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full mb-6">
+            <Camera className="w-8 h-8 text-primary" />
+          </div>
+          <Heading level={2} variant="elegant" className="mb-4">
+            La galerie ouvre après la fête ✨
+          </Heading>
+          <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
+            Nous avons hâte de découvrir vos plus beaux clichés ! Les envois
+            seront possibles à partir du {displayDate}. Revenez après la
+            célébration pour partager vos souvenirs avec nous 💖
+          </Text>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">

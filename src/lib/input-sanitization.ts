@@ -81,9 +81,9 @@ export const attendanceSchema = z
   });
 
 /**
- * Complete RSVP form validation schema
+ * Complete confirmation form validation schema
  */
-export const rsvpFormSchema = z
+export const confirmationFormSchema = z
   .object({
     name: guestNameSchema,
     message: guestMessageSchema,
@@ -95,11 +95,11 @@ export const rsvpFormSchema = z
   });
 
 /**
- * Sanitize and validate RSVP form data
+ * Sanitize and validate confirmation form data
  */
-export function validateAndSanitizeRSVPData(rawData: unknown) {
+export function validateAndSanitizeConfirmationData(rawData: unknown) {
   try {
-    return rsvpFormSchema.parse(rawData);
+    return confirmationFormSchema.parse(rawData);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const formattedErrors = error.issues.map((err: z.ZodIssue) => ({

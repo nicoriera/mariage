@@ -88,13 +88,13 @@ class WeddingAnalytics {
     });
   }
 
-  // Track RSVP submissions
-  trackRSVP(data: {
+  // Track confirmation submissions
+  trackConfirmation(data: {
     name: string;
     thursday: boolean | null;
     hasMessage: boolean;
   }) {
-    this.track("rsvp_submitted", {
+    this.track("confirmation_submitted", {
       thursday: data.thursday,
       hasMessage: data.hasMessage,
       // Don't track personal data like names
@@ -163,12 +163,12 @@ export const trackPageView = (page: string, title?: string) => {
   analytics.trackPageView(page, title);
 };
 
-export const trackRSVP = (data: {
+export const trackConfirmation = (data: {
   name: string;
   thursday: boolean | null;
   hasMessage: boolean;
 }) => {
-  analytics.trackRSVP(data);
+  analytics.trackConfirmation(data);
 };
 
 export const trackAdminAction = (

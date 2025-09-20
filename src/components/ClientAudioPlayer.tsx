@@ -10,5 +10,3 @@ const AudioPlayer = dynamic(
 export const ClientAudioPlayer = () => {
   return <AudioPlayer />;
 };
-
-

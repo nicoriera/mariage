@@ -15,7 +15,7 @@ import { CheckCircle, MapPin } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-june-hero-lines">
+    <div className="min-h-screen ">
       {/* Header Hero */}
       <WeddingHeader
         title="Sandra & Nicolas"
@@ -106,14 +106,14 @@ export default function HomePage() {
             </Text>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <Link href="/rsvp" className="group">
               <Card
-                variant="default"
+                variant="elegant"
                 className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-june-rose/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-rose/50 transition-june border-2 border-june-olive/20">
-                    <CheckCircle className="w-6 h-6 text-june-olive" />
+                  <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-6 h-6 " />
                   </div>
                   <CardTitle className="mb-2">Confirmer</CardTitle>
                   <CardDescription>Répondez à notre invitation</CardDescription>
@@ -123,11 +123,11 @@ export default function HomePage() {
 
             <Link href="/infos" className="group">
               <Card
-                variant="default"
+                variant="elegant"
                 className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
-                    <MapPin className="w-6 h-6 text-june-olive" />
+                    <MapPin className="w-6 h-6 " />
                   </div>
                   <CardTitle className="mb-2">Informations</CardTitle>
                   <CardDescription>
@@ -142,7 +142,10 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Link href="/rsvp">
-              <Button variant="primary" size="lg">
+              <Button
+                variant="primary"
+                size="lg"
+                className="rounded-full px-10">
                 Confirmer ma présence
               </Button>
             </Link>

@@ -3,7 +3,13 @@ import { cn } from "../../lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "accent";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "ghost"
+    | "accent"
+    | "elegant";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   children: React.ReactNode;
@@ -36,6 +42,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "text-[#5a5a5a] hover:bg-[#f3f1ef] hover:text-[#2a2a2a] focus:ring-[#9db380]",
       accent:
         "bg-[#9db380] text-white hover:bg-[#8ba370] focus:ring-[#9db380] shadow-sm hover:shadow-md",
+      elegant:
+        "text-white border border-white/70 bg-white/10 hover:bg-white/20 focus:ring-white/60 backdrop-blur-sm",
     };
 
     const sizes = {

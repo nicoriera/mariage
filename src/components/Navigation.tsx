@@ -10,6 +10,7 @@ import {
 import NavigationLink from "./NavigationLink";
 import MobileMenuIcon from "./MobileMenuIcon";
 import type { NavigationProps, NavItem } from "../types/navigation";
+import { env } from "../lib/env";
 
 const defaultNavItems: NavItem[] = [
   { href: "/", label: "Accueil" },
@@ -21,6 +22,10 @@ const defaultNavItems: NavItem[] = [
 const Navigation = React.memo<NavigationProps>(
   ({ navItems = defaultNavItems, logoText = "Mariage", className }) => {
     const { isMenuOpen, toggleMenu, closeMenu, isActive } = useNavigation();
+    const [isAfterWedding, setIsAfterWedding] = React.useState(false);
+    React.useEffect(() => {
+      setIsAfterWedding(new Date() >= new Date(`${env.WEDDING_DATE}T00:00:00`));
+    }, []);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
 
     // Keyboard navigation for mobile menu
@@ -52,15 +57,19 @@ const Navigation = React.memo<NavigationProps>(
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <NavigationLink
-                  key={item.href}
-                  href={item.href}
-                  label={item.label}
-                  isActive={isActive(item.href)}
-                  variant="desktop"
-                />
-              ))}
+              {(navItems || defaultNavItems)
+                .filter((item) =>
+                  item.href === "/galerie" ? isAfterWedding : true
+                )
+                .map((item) => (
+                  <NavigationLink
+                    key={item.href}
+                    href={item.href}
+                    label={item.label}
+                    isActive={isActive(item.href)}
+                    variant="desktop"
+                  />
+                ))}
             </div>
 
             {/* Mobile menu button */}
@@ -81,16 +90,20 @@ const Navigation = React.memo<NavigationProps>(
               role="menu"
               aria-label="Navigation mobile">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {navItems.map((item) => (
-                  <NavigationLink
-                    key={item.href}
-                    href={item.href}
-                    label={item.label}
-                    isActive={isActive(item.href)}
-                    variant="mobile"
-                    onClick={closeMenu}
-                  />
-                ))}
+                {(navItems || defaultNavItems)
+                  .filter((item) =>
+                    item.href === "/galerie" ? isAfterWedding : true
+                  )
+                  .map((item) => (
+                    <NavigationLink
+                      key={item.href}
+                      href={item.href}
+                      label={item.label}
+                      isActive={isActive(item.href)}
+                      variant="mobile"
+                      onClick={closeMenu}
+                    />
+                  ))}
               </div>
             </div>
           )}

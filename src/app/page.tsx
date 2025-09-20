@@ -10,6 +10,8 @@ import {
 } from "../components/ui/Card";
 import { Heading, Text, Quote } from "../components/ui/Typography";
 import Link from "next/link";
+import GalleryLinkCard from "../components/GalleryLinkCard";
+import { CheckCircle, MapPin } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -111,18 +113,7 @@ export default function HomePage() {
                 className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 bg-june-rose/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-rose/50 transition-june border-2 border-june-olive/20">
-                    <svg
-                      className="w-6 h-6 text-june-olive"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                    <CheckCircle className="w-6 h-6 text-june-olive" />
                   </div>
                   <CardTitle className="mb-2">Confirmer</CardTitle>
                   <CardDescription>Répondez à notre invitation</CardDescription>
@@ -135,19 +126,8 @@ export default function HomePage() {
                 variant="default"
                 className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
                 <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-june-mint/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-mint/50 transition-june border-2 border-june-olive/20">
-                    <svg
-                      className="w-6 h-6 text-june-olive"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="w-6 h-6 text-june-olive" />
                   </div>
                   <CardTitle className="mb-2">Informations</CardTitle>
                   <CardDescription>
@@ -157,30 +137,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link href="/galerie" className="group">
-              <Card
-                variant="default"
-                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
-                <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-june-lilac/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-june-lilac/50 transition-june border-2 border-june-olive/20">
-                    <svg
-                      className="w-6 h-6 text-june-olive"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <CardTitle className="mb-2">Galerie</CardTitle>
-                  <CardDescription>Photos et souvenirs</CardDescription>
-                </CardContent>
-              </Card>
-            </Link>
+            <GalleryLinkCard />
           </div>
 
           <div className="text-center mt-12">

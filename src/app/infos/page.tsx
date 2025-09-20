@@ -174,8 +174,8 @@ export default function InfosPage() {
                   Signalement important
                 </Heading>
                 <Text variant="muted" size="sm" className="leading-relaxed">
-                  Merci de nous signaler vos allergies dans le formulaire RSVP
-                  pour que nous puissions adapter le menu.
+                  Merci de nous signaler vos allergies dans le formulaire de
+                  confirmation pour que nous puissions adapter le menu.
                 </Text>
               </div>
             </CardContent>

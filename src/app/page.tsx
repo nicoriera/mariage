@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/Card";
-import { Heading, Text, Quote, Badge } from "../components/ui/Typography";
+import { Heading, Text, Quote } from "../components/ui/Typography";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -194,25 +194,6 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-june-primary text-june-primary py-12">
-        <div className="container-june text-center">
-          <Text variant="muted" className="text-june-primary/80">
-            Sandra & Nicolas • 21 Mai 2026
-          </Text>
-          <div className="mt-4 space-x-4">
-            <Badge
-              variant="accent"
-              className="bg-white/10 text-june-primary border-white/20">
-              Restaurant Le Surfing
-            </Badge>
-            <Badge
-              variant="rose"
-              className="bg-white/10 text-june-primary border-white/20">
-              Seignosse, Landes
-            </Badge>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

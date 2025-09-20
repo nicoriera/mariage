@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import RSVPForm from "../../components/RSVPForm";
+import ConfirmationForm from "../../components/RSVPForm";
 import { Modal } from "../../components/ui/Modal";
 import { Heading, Text } from "../../components/ui/Typography";
 import { CheckCircle } from "lucide-react";
@@ -34,7 +34,7 @@ export default function RSVPPage() {
           </Text>
         </div>
 
-        <RSVPForm onSubmitSuccess={handleSubmitSuccess} />
+        <ConfirmationForm onSubmitSuccess={handleSubmitSuccess} />
       </div>
 
       {/* Popup de succès */}

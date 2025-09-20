@@ -6,7 +6,7 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
 
 - **Modern Stack**: Next.js 15, React 19, TypeScript 5
 - **Secure Authentication**: Server-side admin authentication with rate limiting
-- **Real-time Updates**: Live RSVP updates using Supabase subscriptions
+- **Real-time Updates**: Live confirmation updates using Supabase subscriptions
 - **Responsive Design**: Mobile-first design with sophisticated "Maison June" inspired theme
 - **Accessibility**: WCAG compliant with keyboard navigation and screen reader support
 - **Performance Optimized**: React.memo, code splitting, and optimized images
@@ -15,12 +15,14 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
 ## 🏗️ Architecture
 
 ### Components
+
 - **Atomic Design**: Organized component hierarchy with reusable UI components
 - **Custom Hooks**: Business logic abstracted into reusable hooks
 - **Error Boundaries**: Comprehensive error handling with graceful fallbacks
 - **Performance**: Optimized with React.memo, useMemo, and useCallback
 
 ### Security
+
 - ✅ Server-side authentication
 - ✅ Input validation and sanitization
 - ✅ Rate limiting
@@ -30,40 +32,44 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Supabase account
 
 ## 🔧 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd mariage
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
+
    ```bash
    cp .env.local.example .env.local
    ```
 
 4. **Configure environment variables**
+
    ```env
    # Supabase Configuration
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   
+
    # Admin Authentication
    ADMIN_PASSWORD=your_secure_admin_password
-   
+
    # Image Upload (optional)
    IMGUR_CLIENT_ID=your_imgur_client_id
-   
+
    # Wedding Configuration
    WEDDING_DATE=2026-05-21
    WEDDING_LOCATION=Restaurant Le Surfing, Seignosse
@@ -71,6 +77,7 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
    ```
 
 5. **Set up Supabase database**
+
    ```sql
    -- Create guests table
    CREATE TABLE guests (
@@ -81,10 +88,10 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
      message TEXT,
      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
    );
-   
+
    -- Enable Row Level Security
    ALTER TABLE guests ENABLE ROW LEVEL SECURITY;
-   
+
    -- Create policies (adjust as needed)
    CREATE POLICY "Allow public read access" ON guests FOR SELECT USING (true);
    CREATE POLICY "Allow public insert access" ON guests FOR INSERT WITH CHECK (true);
@@ -98,11 +105,13 @@ A modern, secure, and accessible Next.js wedding application built with TypeScri
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
 1. Connect your repository to Vercel
 2. Add environment variables in Vercel dashboard
 3. Deploy automatically on push to main branch
 
 ### Other Platforms
+
 - Ensure Node.js 18+ runtime
 - Set all required environment variables
 - Build command: `npm run build`
@@ -115,7 +124,7 @@ src/
 ├── app/                    # Next.js App Router
 │   ├── admin/             # Admin panel
 │   ├── api/               # API routes
-│   ├── rsvp/              # RSVP page
+│   ├── rsvp/              # Confirmation page
 │   └── layout.tsx         # Root layout
 ├── components/            # React components
 │   ├── ui/                # Design system components
@@ -138,6 +147,7 @@ The application uses a sophisticated design system inspired by "Maison June":
 ## 🔒 Security Features
 
 ### Implemented
+
 - Server-side authentication with secure sessions
 - Input validation and sanitization using Zod
 - Rate limiting (5 requests/minute for submissions)
@@ -146,6 +156,7 @@ The application uses a sophisticated design system inspired by "Maison June":
 - Environment variable validation
 
 ### Recommendations for Production
+
 - Use proper JWT tokens or session management
 - Implement proper password hashing
 - Add 2FA for admin access
@@ -169,7 +180,7 @@ npm test
 The application includes basic analytics tracking:
 
 - Page views
-- RSVP submissions (anonymized)
+- Confirmation submissions (anonymized)
 - Error tracking
 - Admin actions
 
@@ -178,6 +189,7 @@ Configure error reporting service in `src/lib/analytics.ts` for production.
 ## 🔧 Development
 
 ### Commands
+
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production
@@ -187,6 +199,7 @@ npm run type-check   # Run TypeScript checks
 ```
 
 ### Adding New Features
+
 1. Create components in appropriate directories
 2. Add TypeScript types in `/src/types/`
 3. Use custom hooks for business logic
@@ -197,11 +210,13 @@ npm run type-check   # Run TypeScript checks
 ### Common Issues
 
 1. **Supabase Connection Error**
+
    - Verify environment variables
    - Check Supabase project settings
    - Ensure RLS policies are configured
 
 2. **Admin Login Not Working**
+
    - Check ADMIN_PASSWORD environment variable
    - Ensure API routes are deployed correctly
 

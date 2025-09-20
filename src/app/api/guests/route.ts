@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "../../../../lib/supabase";
 import {
-  validateAndSanitizeRSVPData,
+  validateAndSanitizeConfirmationData,
   checkRateLimit,
 } from "../../../lib/input-sanitization";
 
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     // Parse and validate request body
     const rawData = await request.json();
-    const validatedData = validateAndSanitizeRSVPData(rawData);
+    const validatedData = validateAndSanitizeConfirmationData(rawData);
 
     // Insert into database
     const { data, error } = await supabase

@@ -15,7 +15,7 @@ const defaultNavItems: NavItem[] = [
   { href: "/", label: "Accueil" },
   { href: "/infos", label: "Informations" },
   { href: "/galerie", label: "Galerie" },
-  { href: "/rsvp", label: "RSVP" },
+  { href: "/rsvp", label: "Confirmer" },
 ];
 
 const Navigation = React.memo<NavigationProps>(

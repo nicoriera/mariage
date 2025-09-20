@@ -21,7 +21,7 @@ export interface AudioPlayerState {
 export function useAudioPlayer(playlist: Track[]) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [state, setState] = useState<AudioPlayerState>({
-    isPlaying: false,
+    isPlaying: true,
     currentTrack: null,
     currentTrackIndex: 0,
     volume: 0.5,

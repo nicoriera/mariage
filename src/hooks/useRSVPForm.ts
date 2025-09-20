@@ -2,14 +2,14 @@ import { useState, useCallback } from "react";
 import { supabase, type Guest } from "../../lib/supabase";
 import { withDatabaseRetry } from "../lib/retry";
 import type {
-  RSVPFormData,
-  RSVPFormErrors,
+  ConfirmationFormData,
+  ConfirmationFormErrors,
   AttendanceState,
 } from "../types/rsvp";
 
-interface UseRSVPFormReturn {
-  formData: RSVPFormData;
-  errors: RSVPFormErrors;
+interface UseConfirmationFormReturn {
+  formData: ConfirmationFormData;
+  errors: ConfirmationFormErrors;
   isSubmitting: boolean;
   submitMessage: string;
   updateName: (name: string) => void;
@@ -19,31 +19,35 @@ interface UseRSVPFormReturn {
   resetForm: () => void;
 }
 
-const initialFormData: RSVPFormData = {
+const initialFormData: ConfirmationFormData = {
   name: "",
   attendance: { thursday: null },
   message: "",
 };
 
-export function useRSVPForm(): UseRSVPFormReturn {
-  const [formData, setFormData] = useState<RSVPFormData>(initialFormData);
-  const [errors, setErrors] = useState<RSVPFormErrors>({});
+export function useConfirmationForm(): UseConfirmationFormReturn {
+  const [formData, setFormData] =
+    useState<ConfirmationFormData>(initialFormData);
+  const [errors, setErrors] = useState<ConfirmationFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const validateForm = useCallback((data: RSVPFormData): RSVPFormErrors => {
-    const newErrors: RSVPFormErrors = {};
+  const validateForm = useCallback(
+    (data: ConfirmationFormData): ConfirmationFormErrors => {
+      const newErrors: ConfirmationFormErrors = {};
 
-    if (!data.name.trim()) {
-      newErrors.name = "Merci de renseigner votre nom";
-    }
+      if (!data.name.trim()) {
+        newErrors.name = "Merci de renseigner votre nom";
+      }
 
-    if (data.attendance.thursday === null) {
-      newErrors.attendance = "Merci de répondre à cette question";
-    }
+      if (data.attendance.thursday === null) {
+        newErrors.attendance = "Merci de répondre à cette question";
+      }
 
-    return newErrors;
-  }, []);
+      return newErrors;
+    },
+    []
+  );
 
   const updateName = useCallback(
     (name: string) => {

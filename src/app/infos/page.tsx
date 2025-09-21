@@ -1,4 +1,7 @@
-import { MapPin, Clock, Car, Home, Utensils } from "lucide-react";
+import { MapPin, Clock, Car, Home, Utensils, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { MapButtons } from "../../components/MapButtons";
+import { getMapLinks } from "../../lib/utils";
 import {
   Card,
   CardHeader,
@@ -9,7 +12,7 @@ import { Heading, Text } from "../../components/ui/Typography";
 
 export default function InfosPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-stone-50/50 py-16 px-4 pb-20 md:pb-16">
+    <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
       <div className="max-w-7xl mx-auto">
         {/* Header amélioré */}
         <div className="text-center mb-16">
@@ -29,7 +32,7 @@ export default function InfosPage() {
           {/* Lieu et horaires */}
           <Card
             variant="elegant"
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            className="group transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)] bg-white border border-black/80">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
@@ -61,13 +64,52 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
+              {(() => {
+                const maps = getMapLinks("Restaurant Le Surfing Seignosse");
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href={maps.google}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Google Maps</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.apple}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Apple Plans</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.waze}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Waze</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.osm}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">OpenStreetMap</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
 
           {/* Accès et transport */}
           <Card
             variant="elegant"
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            className="group transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)] bg-white border border-black/80">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
                 <div className="p-2 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-lg group-hover:scale-110 transition-transform duration-300">
@@ -103,13 +145,14 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
+              <MapButtons query="Seignosse" />
             </CardContent>
           </Card>
 
           {/* Hébergement */}
           <Card
             variant="elegant"
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            className="group transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)] bg-white border border-black/80">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
                 <div className="p-2  rounded-lg group-hover:scale-110 transition-transform duration-300">
@@ -153,13 +196,52 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
+              {(() => {
+                const maps = getMapLinks("Hotels Seignosse");
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href={maps.google}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Google Hotels</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.apple}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Apple Plans</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.waze}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Waze</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.osm}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">OpenStreetMap</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
 
           {/* Allergies */}
           <Card
             variant="elegant"
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            className="group transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)] bg-white border border-black/80">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
                 <div className="p-2  rounded-lg group-hover:scale-110 transition-transform duration-300">
@@ -178,6 +260,14 @@ export default function InfosPage() {
                   confirmation pour que nous puissions adapter le menu.
                 </Text>
               </div>
+              <Link
+                href="/rsvp"
+                className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                <span className="text-sm font-medium">
+                  Ouvrir le formulaire
+                </span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </CardContent>
           </Card>
         </div>

@@ -36,7 +36,9 @@ const ConfirmationForm = React.memo<ConfirmationFormProps>(
     return (
       <Card
         variant="elegant"
-        className={`max-w-2xl mx-auto ${className || ""}`}>
+        className={`max-w-2xl mx-auto bg-white border border-black/80 ${
+          className || ""
+        }`}>
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-primary">
             <Users className="w-8 h-8" />
@@ -81,7 +83,7 @@ const ConfirmationForm = React.memo<ConfirmationFormProps>(
                     name="thursday"
                     checked={formData.attendance.thursday === true}
                     onChange={() => updateAttendance({ thursday: true })}
-                    className="accent-primary"
+                    className="accent-black"
                   />
                   Oui
                 </label>
@@ -91,7 +93,7 @@ const ConfirmationForm = React.memo<ConfirmationFormProps>(
                     name="thursday"
                     checked={formData.attendance.thursday === false}
                     onChange={() => updateAttendance({ thursday: false })}
-                    className="accent-primary"
+                    className="accent-black"
                   />
                   Non
                 </label>
@@ -113,11 +115,7 @@ const ConfirmationForm = React.memo<ConfirmationFormProps>(
             {submitMessage && (
               <Card
                 variant="elegant"
-                className={`p-4 text-center ${
-                  submitMessage.includes("Merci")
-                    ? "border-sage-500 bg-sage-50 text-sage-600"
-                    : "border-coral-500 bg-coral-50 text-coral-600"
-                }`}>
+                className={`p-4 text-center bg-white border border-black/80`}>
                 <Text className="font-medium">{submitMessage}</Text>
               </Card>
             )}

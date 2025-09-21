@@ -134,16 +134,16 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="bg-white shadow-sm border-b border-gray-200 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 mb-8">
+        <div className="bg-white border-b border-black/80 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 mb-8">
           <div className="flex items-center justify-between">
             <div>
               <Heading level={2} variant="elegant" className="mb-6">
                 Administration
               </Heading>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-black/70 mt-1">
                 Gestion de votre mariage
               </p>
             </div>
@@ -164,17 +164,17 @@ export default function AdminPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card
                 variant="default"
-                className="bg-white border border-gray-200">
+                className="bg-white border border-black/80">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-blue-50 rounded-lg">
                       <Users className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">
+                      <p className="text-sm font-medium text-black/70">
                         Total réponses
                       </p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-2xl font-bold text-black">
                         {stats.totalGuests}
                       </p>
                     </div>
@@ -184,17 +184,17 @@ export default function AdminPage() {
 
               <Card
                 variant="default"
-                className="bg-white border border-gray-200">
+                className="bg-white border border-black/80">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-green-50 rounded-lg">
                       <Calendar className="w-6 h-6 text-green-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">
+                      <p className="text-sm font-medium text-black/70">
                         Présents au repas
                       </p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-2xl font-bold text-black">
                         {stats.thursdayCount}
                       </p>
                     </div>
@@ -204,17 +204,17 @@ export default function AdminPage() {
 
               <Card
                 variant="default"
-                className="bg-white border border-gray-200">
+                className="bg-white border border-black/80">
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="p-2 bg-red-50 rounded-lg">
                       <Users className="w-6 h-6 text-red-600" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">
+                      <p className="text-sm font-medium text-black/70">
                         Absents
                       </p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-2xl font-bold text-black">
                         {stats.totalGuests - stats.thursdayCount}
                       </p>
                     </div>
@@ -229,8 +229,8 @@ export default function AdminPage() {
             <div className="lg:col-span-2 space-y-6">
               <Card
                 variant="default"
-                className="bg-white border border-gray-200">
-                <CardHeader className="border-b border-gray-200">
+                className="bg-white border border-black/80">
+                <CardHeader className="border-b border-black/80">
                   <CardTitle className="flex items-center gap-3 text-lg font-semibold text-gray-900">
                     <Users className="w-5 h-5" />
                     Liste des invités (
@@ -239,7 +239,7 @@ export default function AdminPage() {
                 </CardHeader>
                 <CardContent className="p-0">
                   {!guestsLoading && (
-                    <div className="divide-y divide-gray-200">
+                    <div className="divide-y divide-black/10">
                       {stats.totalGuests === 0 ? (
                         <div className="p-8 text-center text-gray-500">
                           <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
@@ -255,19 +255,19 @@ export default function AdminPage() {
                           {guests.map((guest) => (
                             <div
                               key={guest.id}
-                              className="p-4 hover:bg-gray-50 transition-colors">
+                              className="p-4 hover:bg-black/5 transition-colors">
                               <div className="flex items-center justify-between">
                                 <div className="flex-1">
                                   <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm font-medium text-gray-600">
+                                    <div className="w-8 h-8 bg-black/5 rounded-full flex items-center justify-center text-sm font-medium text-black/70">
                                       {guest.name.charAt(0).toUpperCase()}
                                     </div>
                                     <div>
-                                      <p className="font-medium text-gray-900">
+                                      <p className="font-medium text-black">
                                         {guest.name}
                                       </p>
                                       {guest.message && (
-                                        <p className="text-sm text-gray-500 italic truncate max-w-xs">
+                                        <p className="text-sm text-black/60 italic truncate max-w-xs">
                                           « {guest.message} »
                                         </p>
                                       )}

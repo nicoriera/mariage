@@ -136,7 +136,7 @@ class ErrorBoundary extends Component<Props, State> {
                 </Button>
               </div>
 
-              <div className="bg-june-surface border border-june rounded-lg p-4">
+              <div className="bg-white border border-black/80 rounded-lg p-4">
                 <Text size="sm" variant="muted" className="text-center">
                   Si le problème persiste, n&apos;hésitez pas à nous contacter à{" "}
                   <a

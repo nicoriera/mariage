@@ -25,11 +25,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const variants = {
       default:
-        "border border-sezane bg-white text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
       elegant:
-        "border border-sezane bg-sezane-surface text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
       accent:
-        "border border-sezane-accent bg-sezane-accent/5 text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
     };
 
     const sizes = {
@@ -84,11 +84,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const variants = {
       default:
-        "border border-sezane bg-white text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
       elegant:
-        "border border-sezane bg-sezane-surface text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
       accent:
-        "border border-sezane-accent bg-sezane-accent/5 text-sezane-primary placeholder:text-sezane-muted focus:border-sezane-accent focus:ring-sezane-accent/20",
+        "border border-black/80 bg-white text-black placeholder:text-black/60 focus:border-black focus:ring-black/20",
     };
 
     const sizes = {
@@ -130,10 +130,7 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     return (
       <label
         ref={ref}
-        className={cn(
-          "block text-sm font-medium text-sezane-primary mb-2",
-          className
-        )}
+        className={cn("block text-sm font-medium text-black mb-2", className)}
         {...props}>
         {children}
         {required && <span className="text-red-500 ml-1">*</span>}

@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/Card";
-import { Heading, Text, Quote } from "../components/ui/Typography";
+import { Heading, Text } from "../components/ui/Typography";
 import Link from "next/link";
 import GalleryLinkCard from "../components/GalleryLinkCard";
-import { CheckCircle, MapPin } from "lucide-react";
+import { CheckCircle, MapPin, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -25,8 +25,8 @@ export default function HomePage() {
       />
 
       {/* Section Informations */}
-      <section className="section-june-large bg-white">
-        <div className="container-june">
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-[84rem] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="text-center mb-16">
             <Heading level={2} variant="elegant" className="mb-6">
               Bienvenue à notre mariage
@@ -37,10 +37,10 @@ export default function HomePage() {
             </Text>
           </div>
 
-          <div className="grid-june">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
             <Card
               variant="elegant"
-              className="hover-june-lift shadow-june-md bg-white border border-june/10">
+              className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <CardHeader>
                 <CardTitle>Cérémonie</CardTitle>
               </CardHeader>
@@ -54,7 +54,7 @@ export default function HomePage() {
 
             <Card
               variant="elegant"
-              className="hover-june-lift shadow-june-md bg-white border border-june/10">
+              className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <CardHeader>
                 <CardTitle>Fiesta</CardTitle>
                 <CardDescription>Restaurant Le Surfing</CardDescription>
@@ -80,22 +80,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section Citation */}
-      <section className="section-june bg-june-blush">
-        <div className="container-june">
-          <div className="max-w-4xl mx-auto">
-            <Quote variant="elegant" author="Sandra & Nicolas">
-              L&apos;amour est la poésie des sens. Il y a des moments dans la
-              vie où le cœur est si plein d&apos;émotions que si on ne les
-              partageait pas, le cœur éclaterait.
-            </Quote>
-          </div>
-        </div>
-      </section>
-
       {/* Section Actions */}
-      <section className="section-june bg-june-surface">
-        <div className="container-june">
+      <section className="py-16 lg:py-20 bg-june-surface">
+        <div className="max-w-[84rem] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="text-center mb-12">
             <Heading level={2} variant="default" className="mb-6">
               Préparez votre venue
@@ -110,13 +97,17 @@ export default function HomePage() {
             <Link href="/rsvp" className="group">
               <Card
                 variant="elegant"
-                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+                className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] text-center bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-6 h-6 " />
                   </div>
                   <CardTitle className="mb-2">Confirmer</CardTitle>
                   <CardDescription>Répondez à notre invitation</CardDescription>
+                  <div className="mt-6 inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors group-hover:bg-black/5">
+                    <span className="text-sm font-medium">Ouvrir</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </CardContent>
               </Card>
             </Link>
@@ -124,7 +115,7 @@ export default function HomePage() {
             <Link href="/infos" className="group">
               <Card
                 variant="elegant"
-                className="hover-june-lift hover-june-glow text-center bg-white shadow-june-md">
+                className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] text-center bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
                 <CardContent className="p-8">
                   <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
                     <MapPin className="w-6 h-6 " />
@@ -133,6 +124,10 @@ export default function HomePage() {
                   <CardDescription>
                     Programme et détails pratiques
                   </CardDescription>
+                  <div className="mt-6 inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors group-hover:bg-black/5">
+                    <span className="text-sm font-medium">Ouvrir</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </CardContent>
               </Card>
             </Link>

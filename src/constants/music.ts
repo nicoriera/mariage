@@ -9,6 +9,13 @@ export const WEDDING_PLAYLIST: Track[] = [
     url: "/music/fresh.mp3",
     duration: 240, // 4 minutes
   },
+  {
+    id: "amada-mia-amore-mia",
+    title: "Amada Mia, Amore Mio",
+    artist: "El Pasador",
+    url: "/music/amada-mia-amore-mia.mp3",
+    duration: 240, // 4 minutes
+  },
 ];
 
 // Configuration par défaut du lecteur

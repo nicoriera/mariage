@@ -20,8 +20,9 @@ export interface AudioPlayerState {
 
 export function useAudioPlayer(playlist: Track[]) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playPromiseRef = useRef<Promise<void> | null>(null);
   const [state, setState] = useState<AudioPlayerState>({
-    isPlaying: true,
+    isPlaying: false,
     currentTrack: null,
     currentTrackIndex: 0,
     volume: 0.5,
@@ -30,58 +31,72 @@ export function useAudioPlayer(playlist: Track[]) {
     duration: 0,
   });
 
-  // Initialiser le lecteur audio
+  // Initialiser le lecteur audio (une seule fois)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      audioRef.current = new Audio();
-      audioRef.current.volume = state.volume;
+    if (typeof window === "undefined") return;
+    const audio = new Audio();
+    audioRef.current = audio;
 
-      // Événements audio
-      const audio = audioRef.current;
+    const handleLoadedMetadata = () => {
+      setState((prev) => ({ ...prev, duration: audio.duration }));
+    };
 
-      const handleLoadedMetadata = () => {
-        setState((prev) => ({ ...prev, duration: audio.duration }));
-      };
+    const handleTimeUpdate = () => {
+      setState((prev) => ({ ...prev, progress: audio.currentTime }));
+    };
 
-      const handleTimeUpdate = () => {
-        setState((prev) => ({ ...prev, progress: audio.currentTime }));
-      };
-
-      const handleEnded = () => {
-        // Utiliser une fonction locale pour éviter la dépendance
-        const nextIndex = (state.currentTrackIndex + 1) % playlist.length;
-        if (playlist[nextIndex]) {
-          audio.src = playlist[nextIndex].url;
-          audio.load();
-          setState((prev) => ({
+    const handleEnded = () => {
+      // passer à la piste suivante si disponible
+      setState((prev) => {
+        const nextIndex = (prev.currentTrackIndex + 1) % playlist.length;
+        const nextTrack = playlist[nextIndex];
+        if (nextTrack && audioRef.current) {
+          audioRef.current.src = nextTrack.url;
+          audioRef.current.load();
+          // jouer automatiquement si on était en lecture
+          if (prev.isPlaying) {
+            void safePlay();
+          }
+          return {
             ...prev,
-            currentTrack: playlist[nextIndex],
+            currentTrack: nextTrack,
             currentTrackIndex: nextIndex,
             progress: 0,
             duration: 0,
-          }));
+          };
         }
-      };
+        return prev;
+      });
+    };
 
-      const handleError = () => {
-        console.error("Erreur de lecture audio");
-        setState((prev) => ({ ...prev, isPlaying: false }));
-      };
+    const handleError = () => {
+      console.error("Erreur de lecture audio");
+      setState((prev) => ({ ...prev, isPlaying: false }));
+    };
 
-      audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-      audio.addEventListener("timeupdate", handleTimeUpdate);
-      audio.addEventListener("ended", handleEnded);
-      audio.addEventListener("error", handleError);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
 
-      return () => {
-        audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-        audio.removeEventListener("timeupdate", handleTimeUpdate);
-        audio.removeEventListener("ended", handleEnded);
-        audio.removeEventListener("error", handleError);
-        audio.pause();
-      };
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
+      audio.pause();
+      playPromiseRef.current = null;
+      audioRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Appliquer le volume quand il change
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = state.volume;
     }
-  }, [state.volume, state.currentTrackIndex, playlist]);
+  }, [state.volume]);
 
   // Charger la première piste
   useEffect(() => {
@@ -99,30 +114,47 @@ export function useAudioPlayer(playlist: Track[]) {
     }
   }, [playlist]);
 
-  const play = useCallback(async () => {
-    if (audioRef.current && state.currentTrack) {
-      try {
-        await audioRef.current.play();
-        setState((prev) => ({ ...prev, isPlaying: true }));
-      } catch (error) {
-        console.error("Impossible de lire la musique:", error);
-        // Fallback: essayer de lire sans son
-        audioRef.current.muted = true;
-        try {
-          await audioRef.current.play();
-          setState((prev) => ({ ...prev, isPlaying: true, isMuted: true }));
-        } catch (fallbackError) {
-          console.error("Échec du fallback:", fallbackError);
-        }
+  const safePlay = useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio || !state.currentTrack) return;
+    try {
+      const p = audio.play();
+      playPromiseRef.current = p;
+      await p;
+      setState((prev) => ({ ...prev, isPlaying: true }));
+    } catch (error: unknown) {
+      const message = (error as Error)?.message || "";
+      // Ignorer l'erreur d'interruption par pause() pendant play()
+      if (message.includes("play() request was interrupted") || message.includes("The play() request was interrupted")) {
+        return;
       }
+      // Fallback: essayer de lire sans son
+      if (audio) audio.muted = true;
+      try {
+        const p2 = audio.play();
+        playPromiseRef.current = p2;
+        await p2;
+        setState((prev) => ({ ...prev, isPlaying: true, isMuted: true }));
+      } catch (fallbackError) {
+        console.error("Échec du fallback:", fallbackError);
+      }
+    } finally {
+      playPromiseRef.current = null;
     }
   }, [state.currentTrack]);
 
+  const play = useCallback(() => {
+    void safePlay();
+  }, [safePlay]);
+
   const pause = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      setState((prev) => ({ ...prev, isPlaying: false }));
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+    // Si une lecture est en cours, on la laisse être interrompue sans bruit
+    try {
+      audio.pause();
+    } catch {}
+    setState((prev) => ({ ...prev, isPlaying: false }));
   }, []);
 
   const togglePlayPause = useCallback(() => {
@@ -147,10 +179,10 @@ export function useAudioPlayer(playlist: Track[]) {
         duration: 0,
       }));
       if (state.isPlaying) {
-        setTimeout(() => play(), 100);
+        void safePlay();
       }
     }
-  }, [state.currentTrackIndex, state.isPlaying, playlist, play]);
+  }, [state.currentTrackIndex, state.isPlaying, playlist, safePlay]);
 
   const playPrevious = useCallback(() => {
     const prevIndex =
@@ -169,10 +201,10 @@ export function useAudioPlayer(playlist: Track[]) {
         duration: 0,
       }));
       if (state.isPlaying) {
-        setTimeout(() => play(), 100);
+        void safePlay();
       }
     }
-  }, [state.currentTrackIndex, state.isPlaying, playlist, play]);
+  }, [state.currentTrackIndex, state.isPlaying, playlist, safePlay]);
 
   const setVolume = useCallback((volume: number) => {
     if (audioRef.current) {

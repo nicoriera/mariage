@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Heading, Text } from "./ui/Typography";
 import type { WeddingHeaderProps } from "../types/wedding";
+import { env } from "../lib/env";
 
 const WeddingHeader = React.memo<WeddingHeaderProps>(
   ({
@@ -13,11 +14,45 @@ const WeddingHeader = React.memo<WeddingHeaderProps>(
     className,
   }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [timeLeft, setTimeLeft] = useState<{
+      days: number;
+      hours: number;
+      minutes: number;
+      seconds: number;
+    } | null>(null);
+    const [isAfterWedding, setIsAfterWedding] = useState(false);
+
+    const computeTimeLeft = (target: Date) => {
+      const now = new Date();
+      const diffMs = target.getTime() - now.getTime();
+      if (diffMs <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      }
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+      const seconds = Math.floor((diffMs / 1000) % 60);
+      return { days, hours, minutes, seconds };
+    };
 
     useEffect(() => {
       // Prévenir le flash en s'assurant que les styles sont chargés
       const timer = setTimeout(() => setIsLoaded(true), 0);
       return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+      // Initialisation du compteur côté client uniquement
+      const targetDate = new Date(`${env.WEDDING_DATE}T00:00:00`);
+      const tick = () => {
+        const next = computeTimeLeft(targetDate);
+        setTimeLeft(next);
+        setIsAfterWedding(new Date().getTime() >= targetDate.getTime());
+      };
+
+      tick();
+      const intervalId = setInterval(tick, 1000);
+      return () => clearInterval(intervalId);
     }, []);
 
     return (
@@ -95,6 +130,44 @@ const WeddingHeader = React.memo<WeddingHeaderProps>(
                   className="font-sans text-white/90 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
                   {location}
                 </Text>
+              </div>
+            </div>
+
+            {/* Compteur jusqu'au jour J */}
+            <div className="mt-10">
+              <div
+                aria-live="polite"
+                className="inline-flex items-stretch gap-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3">
+                {isAfterWedding ? (
+                  <div className="px-4 py-2">
+                    <Text
+                      size="lg"
+                      variant="accent"
+                      className="font-heading text-white">
+                      C&apos;est le grand jour !
+                    </Text>
+                  </div>
+                ) : timeLeft ? (
+                  <div className="grid grid-cols-4 gap-3">
+                    {[
+                      { label: "Jours", value: timeLeft.days },
+                      { label: "Heures", value: timeLeft.hours },
+                      { label: "Minutes", value: timeLeft.minutes },
+                      { label: "Secondes", value: timeLeft.seconds },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex flex-col items-center justify-center min-w-20 rounded-xl bg-black/30 px-4 py-3">
+                        <div className="text-3xl sm:text-4xl font-bold text-white font-heading">
+                          {item.value.toString().padStart(2, "0")}
+                        </div>
+                        <div className="text-white/80 text-xs sm:text-sm tracking-wide uppercase">
+                          {item.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

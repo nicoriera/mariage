@@ -1,6 +1,5 @@
 import React from "react";
 import WeddingHeader from "../components/WeddingHeader";
-import { Button } from "../components/ui/Button";
 import {
   Card,
   CardContent,
@@ -133,17 +132,6 @@ export default function HomePage() {
             </Link>
 
             <GalleryLinkCard />
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/rsvp">
-              <Button
-                variant="primary"
-                size="lg"
-                className="rounded-full px-10">
-                Confirmer ma présence
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

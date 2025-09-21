@@ -9,12 +9,15 @@ interface MapButtonsProps {
   query: string;
 }
 
-const detectPlatform = () => {
-  if (typeof navigator === "undefined") return "default" as const;
-  const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
-  if (/iPad|iPhone|iPod/.test(ua)) return "ios" as const;
-  if (/Android/.test(ua)) return "android" as const;
-  return "default" as const;
+const detectPlatform = (): "ios" | "android" | "default" => {
+  if (typeof navigator === "undefined") return "default";
+  const ua = navigator.userAgent;
+  const isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === "MacIntel" && (navigator.maxTouchPoints || 0) > 1);
+  if (isIOS) return "ios";
+  if (/Android/.test(ua)) return "android";
+  return "default";
 };
 
 export function MapButtons({ query }: MapButtonsProps) {

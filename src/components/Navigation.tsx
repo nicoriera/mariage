@@ -43,10 +43,10 @@ const Navigation = React.memo<NavigationProps>(
 
     return (
       <nav
-        className={`bg-white/95 backdrop-blur-sm border-b border-june sticky top-0 z-50 px-4 py-2 ${
+        className={`bg-white/95 backdrop-blur-sm border-b border-black/80 sticky top-0 z-50 px-4 py-2 ${
           className || ""
         }`}>
-        <div className="container-june">
+        <div className="max-w-[84rem] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link
@@ -86,7 +86,7 @@ const Navigation = React.memo<NavigationProps>(
           {isMenuOpen && (
             <div
               ref={mobileMenuRef}
-              className="md:hidden border-t border-june bg-white"
+              className="md:hidden border-t border-black/80 bg-white"
               role="menu"
               aria-label="Navigation mobile">
               <div className="px-2 pt-2 pb-3 space-y-1">

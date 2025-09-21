@@ -12,11 +12,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     const variants = {
       default:
-        "bg-white border border-sezane shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-white border border-black/80 shadow-none hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]",
       elegant:
-        "bg-sezane-surface border border-sezane shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-white border border-black/80 shadow-none hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]",
       accent:
-        "bg-sezane-accent border border-sezane-accent shadow-sezane-sm hover:shadow-sezane-md",
+        "bg-transparent border border-black/80 shadow-none hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]",
     };
 
     return (
@@ -62,7 +62,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       <h3
         ref={ref}
         className={cn(
-          "text-2xl font-semibold leading-none tracking-tight text-sezane-primary",
+          "text-2xl font-semibold leading-none tracking-tight text-june-primary",
           className
         )}
         {...props}>
@@ -86,7 +86,7 @@ const CardDescription = React.forwardRef<
   return (
     <p
       ref={ref}
-      className={cn("text-sm text-sezane-muted", className)}
+      className={cn("text-sm text-june-muted", className)}
       {...props}>
       {children}
     </p>

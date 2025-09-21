@@ -310,7 +310,7 @@ export default function GaleriePage() {
             <Card
               key={photo.id}
               variant="elegant"
-              className="overflow-hidden group hover:shadow-lg transition-shadow cursor-pointer"
+              className="overflow-hidden group cursor-pointer border border-black/80 bg-white hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow"
               onClick={() => openModal(index)}>
               <div className="aspect-square bg-stone-100 relative overflow-hidden">
                 <Image

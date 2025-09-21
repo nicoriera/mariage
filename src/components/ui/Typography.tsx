@@ -21,9 +21,9 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     };
 
     const variants = {
-      default: "text-sezane-primary",
-      elegant: "text-sezane-primary font-light",
-      accent: "text-sezane-accent",
+      default: "text-june-primary",
+      elegant: "text-june-primary font-light",
+      accent: "text-june-accent",
     };
 
     const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
@@ -61,9 +61,9 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
     };
 
     const variants = {
-      default: "text-sezane-primary",
-      muted: "text-sezane-muted",
-      accent: "text-sezane-accent font-medium",
+      default: "text-june-primary",
+      muted: "text-june-muted",
+      accent: "text-june-accent font-medium",
     };
 
     return (
@@ -94,9 +94,9 @@ const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
   ({ className, author, variant = "default", children, ...props }, ref) => {
     const variants = {
       default:
-        "border-l-4 border-sezane-accent pl-6 py-2 italic text-sezane-secondary font-medium text-lg leading-relaxed",
+        "border-l-4 border-june-accent pl-6 py-2 italic text-june-secondary font-medium text-lg leading-relaxed",
       elegant:
-        "text-center italic text-sezane-secondary font-light text-xl leading-relaxed",
+        "text-center italic text-june-secondary font-light text-xl leading-relaxed",
     };
 
     return (
@@ -106,7 +106,7 @@ const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
         {...props}>
         <div className="mb-2">&ldquo;{children}&rdquo;</div>
         {author && (
-          <cite className="text-base font-normal text-sezane-muted not-italic block mt-3">
+          <cite className="text-base font-normal text-june-muted not-italic block mt-3">
             — {author}
           </cite>
         )}
@@ -127,10 +127,10 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   ({ className, variant = "default", children, ...props }, ref) => {
     const variants = {
       default:
-        "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-sezane-surface text-sezane-secondary border border-sezane",
+        "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white text-black/80 border border-black/80",
       accent:
-        "inline-flex items-center px-3 py-1 text-sm font-medium text-sezane-accent border border-sezane-accent bg-sezane-accent/10 rounded-full",
-      rose: "inline-flex items-center px-3 py-1 text-sm font-medium text-sezane-rose border border-sezane-rose bg-sezane-rose/10 rounded-full",
+        "inline-flex items-center px-3 py-1 text-sm font-medium text-black border border-black/80 bg-transparent rounded-full",
+      rose: "inline-flex items-center px-3 py-1 text-sm font-medium text-black border border-black/80 bg-transparent rounded-full",
     };
 
     return (

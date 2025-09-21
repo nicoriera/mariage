@@ -33,15 +33,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[#9db380] text-white hover:bg-[#8ba370] focus:ring-[#9db380] shadow-sm hover:shadow-md",
+        "bg-june-olive text-white hover:bg-june-olive/90 focus:ring-june-olive shadow-[var(--shadow-june-sm)] hover:shadow-[var(--shadow-june-md)]",
       secondary:
-        "bg-[#e8b3b3] text-white hover:bg-[#f4d7d7] focus:ring-[#e8b3b3] shadow-sm hover:shadow-md",
+        "bg-june-rose text-white hover:bg-june-blush focus:ring-june-rose shadow-[var(--shadow-june-sm)] hover:shadow-[var(--shadow-june-md)]",
       outline:
-        "border-2 border-[#9db380] text-[#9db380] hover:bg-[#9db380] hover:text-white focus:ring-[#9db380]",
+        "border-2 border-june-olive text-june-olive hover:bg-june-olive hover:text-white focus:ring-june-olive",
       ghost:
-        "text-[#5a5a5a] hover:bg-[#f3f1ef] hover:text-[#2a2a2a] focus:ring-[#9db380]",
+        "text-june-secondary hover:bg-june-surface hover:text-june-primary focus:ring-june-olive",
       accent:
-        "bg-[#9db380] text-white hover:bg-[#8ba370] focus:ring-[#9db380] shadow-sm hover:shadow-md",
+        "bg-june-olive text-white hover:bg-june-olive/90 focus:ring-june-olive shadow-[var(--shadow-june-sm)] hover:shadow-[var(--shadow-june-md)]",
       elegant:
         "text-white border border-white/70 bg-white/10 hover:bg-white/20 focus:ring-white/60 backdrop-blur-sm",
     };

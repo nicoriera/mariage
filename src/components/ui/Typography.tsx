@@ -84,39 +84,6 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
 
 Text.displayName = "Text";
 
-export interface QuoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
-  author?: string;
-  variant?: "default" | "elegant";
-  children: React.ReactNode;
-}
-
-const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
-  ({ className, author, variant = "default", children, ...props }, ref) => {
-    const variants = {
-      default:
-        "border-l-4 border-june-accent pl-6 py-2 italic text-june-secondary font-medium text-lg leading-relaxed",
-      elegant:
-        "text-center italic text-june-secondary font-light text-xl leading-relaxed",
-    };
-
-    return (
-      <blockquote
-        ref={ref}
-        className={cn(variants[variant], className)}
-        {...props}>
-        <div className="mb-2">&ldquo;{children}&rdquo;</div>
-        {author && (
-          <cite className="text-base font-normal text-june-muted not-italic block mt-3">
-            — {author}
-          </cite>
-        )}
-      </blockquote>
-    );
-  }
-);
-
-Quote.displayName = "Quote";
-
 // Badge élégant pour la galerie
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: "default" | "accent" | "rose";
@@ -143,4 +110,4 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = "Badge";
 
-export { Heading, Text, Quote, Badge };
+export { Heading, Text, Badge };

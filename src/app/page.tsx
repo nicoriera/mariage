@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/Card";
-import { Heading, Text, Quote } from "../components/ui/Typography";
+import { Heading, Text } from "../components/ui/Typography";
 import Link from "next/link";
 import GalleryLinkCard from "../components/GalleryLinkCard";
 import { CheckCircle, MapPin, ArrowRight } from "lucide-react";
@@ -76,19 +76,6 @@ export default function HomePage() {
                 </Text>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Section Citation */}
-      <section className="py-16 lg:py-20 bg-june-blush">
-        <div className="max-w-[84rem] mx-auto px-5 sm:px-8 lg:px-10">
-          <div className="max-w-4xl mx-auto">
-            <Quote variant="elegant" author="Sandra & Nicolas">
-              L&apos;amour est la poésie des sens. Il y a des moments dans la
-              vie où le cœur est si plein d&apos;émotions que si on ne les
-              partageait pas, le cœur éclaterait.
-            </Quote>
           </div>
         </div>
       </section>

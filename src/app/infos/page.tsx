@@ -1,5 +1,7 @@
 import { MapPin, Clock, Car, Home, Utensils, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { MapButtons } from "../../components/MapButtons";
+import { getMapLinks } from "../../lib/utils";
 import {
   Card,
   CardHeader,
@@ -62,14 +64,45 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
-              <Link
-                href="https://www.google.com/maps/search/?api=1&query=Restaurant+Le+Surfing+Seignosse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
-                <span className="text-sm font-medium">Ouvrir dans Maps</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              {(() => {
+                const maps = getMapLinks("Restaurant Le Surfing Seignosse");
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href={maps.google}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Google Maps</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.apple}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Apple Plans</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.waze}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Waze</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.osm}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">OpenStreetMap</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
 
@@ -112,14 +145,7 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
-              <Link
-                href="https://www.google.com/maps/search/?api=1&query=Seignosse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
-                <span className="text-sm font-medium">Ouvrir l’itinéraire</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <MapButtons query="Seignosse" />
             </CardContent>
           </Card>
 
@@ -170,16 +196,45 @@ export default function InfosPage() {
                   </Text>
                 </div>
               </div>
-              <Link
-                href="https://www.google.com/travel/hotels/Seignosse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
-                <span className="text-sm font-medium">
-                  Ouvrir les hébergements
-                </span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              {(() => {
+                const maps = getMapLinks("Hotels Seignosse");
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href={maps.google}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Google Hotels</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.apple}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Apple Plans</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.waze}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">Waze</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href={maps.osm}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                      <span className="text-sm font-medium">OpenStreetMap</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
 

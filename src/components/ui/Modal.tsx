@@ -48,7 +48,7 @@ export function Modal({
 
       {/* Modal */}
       <div
-        className={`relative bg-white rounded-lg shadow-2xl max-w-7xl max-h-[90vh] w-full mx-4 overflow-hidden ${className}`}>
+        className={`relative bg-white rounded-lg shadow-2xl max-w-7xl max-h-[90vh]  mx-4 overflow-hidden ${className}`}>
         {/* Bouton fermer */}
         <button
           onClick={onClose}

@@ -125,7 +125,10 @@ export function useAudioPlayer(playlist: Track[]) {
     } catch (error: unknown) {
       const message = (error as Error)?.message || "";
       // Ignorer l'erreur d'interruption par pause() pendant play()
-      if (message.includes("play() request was interrupted") || message.includes("The play() request was interrupted")) {
+      if (
+        message.includes("play() request was interrupted") ||
+        message.includes("The play() request was interrupted")
+      ) {
         return;
       }
       // Fallback: essayer de lire sans son
@@ -146,6 +149,55 @@ export function useAudioPlayer(playlist: Track[]) {
   const play = useCallback(() => {
     void safePlay();
   }, [safePlay]);
+
+  // Déverrouillage via événement global émis par l'overlay d'intro
+  useEffect(() => {
+    const handler = () => {
+      // Si pas de piste courante, charger la première
+      if (playlist.length > 0 && audioRef.current && !state.currentTrack) {
+        const first = playlist[0];
+        audioRef.current.src = first.url;
+        audioRef.current.load();
+        setState((prev) => ({
+          ...prev,
+          currentTrack: first,
+          currentTrackIndex: 0,
+          progress: 0,
+          duration: 0,
+        }));
+      }
+
+      // Tenter lecture: muted d'abord pour maximiser les chances, puis unmute
+      const audio = audioRef.current;
+      if (!audio) return;
+      (async () => {
+        try {
+          audio.muted = true;
+          await audio.play();
+          audio.muted = false;
+          setState((prev) => ({ ...prev, isPlaying: true }));
+        } catch {
+          // Si bloqué malgré tout, laisser l'utilisateur utiliser play
+        }
+      })();
+    };
+
+    window.addEventListener("wedding-unlock-audio", handler as EventListener, {
+      once: true,
+    });
+    return () => {
+      window.removeEventListener(
+        "wedding-unlock-audio",
+        handler as EventListener
+      );
+    };
+  }, [playlist, state.currentTrack]);
+
+  // Ne tente plus d'autoplay: attendre une interaction utilisateur
+  // (On conserve le hook pour une future extension, mais sans action par défaut)
+  useEffect(() => {
+    // Intentionnellement vide pour éviter l'autoplay bloqué par les navigateurs
+  }, [state.currentTrack]);
 
   const pause = useCallback(() => {
     const audio = audioRef.current;

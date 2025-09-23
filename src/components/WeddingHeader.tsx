@@ -102,7 +102,7 @@ const WeddingHeader = React.memo<WeddingHeaderProps>(
             </Text>
 
             <div className="mb-8">
-              <div className="mb-4 text-white/80 text-5xl sm:text-6xl leading-none tracking-wider font-[var(--font-script)]">
+              <div className="mb-4 text-white/80 text-5xl sm:text-6xl leading-none tracking-wider font-script">
                 save the date
               </div>
               <Heading

@@ -3,18 +3,11 @@ import type { Track } from "../hooks/useAudioPlayer";
 // Playlist de musiques romantiques pour le mariage
 export const WEDDING_PLAYLIST: Track[] = [
   {
-    id: "fresh",
-    title: "Fresh",
-    artist: "Daft Punk",
-    url: "/music/fresh.mp3",
-    duration: 240, // 4 minutes
-  },
-  {
-    id: "amada-mia-amore-mia",
-    title: "Amada Mia, Amore Mio",
-    artist: "El Pasador",
-    url: "/music/amada-mia-amore-mia.mp3",
-    duration: 240, // 4 minutes
+    id: "follia",
+    title: "Follia",
+    artist: "Giancarlo D'Auria",
+    url: "/music/follia.mp3",
+    duration: 288, // 4 minutes 48 seconds
   },
 ];
 

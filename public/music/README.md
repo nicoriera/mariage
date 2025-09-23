@@ -9,7 +9,7 @@ Placez vos fichiers audio MP3 dans ce dossier avec la structure suivante :
 ```
 public/music/
 ├── fresh.mp3               # Fresh - Daft Punk (actuellement configuré)
-├── amada-mia-amore-mia #Amada Mia, Amore Mio - El Pasador
+
 ```
 
 ## 🎼 Ajouter de nouvelles musiques

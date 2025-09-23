@@ -11,6 +11,7 @@ import GlobalErrorBoundary from "../components/GlobalErrorBoundary";
 import SkipLink from "../components/SkipLink";
 import "./globals.css";
 import { ClientAudioPlayer } from "../components/ClientAudioPlayer";
+import IntroOverlay from "../components/IntroOverlay";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${dancingScript.variable} ${poppins.variable} antialiased`}>
         <GlobalErrorBoundary>
           <SkipLink />
+          <IntroOverlay />
           <Navigation />
           <main id="main-content" tabIndex={-1}>
             {children}

@@ -9,14 +9,7 @@ Placez vos fichiers audio MP3 dans ce dossier avec la structure suivante :
 ```
 public/music/
 ├── fresh.mp3               # Fresh - Daft Punk (actuellement configuré)
-├── canon-in-d.mp3          # Canon in D - Johann Pachelbel
-├── claire-de-lune.mp3      # Clair de Lune - Claude Debussy
-├── mariage-damour.mp3      # Mariage d'Amour - Paul de Senneville
-├── river-flows-in-you.mp3  # River Flows in You - Yiruma
-├── comptine-dun-autre-ete.mp3 # Comptine d'un autre été - Yann Tiersen
-├── nuvole-bianche.mp3      # Nuvole Bianche - Ludovico Einaudi
-├── la-vie-en-rose.mp3      # La Vie en Rose - Édith Piaf
-└── ne-me-quitte-pas.mp3    # Ne me quitte pas - Jacques Brel
+
 ```
 
 ## 🎼 Ajouter de nouvelles musiques

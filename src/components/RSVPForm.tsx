@@ -14,6 +14,7 @@ import { Input, Textarea, Label } from "./ui/Input";
 import { Text } from "./ui/Typography";
 import { useConfirmationForm } from "../hooks/useRSVPForm";
 import type { ConfirmationFormProps } from "../types/rsvp";
+import ErrorCard from "./ErrorCard";
 
 const ConfirmationForm = React.memo<ConfirmationFormProps>(
   ({ onSubmitSuccess, className }) => {
@@ -111,14 +112,23 @@ const ConfirmationForm = React.memo<ConfirmationFormProps>(
               />
             </div>
 
-            {/* Message de confirmation */}
-            {submitMessage && (
-              <Card
-                variant="elegant"
-                className={`p-4 text-center bg-white border border-black/80`}>
-                <Text className="font-medium">{submitMessage}</Text>
-              </Card>
-            )}
+            {/* Message de confirmation / erreur */}
+            {submitMessage &&
+              (submitMessage.trim().startsWith("❌") ? (
+                <ErrorCard
+                  error={submitMessage.replace(/^❌\s*/, "")}
+                  onRetry={async () => {
+                    await handleSubmit(onSubmitSuccess);
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <Card
+                  variant="elegant"
+                  className={`p-4 text-center bg-white border border-black/80`}>
+                  <Text className="font-medium">{submitMessage}</Text>
+                </Card>
+              ))}
           </form>
         </CardContent>
 

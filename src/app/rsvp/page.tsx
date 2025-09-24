@@ -5,13 +5,20 @@ import Image from "next/image";
 import ConfirmationForm from "../../components/RSVPForm";
 import { Modal } from "../../components/ui/Modal";
 import { Heading, Text } from "../../components/ui/Typography";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import type { Guest } from "../../../lib/supabase";
 
 export default function RSVPPage() {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
-  const handleSubmitSuccess = () => {
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [guestName, setGuestName] = useState("");
+  const [guestThursday, setGuestThursday] = useState<boolean | null>(null);
+  const handleSubmitSuccess = (guest: Guest) => {
     // Afficher le popup de succès
+    setGuestName(guest?.name ?? "");
+    setGuestThursday(guest?.thursday ?? null);
+    setHasSubmitted(true);
     setShowSuccessPopup(true);
   };
 
@@ -34,7 +41,38 @@ export default function RSVPPage() {
           </Text>
         </div>
 
-        <ConfirmationForm onSubmitSuccess={handleSubmitSuccess} />
+        {hasSubmitted ? (
+          <div className="text-center border border-black/80 rounded-lg bg-white p-8">
+            <Heading level={3} variant="elegant" className="mb-3">
+              {guestName ? `Merci, ${guestName} !` : "Merci !"}
+            </Heading>
+            <Text size="lg" variant="muted" className="max-w-xl mx-auto">
+              {guestThursday === true
+                ? "C’est noté, et cela nous fait très plaisir. Nous avons hâte de célébrer avec vous !"
+                : "C’est noté, merci de nous l’avoir indiqué. Vous serez avec nous par la pensée."}
+            </Text>
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={() => setHasSubmitted(false)}
+                className="inline-flex items-center gap-2 text-sm font-medium border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                {guestThursday === true
+                  ? "Modifier ma réponse"
+                  : "Mettre à jour ma réponse"}
+              </button>
+            </div>
+            <div className="mt-4">
+              <Link
+                href="/infos"
+                className="inline-flex items-center gap-2 text-sm font-medium border border-black/80 rounded-full px-4 py-2 transition-colors hover:bg-black/5">
+                <span>Voir les informations pratiques</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <ConfirmationForm onSubmitSuccess={handleSubmitSuccess} />
+        )}
       </div>
 
       {/* Popup de succès */}

@@ -19,19 +19,32 @@ import {
   Settings,
   Download,
   Eye,
+  Edit,
+  Trash2,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import LoadingCard from "../../components/LoadingCard";
 import { useGuests } from "../../hooks/useGuests";
+import EditGuestModal from "../../components/EditGuestModal";
+import { Guest } from "../../../lib/supabase";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading, login, logout } = useAuth();
-  const { guests, stats, loading: guestsLoading } = useGuests();
+  const {
+    guests,
+    stats,
+    loading: guestsLoading,
+    deleteGuest,
+    updateGuest,
+  } = useGuests();
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
+  const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
+  const [deletingGuest, setDeletingGuest] = useState<Guest | null>(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,6 +144,93 @@ export default function AdminPage() {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleExportCSV = () => {
+    if (!guests || guests.length === 0) return;
+
+    const escapeCSV = (value: string) => {
+      const safe = value.replace(/"/g, '""');
+      return `"${safe}"`;
+    };
+
+    const headers = ["Nom", "Présent jeudi", "Message", "Créé le"];
+
+    const rows = guests.map((g) => [
+      escapeCSV(g.name || ""),
+      escapeCSV(g.thursday ? "Oui" : "Non"),
+      escapeCSV(g.message ?? ""),
+      escapeCSV(g.created_at ? new Date(g.created_at).toLocaleString() : ""),
+    ]);
+
+    const csv = [
+      headers.map(escapeCSV).join(","),
+      ...rows.map((r) => r.join(",")),
+    ].join("\n");
+    const csvWithBom = "\uFEFF" + csv;
+    const blob = new Blob([csvWithBom], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const filename = `invites-${now.getFullYear()}${pad(
+      now.getMonth() + 1
+    )}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(
+      now.getSeconds()
+    )}.csv`;
+    link.href = url;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleOpenPublicSite = () => {
+    window.open(
+      "https://mariage-navy.vercel.app/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  const handleEditGuest = (guest: Guest) => {
+    setEditingGuest(guest);
+  };
+
+  const handleDeleteGuest = (guest: Guest) => {
+    setDeletingGuest(guest);
+  };
+
+  const confirmDeleteGuest = async () => {
+    if (!deletingGuest || !deletingGuest.id) return;
+
+    setActionLoading(true);
+    const result = await deleteGuest(deletingGuest.id);
+
+    if (result.success) {
+      setMessage(`${deletingGuest.name} a été supprimé avec succès`);
+    } else {
+      setMessage(`Erreur lors de la suppression: ${result.error}`);
+    }
+
+    setDeletingGuest(null);
+    setActionLoading(false);
+  };
+
+  const handleSaveGuest = async (id: string | number, data: Partial<Guest>) => {
+    setActionLoading(true);
+    const result = await updateGuest(id, data);
+
+    if (result.success) {
+      setMessage("Invité modifié avec succès");
+      setEditingGuest(null);
+    } else {
+      setMessage(`Erreur lors de la modification: ${result.error}`);
+    }
+
+    setActionLoading(false);
+    return result;
   };
 
   return (
@@ -285,6 +385,24 @@ export default function AdminPage() {
                                       Absent
                                     </span>
                                   )}
+                                  <div className="flex items-center gap-1">
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => handleEditGuest(guest)}
+                                      className="p-1 h-8 w-8"
+                                      disabled={actionLoading}>
+                                      <Edit className="w-3 h-3" />
+                                    </Button>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => handleDeleteGuest(guest)}
+                                      className="p-1 h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                      disabled={actionLoading}>
+                                      <Trash2 className="w-3 h-3" />
+                                    </Button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -367,15 +485,16 @@ export default function AdminPage() {
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled>
+                      onClick={handleExportCSV}
+                      disabled={guestsLoading || stats.totalGuests === 0}>
                       <Download className="w-4 h-4 mr-2" />
-                      Exporter liste (bientôt)
+                      Exporter la liste CSV
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled>
+                      onClick={handleOpenPublicSite}>
                       <Eye className="w-4 h-4 mr-2" />
                       Voir site public
                     </Button>
@@ -386,6 +505,48 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal d'édition */}
+      <EditGuestModal
+        isOpen={!!editingGuest}
+        onClose={() => setEditingGuest(null)}
+        guest={editingGuest}
+        onSave={handleSaveGuest}
+      />
+
+      {/* Modal de confirmation de suppression */}
+      {deletingGuest && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="mb-4">
+              <Heading level={3} variant="elegant" className="mb-2">
+                Confirmer la suppression
+              </Heading>
+              <p className="text-sm text-gray-600">
+                Êtes-vous sûr de vouloir supprimer{" "}
+                <strong>{deletingGuest.name}</strong> ? Cette action est
+                irréversible.
+              </p>
+            </div>
+            <div className="flex justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setDeletingGuest(null)}
+                disabled={actionLoading}>
+                Annuler
+              </Button>
+              <Button
+                variant="primary"
+                onClick={confirmDeleteGuest}
+                loading={actionLoading}
+                className="bg-red-600 hover:bg-red-700"
+                disabled={actionLoading}>
+                {actionLoading ? "Suppression..." : "Supprimer"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

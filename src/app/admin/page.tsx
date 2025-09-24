@@ -206,7 +206,7 @@ export default function AdminPage() {
     if (!deletingGuest || !deletingGuest.id) return;
 
     setActionLoading(true);
-    const result = await deleteGuest(deletingGuest.id.toString());
+    const result = await deleteGuest(deletingGuest.id);
 
     if (result.success) {
       setMessage(`${deletingGuest.name} a été supprimé avec succès`);
@@ -218,7 +218,7 @@ export default function AdminPage() {
     setActionLoading(false);
   };
 
-  const handleSaveGuest = async (id: string, data: Partial<Guest>) => {
+  const handleSaveGuest = async (id: string | number, data: Partial<Guest>) => {
     setActionLoading(true);
     const result = await updateGuest(id, data);
 

@@ -13,9 +13,11 @@ interface UseGuestsReturn {
   error: string | null;
   stats: GuestStats;
   refetch: () => Promise<void>;
-  deleteGuest: (id: string) => Promise<{ success: boolean; error?: string }>;
+  deleteGuest: (
+    id: string | number
+  ) => Promise<{ success: boolean; error?: string }>;
   updateGuest: (
-    id: string,
+    id: string | number,
     data: Partial<Guest>
   ) => Promise<{ success: boolean; error?: string }>;
 }
@@ -56,7 +58,7 @@ export function useGuests(): UseGuestsReturn {
     }
   }, []);
 
-  const deleteGuest = useCallback(async (id: string) => {
+  const deleteGuest = useCallback(async (id: string | number) => {
     try {
       const response = await fetch(`/api/guests?id=${id}`, {
         method: "DELETE",
@@ -72,7 +74,7 @@ export function useGuests(): UseGuestsReturn {
       }
 
       // Mettre à jour la liste locale
-      setGuests((prev) => prev.filter((guest) => guest.id !== id));
+      setGuests((prev) => prev.filter((guest) => guest.id !== Number(id)));
 
       return { success: true };
     } catch (err) {
@@ -82,37 +84,42 @@ export function useGuests(): UseGuestsReturn {
     }
   }, []);
 
-  const updateGuest = useCallback(async (id: string, data: Partial<Guest>) => {
-    try {
-      const response = await fetch("/api/guests", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, ...data }),
-      });
+  const updateGuest = useCallback(
+    async (id: string | number, data: Partial<Guest>) => {
+      try {
+        const response = await fetch("/api/guests", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, ...data }),
+        });
 
-      const result = await response.json();
+        const result = await response.json();
 
-      if (!response.ok) {
-        return {
-          success: false,
-          error: result.error || "Erreur lors de la modification",
-        };
+        if (!response.ok) {
+          return {
+            success: false,
+            error: result.error || "Erreur lors de la modification",
+          };
+        }
+
+        // Mettre à jour la liste locale
+        setGuests((prev) =>
+          prev.map((guest) =>
+            guest.id === Number(id) ? { ...guest, ...data } : guest
+          )
+        );
+
+        return { success: true };
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Erreur inattendue";
+        return { success: false, error: errorMessage };
       }
-
-      // Mettre à jour la liste locale
-      setGuests((prev) =>
-        prev.map((guest) => (guest.id === id ? { ...guest, ...data } : guest))
-      );
-
-      return { success: true };
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Erreur inattendue";
-      return { success: false, error: errorMessage };
-    }
-  }, []);
+    },
+    []
+  );
 
   const stats = useMemo(
     (): GuestStats => ({

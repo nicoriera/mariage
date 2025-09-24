@@ -12,7 +12,7 @@ interface EditGuestModalProps {
   onClose: () => void;
   guest: Guest | null;
   onSave: (
-    id: string,
+    id: string | number,
     data: Partial<Guest>
   ) => Promise<{ success: boolean; error?: string }>;
 }
@@ -45,7 +45,7 @@ export default function EditGuestModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!guest) return;
+    if (!guest || !guest.id) return;
 
     setLoading(true);
     setError("");
@@ -73,7 +73,7 @@ export default function EditGuestModal({
       <div className="p-6">
         <div className="mb-6">
           <Heading level={3} variant="elegant" className="mb-2">
-            Modifier l'invité
+            Modifier l&apos;invité
           </Heading>
           <p className="text-sm text-gray-600">
             Modifiez les informations de {guest.name}

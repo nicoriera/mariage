@@ -66,8 +66,8 @@ export default function GalerieLayout({
             Accès à la galerie réservé au jour du mariage ✨
           </Heading>
           <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
-            La galerie n'est disponible que le {weddingDateLocalFr}. Revenez le
-            jour J pour partager et découvrir les photos 💖
+            La galerie n&apos;est disponible que le {weddingDateLocalFr}.
+            Revenez le jour J pour partager et découvrir les photos 💖
           </Text>
         </div>
       </div>

@@ -21,9 +21,9 @@ function isNowWeddingDayParis(dateString: string): boolean {
   const partsToIso = (date: Date) => {
     const parts = formatter.formatToParts(date);
     const get = (t: string) => parts.find((p) => p.type === t)?.value || "";
-    return `${get("year")}-${get("month")}-${get("day")}T${get(
-      "hour"
-    )}:${get("minute")}:${get("second")}`;
+    return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get(
+      "minute"
+    )}:${get("second")}`;
   };
 
   // Construire des bornes jour J (00:00:00 -> 23:59:59) en heure de Paris
@@ -46,16 +46,15 @@ export default function GalerieLayout({
   const isWeddingDay = isNowWeddingDayParis(env.WEDDING_DATE);
 
   if (!isWeddingDay) {
-    const weddingDateLocalFr = new Date(`${env.WEDDING_DATE}T00:00:00`).toLocaleDateString(
-      "fr-FR",
-      {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "Europe/Paris",
-      }
-    );
+    const weddingDateLocalFr = new Date(
+      `${env.WEDDING_DATE}T00:00:00`
+    ).toLocaleDateString("fr-FR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "Europe/Paris",
+    });
 
     return (
       <div className="min-h-screen bg-white py-16 px-4 pb-20 md:pb-16">
@@ -77,5 +76,3 @@ export default function GalerieLayout({
 
   return children;
 }
-
-

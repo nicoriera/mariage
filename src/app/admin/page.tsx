@@ -133,6 +133,54 @@ export default function AdminPage() {
     }
   };
 
+  const handleExportCSV = () => {
+    if (!guests || guests.length === 0) return;
+
+    const escapeCSV = (value: string) => {
+      const safe = value.replace(/"/g, '""');
+      return `"${safe}"`;
+    };
+
+    const headers = ["Nom", "Présent jeudi", "Message", "Créé le"];
+
+    const rows = guests.map((g) => [
+      escapeCSV(g.name || ""),
+      escapeCSV(g.thursday ? "Oui" : "Non"),
+      escapeCSV(g.message ?? ""),
+      escapeCSV(g.created_at ? new Date(g.created_at).toLocaleString() : ""),
+    ]);
+
+    const csv = [
+      headers.map(escapeCSV).join(","),
+      ...rows.map((r) => r.join(",")),
+    ].join("\n");
+    const csvWithBom = "\uFEFF" + csv;
+    const blob = new Blob([csvWithBom], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const filename = `invites-${now.getFullYear()}${pad(
+      now.getMonth() + 1
+    )}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(
+      now.getSeconds()
+    )}.csv`;
+    link.href = url;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleOpenPublicSite = () => {
+    window.open(
+      "https://mariage-navy.vercel.app/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
   return (
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -367,15 +415,16 @@ export default function AdminPage() {
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled>
+                      onClick={handleExportCSV}
+                      disabled={guestsLoading || stats.totalGuests === 0}>
                       <Download className="w-4 h-4 mr-2" />
-                      Exporter liste (bientôt)
+                      Exporter la liste CSV
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="w-full justify-start"
-                      disabled>
+                      onClick={handleOpenPublicSite}>
                       <Eye className="w-4 h-4 mr-2" />
                       Voir site public
                     </Button>

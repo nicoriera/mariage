@@ -130,3 +130,91 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "ID de l'invité requis" },
+        { status: 400 }
+      );
+    }
+
+    const { error } = await supabase.from("guests").delete().eq("id", id);
+
+    if (error) {
+      console.error("Database error:", error);
+      return NextResponse.json(
+        { error: "Erreur lors de la suppression" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Invités supprimé avec succès",
+    });
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json(
+      { error: "Erreur interne du serveur" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const rawData = await request.json();
+    const { id, ...updateData } = rawData;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "ID de l'invité requis" },
+        { status: 400 }
+      );
+    }
+
+    // Validate and sanitize the update data
+    const validatedData = validateAndSanitizeConfirmationData(updateData);
+
+    const { data, error } = await supabase
+      .from("guests")
+      .update({
+        name: validatedData.name,
+        thursday: validatedData.thursday,
+        message: validatedData.message,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Database error:", error);
+      return NextResponse.json(
+        { error: "Erreur lors de la modification" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      data,
+      message: "Invités modifié avec succès",
+    });
+  } catch (error) {
+    console.error("API error:", error);
+
+    if (error instanceof Error && error.message.includes("Données invalides")) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json(
+      { error: "Erreur interne du serveur" },
+      { status: 500 }
+    );
+  }
+}

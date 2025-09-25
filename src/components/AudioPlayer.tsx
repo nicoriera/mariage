@@ -23,6 +23,7 @@ export function AudioPlayer() {
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasScrollCTA, setHasScrollCTA] = useState(false);
 
   const {
     isPlaying,
@@ -51,6 +52,23 @@ export function AudioPlayer() {
     window.addEventListener("resize", checkMobile);
 
     return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Détecter la présence du ScrollCTA
+  useEffect(() => {
+    const checkScrollCTA = () => {
+      const scrollCTA = document.querySelector("[data-scroll-cta]");
+      setHasScrollCTA(!!scrollCTA);
+    };
+
+    // Vérifier immédiatement
+    checkScrollCTA();
+
+    // Observer les changements dans le DOM
+    const observer = new MutationObserver(checkScrollCTA);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
   }, []);
 
   // Marquer que l'utilisateur a interagi avec le lecteur
@@ -96,154 +114,192 @@ export function AudioPlayer() {
 
   return (
     <div
-      className={`fixed ${
-        isMobile ? "bottom-2 right-2 left-2" : "bottom-4 right-4"
-      } z-50`}>
+      className={`${
+        isMobile
+          ? hasScrollCTA
+            ? "fixed bottom-6 right-2 w-24 h-24 rounded-full z-30"
+            : "fixed bottom-2 right-2 left-2 z-30"
+          : hasScrollCTA
+          ? "fixed bottom-4 right-4 w-80 sm:w-96 lg:w-[28rem] xl:w-[32rem] max-w-[calc(100vw-2rem)] z-30"
+          : "absolute top-4 right-4 w-80 sm:w-96 lg:w-[28rem] xl:w-[32rem] max-w-[calc(100vw-2rem)] z-30"
+      }`}>
       {/* Lecteur compact (toujours visible) */}
-      <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 overflow-hidden">
-        {/* Contrôles principaux */}
-        <div
-          className={`${isMobile ? "p-2" : "p-3"} flex items-center ${
-            isMobile ? "gap-2" : "gap-3"
-          }`}>
-          {/* Bouton play/pause principal */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              togglePlayPause();
-              handleUserInteraction();
-            }}
-            onTouchStart={handleTouchStart}
-            className={`${
-              isMobile ? "w-8 h-8" : "w-10 h-10"
-            } p-0 rounded-full hover:bg-primary/10 transition-colors ${
-              isMobile ? "active:bg-primary/20" : ""
-            }`}
-            aria-label={isPlaying ? "Pause" : "Lecture"}>
-            {isPlaying ? (
-              <Pause
-                className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} text-primary`}
-              />
-            ) : (
-              <Play
-                className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} text-primary`}
-              />
-            )}
-          </Button>
-
-          {/* Informations de la piste */}
-          <div className="flex-1 min-w-0">
-            {currentTrack && (
-              <div className="text-left">
-                <Text size="sm" className="font-medium text-stone-900 truncate">
-                  {currentTrack.title}
-                </Text>
-                {!isMobile && (
-                  <Text size="sm" variant="muted" className="truncate text-xs">
-                    {currentTrack.artist}
-                  </Text>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Contrôles de navigation */}
-          {!isMobile && (
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  playPrevious();
-                  handleUserInteraction();
-                }}
-                className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
-                aria-label="Piste précédente">
-                <SkipBack className="w-4 h-4 text-stone-600" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  playNext();
-                  handleUserInteraction();
-                }}
-                className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
-                aria-label="Piste suivante">
-                <SkipForward className="w-4 h-4 text-stone-600" />
-              </Button>
-            </div>
-          )}
-
-          {/* Boutons d'action */}
-          <div className="flex items-center gap-1">
-            {/* Volume - seulement sur desktop */}
-            {!isMobile && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  toggleMute();
-                  handleUserInteraction();
-                }}
-                className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
-                aria-label={isMuted ? "Activer le son" : "Couper le son"}>
-                {isMuted ? (
-                  <VolumeX className="w-4 h-4 text-stone-600" />
-                ) : (
-                  <Volume2 className="w-4 h-4 text-stone-600" />
-                )}
-              </Button>
-            )}
-
-            {/* Playlist */}
+      <div
+        className={`bg-white/60 backdrop-blur-sm shadow-2xl border border-stone-200/50 overflow-hidden w-full ${
+          isMobile && hasScrollCTA ? "rounded-full" : "rounded-2xl"
+        }`}>
+        {/* Version pastille pour mobile avec ScrollCTA */}
+        {isMobile && hasScrollCTA ? (
+          <div className="w-full h-full flex items-center justify-center">
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setShowPlaylist(!showPlaylist)}
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } p-0 rounded-full hover:bg-stone-100 transition-colors`}
-              aria-label="Afficher la playlist">
-              <Music
-                className={`${isMobile ? "w-3 h-3" : "w-4 h-4"} text-stone-600`}
-              />
-            </Button>
-
-            {/* Expand/Collapse */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } p-0 rounded-full hover:bg-stone-100 transition-colors`}
-              aria-label={isExpanded ? "Réduire" : "Développer"}>
-              {isExpanded ? (
-                <ChevronDown
-                  className={`${
-                    isMobile ? "w-3 h-3" : "w-4 h-4"
-                  } text-stone-600`}
-                />
+              onClick={() => {
+                togglePlayPause();
+                handleUserInteraction();
+              }}
+              onTouchStart={handleTouchStart}
+              className="w-12 h-12 p-0 rounded-full hover:bg-primary/10 transition-colors active:bg-primary/20"
+              aria-label={isPlaying ? "Pause" : "Lecture"}>
+              {isPlaying ? (
+                <Pause className="w-6 h-6 text-primary" />
               ) : (
-                <ChevronUp
-                  className={`${
-                    isMobile ? "w-3 h-3" : "w-4 h-4"
-                  } text-stone-600`}
-                />
+                <Play className="w-6 h-6 text-primary" />
               )}
             </Button>
           </div>
-        </div>
+        ) : (
+          /* Contrôles principaux */
+          <div
+            className={`${isMobile ? "p-2" : "p-3"} flex items-center ${
+              isMobile ? "gap-2" : "gap-3"
+            }`}>
+            {/* Bouton play/pause principal */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                togglePlayPause();
+                handleUserInteraction();
+              }}
+              onTouchStart={handleTouchStart}
+              className={`${
+                isMobile ? "w-8 h-8" : "w-10 h-10"
+              } p-0 rounded-full hover:bg-primary/10 transition-colors ${
+                isMobile ? "active:bg-primary/20" : ""
+              }`}
+              aria-label={isPlaying ? "Pause" : "Lecture"}>
+              {isPlaying ? (
+                <Pause
+                  className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} text-primary`}
+                />
+              ) : (
+                <Play
+                  className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} text-primary`}
+                />
+              )}
+            </Button>
+
+            {/* Informations de la piste */}
+            <div className="flex-1 min-w-0 max-w-[200px] sm:max-w-[250px] lg:max-w-[300px]">
+              {currentTrack && (
+                <div className="text-left">
+                  <Text
+                    size="sm"
+                    className="font-medium text-stone-900 truncate">
+                    {currentTrack.title}
+                  </Text>
+                  {!isMobile && (
+                    <Text
+                      size="sm"
+                      variant="muted"
+                      className="truncate text-xs">
+                      {currentTrack.artist}
+                    </Text>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Contrôles de navigation */}
+            {!isMobile && (
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    playPrevious();
+                    handleUserInteraction();
+                  }}
+                  className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
+                  aria-label="Piste précédente">
+                  <SkipBack className="w-4 h-4 text-stone-600" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    playNext();
+                    handleUserInteraction();
+                  }}
+                  className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
+                  aria-label="Piste suivante">
+                  <SkipForward className="w-4 h-4 text-stone-600" />
+                </Button>
+              </div>
+            )}
+
+            {/* Boutons d'action */}
+            <div className="flex items-center gap-1">
+              {/* Volume - seulement sur desktop */}
+              {!isMobile && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    toggleMute();
+                    handleUserInteraction();
+                  }}
+                  className="w-8 h-8 p-0 rounded-full hover:bg-stone-100 transition-colors"
+                  aria-label={isMuted ? "Activer le son" : "Couper le son"}>
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4 text-stone-600" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-stone-600" />
+                  )}
+                </Button>
+              )}
+
+              {/* Playlist */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowPlaylist(!showPlaylist)}
+                className={`${
+                  isMobile ? "w-6 h-6" : "w-8 h-8"
+                } p-0 rounded-full hover:bg-stone-100 transition-colors`}
+                aria-label="Afficher la playlist">
+                <Music
+                  className={`${
+                    isMobile ? "w-3 h-3" : "w-4 h-4"
+                  } text-stone-600`}
+                />
+              </Button>
+
+              {/* Expand/Collapse */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className={`${
+                  isMobile ? "w-6 h-6" : "w-8 h-8"
+                } p-0 rounded-full hover:bg-stone-100 transition-colors`}
+                aria-label={isExpanded ? "Réduire" : "Développer"}>
+                {isExpanded ? (
+                  <ChevronDown
+                    className={`${
+                      isMobile ? "w-3 h-3" : "w-4 h-4"
+                    } text-stone-600`}
+                  />
+                ) : (
+                  <ChevronUp
+                    className={`${
+                      isMobile ? "w-3 h-3" : "w-4 h-4"
+                    } text-stone-600`}
+                  />
+                )}
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* Section étendue */}
         {isExpanded && (
           <div
             className={`border-t border-stone-200/50 ${
               isMobile ? "p-2" : "p-3"
-            } ${isMobile ? "space-y-2" : "space-y-3"}`}>
+            } ${isMobile ? "space-y-2" : "space-y-3"} w-full`}>
             {/* Temps et volume */}
             <div className="flex items-center justify-between text-xs text-stone-600">
               <span>{formatTime(progress)}</span>
@@ -252,8 +308,8 @@ export function AudioPlayer() {
 
             {/* Contrôle du volume - seulement sur desktop */}
             {!isMobile && (
-              <div className="flex items-center gap-2">
-                <Volume2 className="w-4 h-4 text-stone-600" />
+              <div className="flex items-center gap-2 w-full">
+                <Volume2 className="w-4 h-4 text-stone-600 flex-shrink-0" />
                 <input
                   type="range"
                   min="0"
@@ -261,14 +317,14 @@ export function AudioPlayer() {
                   step="0.01"
                   value={volume}
                   onChange={handleVolumeChange}
-                  className="flex-1 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer slider"
+                  className="flex-1 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer slider min-w-0"
                   style={{
                     background: `linear-gradient(to right, #9db380 0%, #9db380 ${
                       volume * 100
                     }%, #e5e7eb ${volume * 100}%, #e5e7eb 100%)`,
                   }}
                 />
-                <span className="text-xs text-stone-600 w-8 text-right">
+                <span className="text-xs text-stone-600 w-8 text-right flex-shrink-0">
                   {Math.round(volume * 100)}%
                 </span>
               </div>
@@ -286,7 +342,7 @@ export function AudioPlayer() {
           <div
             className={`border-t border-stone-200/50 ${
               isMobile ? "max-h-48" : "max-h-64"
-            } overflow-y-auto`}>
+            } overflow-y-auto w-full`}>
             <div className={`${isMobile ? "p-2" : "p-3"}`}>
               <div className="flex items-center justify-between mb-2">
                 <Text size="sm" className="font-medium text-stone-900">

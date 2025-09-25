@@ -10,11 +10,12 @@ import {
 import { Heading, Text } from "../components/ui/Typography";
 import Link from "next/link";
 import GalleryLinkCard from "../components/GalleryLinkCard";
+import ScrollCTA from "../components/ScrollCTA";
 import { CheckCircle, MapPin, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen relative">
       {/* Header Hero */}
       <WeddingHeader
         title="Sandra & Nicolas"
@@ -42,12 +43,18 @@ export default function HomePage() {
               className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <CardHeader>
                 <CardTitle>Cérémonie</CardTitle>
+                <CardDescription>Mairie d&apos;Hendaye</CardDescription>
               </CardHeader>
               <CardContent>
                 <Text variant="accent" size="lg" className="font-medium mb-2">
-                  Jeudi 21 Mai 2026 (heure à définir)
+                  Jeudi 21 Mai 2026
                 </Text>
-                <Text variant="muted">A la mairie d&apos;Hendaye</Text>
+                <Text variant="muted" className="mb-2">
+                  Heure à confirmer
+                </Text>
+                <Text variant="muted" className="text-sm">
+                  Cérémonie civile officielle
+                </Text>
               </CardContent>
             </Card>
 
@@ -55,18 +62,21 @@ export default function HomePage() {
               variant="elegant"
               className="transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02] bg-white border border-black/80 hover:shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
               <CardHeader>
-                <CardTitle>Fiesta</CardTitle>
+                <CardTitle>Réception</CardTitle>
                 <CardDescription>Restaurant Le Surfing</CardDescription>
               </CardHeader>
               <CardContent>
                 <Text variant="accent" size="lg" className="font-medium mb-2">
-                  Rendez vous à 18h00 jusqu’à 01h00
+                  Jeudi 21 Mai 2026
                 </Text>
-                <Text variant="muted" className="font-medium ">
+                <Text variant="accent" size="lg" className="font-medium mb-2">
+                  18h00 - 01h00
+                </Text>
+                <Text variant="muted" className="font-medium mb-3">
                   Seignosse, Landes
                 </Text>
 
-                <Text variant="muted">
+                <Text variant="muted" className="text-sm">
                   6 Place des Estagnots
                   <br />
                   40510 Seignosse
@@ -84,11 +94,12 @@ export default function HomePage() {
         <div className="max-w-[84rem] mx-auto px-5 sm:px-8 lg:px-10">
           <div className="text-center mb-12">
             <Heading level={2} variant="default" className="mb-6">
-              Préparez votre venue
+              On a hâte de vous voir !
             </Heading>
-            <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
-              Confirmez votre présence et découvrez toutes les informations
-              pratiques pour passer une journée inoubliable.
+
+            <Text size="base" variant="muted" className="max-w-2xl mx-auto">
+              Découvrez aussi toutes les infos pratiques pour passer une journée
+              inoubliable.
             </Text>
           </div>
 
@@ -101,10 +112,13 @@ export default function HomePage() {
                   <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-6 h-6 " />
                   </div>
-                  <CardTitle className="mb-2">Confirmer</CardTitle>
-                  <CardDescription>Répondez à notre invitation</CardDescription>
+                  <CardTitle className="mb-2">
+                    Je confirme ma présence
+                  </CardTitle>
                   <div className="mt-6 inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors group-hover:bg-black/5">
-                    <span className="text-sm font-medium">Ouvrir</span>
+                    <span className="text-sm font-medium">
+                      C&apos;est parti !
+                    </span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </CardContent>
@@ -121,10 +135,12 @@ export default function HomePage() {
                   </div>
                   <CardTitle className="mb-2">Informations</CardTitle>
                   <CardDescription>
-                    Programme et détails pratiques
+                    Programme et détails pratiques pour une journée inoubliable
                   </CardDescription>
                   <div className="mt-6 inline-flex items-center gap-2 text-black border border-black/80 rounded-full px-4 py-2 transition-colors group-hover:bg-black/5">
-                    <span className="text-sm font-medium">Ouvrir</span>
+                    <span className="text-sm font-medium">
+                      Découvrir les infos
+                    </span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </CardContent>
@@ -135,6 +151,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Scroll CTA */}
+      <ScrollCTA />
 
       {/* Footer */}
     </div>

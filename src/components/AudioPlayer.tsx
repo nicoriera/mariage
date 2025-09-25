@@ -117,7 +117,7 @@ export function AudioPlayer() {
       className={`${
         isMobile
           ? hasScrollCTA
-            ? "fixed bottom-6 right-2 w-24 h-24 rounded-full z-30"
+            ? "fixed bottom-20 right-2 w-24 h-24 rounded-full z-30"
             : "fixed bottom-2 right-2 left-2 z-30"
           : hasScrollCTA
           ? "fixed bottom-4 right-4 w-80 sm:w-96 lg:w-[28rem] xl:w-[32rem] max-w-[calc(100vw-2rem)] z-30"
